@@ -148,6 +148,10 @@
         <servlet-name>LoadRequestController</servlet-name>
         <servlet-class>quanghung.controller.LoadRequestController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>duonght.controller.LoginController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -295,6 +299,10 @@
     <servlet-mapping>
         <servlet-name>LoadRequestController</servlet-name>
         <url-pattern>/LoadRequestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

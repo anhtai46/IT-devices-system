@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duonght.LoginGoogle;
+package duonght.controller;
 
-import duonght.dao.AccountDao;
 import duonght.dto.Account;
 import java.io.IOException;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Trung Duong
  */
-public class LoginHandler extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,26 +32,28 @@ public class LoginHandler extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String code = request.getParameter("code");
-        if (code == null || code.isEmpty()) {
-            RequestDispatcher dis = request.getRequestDispatcher("Login.jsp");
-            dis.forward(request, response);
-        } else {
-            String accessToken = GoogleUtils.getToken(code);
-            GooglePojo googlePojo = GoogleUtils.getUserInfo(accessToken);
-            String email = googlePojo.getEmail();
-            Account acc = AccountDao.checkLogin(email);
-            if (acc == null) {
-                request.setAttribute("ERROR", "Your Email Not Allow!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession(true);
+            Account acc = (Account) session.getAttribute("UserDB");
+            if (acc != null) {
+                if (acc.getRoleID().equals("AD")) {
+                    request.getRequestDispatcher("getAllAccount").forward(request, response);
+                }
+                if (acc.getRoleID().equals("MD")) {
+                    request.getRequestDispatcher("MainController?search=&action=SearchDevice").forward(request, response);
+                }
+                if (acc.getRoleID().equals("MR")) {
+                    request.getRequestDispatcher("MainController?action=LoadAllRequestManager").forward(request, response);
+                }
+                if (acc.getRoleID().equals("US")) {
+                    request.getRequestDispatcher("user.jsp").forward(request, response);
+                }
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("User", googlePojo);
-                session.setAttribute("UserDB", acc);
-                response.sendRedirect("LoginController");
+                request.setAttribute("ERROR", "Your Acount Not Allow!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

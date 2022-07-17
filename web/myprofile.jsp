@@ -38,7 +38,7 @@
                 <c:set var="url" value="MainController?action=LoadAllRequestManager"/>
             </c:when>
             <c:when test="${sessionScope.UserDB.roleID == 'US'}">
-                <c:set var="url" value="MainController?search=&action=HomeSearchDevice"/>
+                <c:set var="url" value="MainController?search=&action=LoadProcessRequest"/>
             </c:when>
             <c:otherwise>
                 <c:set var="url" value="error.jsp"/>

@@ -15,18 +15,20 @@ public class Account {
     private String email;
     private String phone;
     private String position;
+    private int deposit;
     private String roleID;
     private int status;
 
     public Account() {
     }
 
-    public Account(String userID, String userName, String email, String phone, String position, String roleID, int status) {
+    public Account(String userID, String userName, String email, String phone, String position, int deposit, String roleID, int status) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.position = position;
+        this.deposit = deposit;
         this.roleID = roleID;
         this.status = status;
     }
@@ -71,6 +73,14 @@ public class Account {
         this.position = position;
     }
 
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
+    }
+
     public String getRoleID() {
         return roleID;
     }
@@ -86,5 +96,5 @@ public class Account {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
 }

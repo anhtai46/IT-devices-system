@@ -104,6 +104,7 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>Position</th>
+                                    <th>Deposit</th>
                                     <th>Status</th>
                                     <th>Update button</th>
                                 </tr>
@@ -119,6 +120,7 @@
                                         <td>${acc.email}</td>
                                         <td>${acc.roleID}</td>
                                         <td>${acc.position}</td>
+                                        <td>${acc.deposit}</td>
                                         <td>${acc.status == 1 ? "Acctive" : "InActive"}</td>
                                         <td>
                                             <form action="MainController" method="POST">

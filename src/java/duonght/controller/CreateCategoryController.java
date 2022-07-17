@@ -35,8 +35,8 @@ public class CreateCategoryController extends HttpServlet {
                         checkValidation = false;
                     } else {
                         boolean isRenew = CategoryDAO.renewCategory(cateID);
-                        CategoryDAO.updateCategory(cateName, cateID);
                         if (isRenew) {
+                            CategoryDAO.updateCategory(cateName, cateID);
                             request.setAttribute("MESSAGE", "Insert Successfully!");
                             url = SUCCESS;
                         } else {

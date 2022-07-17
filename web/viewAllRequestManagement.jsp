@@ -39,19 +39,19 @@
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
-                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.Admin.picture}"
-                                 class="rounded-circle" height="25">
-                            <p class="user-name">${sessionScope.Admin.name}</p>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
-                            </li>
-                        </ul>
+                               href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                                <img src="${sessionScope.User.picture}"
+                                     class="rounded-circle" height="25">
+                                <p class="user-name">${sessionScope.UserDB.userName}</p>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="myprofile.jsp">My profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
+                                </li>
+                            </ul>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,7 @@ public class AccountDao {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String url = "SELECT userID, userName, mail, phone, position, roleID, status FROM Accounts";
+                String url = "SELECT userID, userName, mail, phone, position, deposit, roleID, status FROM Accounts";
                 st = cn.createStatement();
                 rs = st.executeQuery(url);
                 while (rs.next()) {
@@ -37,8 +37,9 @@ public class AccountDao {
                     String phone = rs.getString("phone");
                     String position = rs.getString("position");
                     String roleID = rs.getString("roleID");
+                    int deposit = rs.getInt("deposit");
                     int status = rs.getInt("status");
-                    Account user = new Account(userID, userName, mail, phone, position, roleID, status);
+                    Account user = new Account(userID, userName, mail, phone, position, deposit, roleID, status);
                     users.add(user);
                 }
             }
@@ -56,7 +57,7 @@ public class AccountDao {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String url = "SELECT userID, userName, mail, phone, position, roleID, status "
+                String url = "SELECT userID, userName, mail, phone, position, deposit, roleID, status "
                         + "FROM Accounts "
                         + "WHERE mail = ?";
                 pst = cn.prepareStatement(url);
@@ -69,8 +70,9 @@ public class AccountDao {
                     String phone = rs.getString("phone");
                     String position = rs.getString("position");
                     String roleID = rs.getString("roleID");
+                    int deposit = rs.getInt("deposit");
                     int status = rs.getInt("status");
-                    acc = new Account(userID, userName, mail, phone, position, roleID, status);
+                    acc = new Account(userID, userName, mail, phone, position, deposit, roleID, status);
                 }
                 System.out.println("Come here!");
                 System.out.println(acc.toString());
@@ -112,20 +114,21 @@ public class AccountDao {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String url = "SELECT userID, userName, mail, phone, position, roleID, status FROM Accounts \n"
+                String url = "SELECT userID, userName, mail, phone, position, deposit, roleID, status FROM Accounts \n"
                         + "WHERE userID like ?";
                 pst = cn.prepareStatement(url);
                 pst.setString(1, "%" + ID + "%");
                 rs = pst.executeQuery();
                 while (rs.next()) {
+                    String userID = rs.getString("userID");
                     String userName = rs.getString("userName");
                     String mail = rs.getString("mail");
-                    String userID = rs.getString("userID");
                     String phone = rs.getString("phone");
                     String position = rs.getString("position");
                     String roleID = rs.getString("roleID");
+                    int deposit = rs.getInt("deposit");
                     int status = rs.getInt("status");
-                    accounts.add(new Account(userID, userName, mail, phone, position, roleID, status));
+                    accounts.add(new Account(userID, userName, mail, phone, position, deposit, roleID, status));
                 }
             }
         } catch (Exception e) {
@@ -165,7 +168,7 @@ public class AccountDao {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String url = "Select userID, userName, mail, phone, position, roleID, status "
+                String url = "Select userID, userName, mail, phone, position, deposit, roleID, status "
                         + "from Accounts "
                         + "where userID = ?";
                 pst = cn.prepareStatement(url);
@@ -177,8 +180,9 @@ public class AccountDao {
                     String phone = rs.getString("phone");
                     String position = rs.getString("position");
                     String roleID = rs.getString("roleID");
+                    int deposit = rs.getInt("deposit");
                     int status = rs.getInt("status");
-                    acc = new Account(userID, userName, mail, phone, position, roleID, status);
+                    acc = new Account(userID, userName, mail, phone, position, deposit, roleID, status);
                 }
             }
         } catch (Exception e) {

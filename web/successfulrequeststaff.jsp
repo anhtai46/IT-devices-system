@@ -40,9 +40,9 @@
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
                            href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.Admin.picture}"
+                            <img src="${sessionScope.User.picture}"
                                  class="rounded-circle" height="25">
-                            <p class="user-name">${sessionScope.Admin.name}</p>
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
@@ -115,7 +115,7 @@
                 <tbody>
                     <c:forEach var="request" varStatus="counter" items="${requestScope.LIST_SUCCESSFUL_REQUEST}">
                     <form action="MainController">
-                    
+
                         <tr>
                             <td>${request.id}<input type="hidden" name="requestID" value="${request.id}"/>
                             </td>
@@ -198,14 +198,14 @@
                             <td>${request.requestSubstance}</td>
                             <td>
                                 <!--<form action="MainController">-->
-                                    <button class="btn btn-success" type="submit" name="action" value="UpdateRequestReturn">Returned</button>
-                                    <button class="btn btn-secondary" type="submit" name="action" value=UpdateRequestCancel>Cancel</button>
-                                    <input type="hidden" name="cancel" value="successfulrequeststaff.jsp"/>
+                                <button class="btn btn-success" type="submit" name="action" value="UpdateRequestReturn">Returned</button>
+                                <button class="btn btn-secondary" type="submit" name="action" value=UpdateRequestCancel>Cancel</button>
+                                <input type="hidden" name="cancel" value="successfulrequeststaff.jsp"/>
                                 <!--</form>-->
                             </td>
                         </tr>
-                        </form>
-                    </c:forEach>
+                    </form>
+                </c:forEach>
                 </tbody>
             </table>
 

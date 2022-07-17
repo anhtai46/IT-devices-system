@@ -22,10 +22,10 @@ import quanghung.device.DeviceDTO;
 import quanghung.warehouse.WarehouseDAO;
 
 public class HomeSearchDeviceController extends HttpServlet {
-    
+
     private static final String ERROR = "devicePage.jsp";
     private static final String SUCCESS = "devicePage.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,6 +33,7 @@ public class HomeSearchDeviceController extends HttpServlet {
         try {
             String search = String.valueOf(request.getParameter("search"));
             request.setAttribute("SEARCH", search);
+            String value = request.getParameter("value");
             DeviceDAO deviceDAO = new DeviceDAO();
             CategoryDAO categoryDAO = new CategoryDAO();
             BrandDAO brandDao = new BrandDAO();
@@ -43,6 +44,12 @@ public class HomeSearchDeviceController extends HttpServlet {
             Map<String, String> categoryList = categoryDAO.getCategory();
             Map<Integer, String> brandList = brandDao.getListBrand();
             Map<Integer, String> descriptionList = descriptionDAO.getListDescription();
+            for (Map.Entry<String, String> category : categoryList.entrySet()) {
+                if (search.equals(category.getKey()) && value.equals(category.getValue())) {
+                    deviceList = deviceDAO.getListDeviceByCateID(category.getKey());
+                    break;
+                }
+            }
             descriptionList.entrySet();
             for (Map.Entry<Integer, String> description : descriptionList.entrySet()) {
                 request.setAttribute(String.valueOf(description.getValue()), detailDAO.getListDescriptionDetail(description.getKey()));
@@ -51,7 +58,7 @@ public class HomeSearchDeviceController extends HttpServlet {
             request.setAttribute("LIST_DEVICE", deviceList);
             request.setAttribute("LIST_BRAND", brandList);
             request.setAttribute("LIST_CATEGORY", categoryList);
-            
+
             url = SUCCESS;
         } catch (Exception e) {
         } finally {

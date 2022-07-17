@@ -91,7 +91,7 @@
                                 <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -205,7 +205,7 @@
 
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
-                        <form action="UpdateDeviceController"  method="POST" enctype="multipart/form-data">
+                        <form action="MainController"  method="POST">
                             <c:set var="modal" value="detailModal${counter1.count}"/>
                             <c:set var="descriptionList" value="${requestScope[device.cateID]}"/>
                             <td ><input type="text" name="deviceID" class="text-center inputmanager" value="${device.deviceID}"  readonly></td>
@@ -247,7 +247,6 @@
                                                             <label for="" class="col-sm-6 text-center">
                                                                 <h5>${description.descriptionName}</h5>
                                                             </label>
-                                                            <c:set var="currentDetailID" value='currentDetailID${counter2.count}'/>                                 
                                                             <c:set var="detailID" value='detailID${counter2.count}'/>                                 
                                                             <select name="${detailID}" class="col-sm-4 pt-1 pb-1"  id="list-chose">   
                                                                 <c:forEach var="detail" items="${requestScope[description.descriptionName]}">
@@ -316,8 +315,8 @@
             $("#detailError").modal("show");
             $("#success").modal("show");
         });
-        
-        function chooseFile(fileInput,c) {
+
+        function chooseFile(fileInput, c) {
             if (fileInput.files && fileInput.files[0]) {
                 var reader = new FileReader();
                 console.log(c);

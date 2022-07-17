@@ -140,7 +140,7 @@ public class DeviceDAO {
         return check;
     }
 
-    public boolean updateDevice(DeviceDTO device) throws SQLException {
+    public boolean updateDevice(int deviceID, String deviceName, int warehouseID, int brandID, int quantity, String cateID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -148,12 +148,12 @@ public class DeviceDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_DEVICE);
-                ptm.setString(1, device.getDeviceName());
-                ptm.setInt(2, device.getWarehouseID());
-                ptm.setInt(3, device.getBrandID());
-                ptm.setInt(4, device.getQuantity());
-                ptm.setString(5, device.getCateID());
-                ptm.setInt(6, device.getDeviceID());
+                ptm.setString(1, deviceName);
+                ptm.setInt(2, warehouseID);
+                ptm.setInt(3, brandID);
+                ptm.setInt(4, quantity);
+                ptm.setString(5, cateID);
+                ptm.setInt(6, deviceID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

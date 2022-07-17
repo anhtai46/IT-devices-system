@@ -41,20 +41,13 @@
                             <p class="product-list">Product</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <c:forEach var="category" items="${categoryList}">
+                                <li>
+                                    <a class="dropdown-item" value="${category.key}" href="MainController?search=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
+                                </li>
+                            </c:forEach>
                             <li>
-                                <a class="dropdown-item" href="userproduct.html">Laptop</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Camera</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Graphic Tablet</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Tablet</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">All Product</a>
+                                <a class="dropdown-item" href="MainController?search=&action=HomeSearchDevice&value=${category.value}">All Product</a>
                             </li>
                         </ul>
                     </div>
@@ -71,17 +64,18 @@
                 <!-- welcome -->
                 <div class="col-sm-6">
                     <div class="nav-item dropdown align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-toggle="dropdown">
-                            <img src="img/anhtai.jpg" class="rounded-circle" height="30" width="30" />
-                            <p class="user-name">Anh Tai</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="myprofile.html">My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="login.html">Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -238,7 +232,38 @@
             </div>
         </div>
     </div>
-    <footer></footer>
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Company<span>DRS</span></h3>
+            <p class="footer-company-name">Company DRS ? 2022</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>FPT UNIVERSITY</span> KCN - THU DUC CITY - TP.HCM</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>3463452343</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About the company</span>
+                The company specializes in providing and leasing IT equipment to businesses and companies in need.
+            </p>
+            <div class="footer-icons">
+                <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                <a href="https://www.github.com/"><i class="ti-github"></i></a>
+            </div>
+        </div>
+    </footer>  
     <script>
         $(document).ready(function () {
             $("#chosefilter").click(function () {

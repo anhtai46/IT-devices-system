@@ -114,34 +114,6 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn">
-                    <!-- <i class="fas fa-plus-circle"></i>
-                    <label for="">insert new Device</label> -->
-                    <div class="nav-item dropdown d-flex align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-toggle="dropdown">
-                            <input type="submit" value="Accessory">
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#">Ram</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">CPU</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">VGA</a>
-                            </li>
-                        </ul>
-                    </div>
-                </button>
-                <!-- <button type="button" class="btn">
-                    <label for="">Category</label>
-                    <i class="fas fa-arrow-down"></i>
-                </button>-->
-                <button type="button" class="btn filterbutton">
-                    <label for="">Filter</label>
-                </button>
             </div>
             <div class="col-sm-6 right-function">
                 <div class="search">

@@ -84,14 +84,18 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_IMG_CONTROLLER = "UpdateImgController";
     private static final String OPEN_UPDATE_IMG_PAGE = "OpenUpdateImgPage";
     private static final String OPEN_UPDATE_IMG_PAGE_CONTROLLER = "OpenUpdateImgPageController";
-    private static final String UPDATE_REQUEST_APPORVE ="UpdateRequestApproved";
-    private static final String UPDATE_REQUESTCANCEL ="UpdateRequestCancel";
-    private static final String UPDATE_REQUEST_SUCCESS ="UpdateRequestSuccess";
-    private static final String UPDATE_REQUEST_RETURN ="UpdateRequestReturn";
-    private static final String UPDATE_REQUEST_CONTROLLER ="UpdateRequestController";
-    private static final String LOAD_PROCESSING_REQUEST ="";
-    private static final String LOAD_PROCESSING_REQUEST_CONTROLLER ="";
-    
+    private static final String UPDATE_REQUEST_APPORVE = "UpdateRequestApproved";
+    private static final String UPDATE_REQUESTCANCEL = "UpdateRequestCancel";
+    private static final String UPDATE_REQUEST_SUCCESS = "UpdateRequestSuccess";
+    private static final String UPDATE_REQUEST_RETURN = "UpdateRequestReturn";
+    private static final String UPDATE_REQUEST_CONTROLLER = "UpdateRequestController";
+    private static final String LOAD_PROCESSING_REQUEST = "LoadProcessRequest";
+    private static final String LOAD_PROCESSING_REQUEST_CONTROLLER = "LoadRequestController";
+    private static final String LOAD_APPROVE_REQUEST = "LoadApproveRequest";
+    private static final String LOAD_SUCCESS_REQUEST = "LoadSuccessfulRequest";
+    private static final String LOAD_RETURNED_REQUEST = "LoadReturnRequest";
+    private static final String LOAD_CANCEL_REQUEST = "LoadCancelUserRequest";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -175,7 +179,7 @@ public class MainController extends HttpServlet {
                 url = UPDATE_IMG_CONTROLLER;
             } else if (OPEN_UPDATE_IMG_PAGE.equals(action)) {
                 url = OPEN_UPDATE_IMG_PAGE_CONTROLLER;
-            }else if(UPDATE_REQUEST_APPORVE.equals(action)){
+            } else if(UPDATE_REQUEST_APPORVE.equals(action)){
                 url = UPDATE_REQUEST_CONTROLLER;
             }else if(UPDATE_REQUESTCANCEL.equals(action)){
                 url = UPDATE_REQUEST_CONTROLLER;
@@ -183,6 +187,16 @@ public class MainController extends HttpServlet {
                 url = UPDATE_REQUEST_CONTROLLER;
             }else if(UPDATE_REQUEST_RETURN.equals(action)){
                 url = UPDATE_REQUEST_CONTROLLER;
+            }else if(LOAD_PROCESSING_REQUEST.equals(action)){
+                url = LOAD_PROCESSING_REQUEST_CONTROLLER;
+            }else if(LOAD_APPROVE_REQUEST.equals(action)){
+                url = LOAD_PROCESSING_REQUEST_CONTROLLER;
+            }else if(LOAD_SUCCESS_REQUEST.equals(action)){
+                url = LOAD_PROCESSING_REQUEST_CONTROLLER;
+            }else if(LOAD_RETURNED_REQUEST.equals(action)){
+                url =LOAD_PROCESSING_REQUEST_CONTROLLER;
+            }else if(LOAD_CANCEL_REQUEST.equals(action)){
+                url =LOAD_PROCESSING_REQUEST_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

@@ -40,9 +40,9 @@
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
                            href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.Admin.picture}"
+                            <img src="${sessionScope.User.picture}"
                                  class="rounded-circle" height="25">
-                            <p class="user-name">${sessionScope.Admin.name}</p>
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>

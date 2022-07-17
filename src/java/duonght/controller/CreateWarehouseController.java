@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import duonght.warehouse.WarehoueError;
 import duonght.warehouse.WarehouseDAO;
+import duonght.warehouse.WarehouseDTO;
 
 /**
  *
@@ -46,10 +47,37 @@ public class CreateWarehouseController extends HttpServlet {
             String warehouseName = request.getParameter("warehouseName");
             String location = request.getParameter("location");
             int limitAmout = Integer.parseInt(request.getParameter("limitAmout"));
+            int warehouseID = WarehouseDAO.getWarehouseID(warehouseName);
             boolean isDuplicate = WarehouseDAO.checkDuplicate(warehouseName);
             if (isDuplicate) {
-                request.setAttribute("MESSAGE", "Duplicate Warehouse!");
-                url = ERROR;
+                boolean isExist = WarehouseDAO.checkStatus(warehouseID);
+                if (isExist) {
+                    request.setAttribute("MESSAGE", "Duplicate Warehouse!");
+                    checkValidation = false;
+                    url = ERROR;
+                } else {
+                    if (warehouseName.length() > 50) {
+                        warehouseError.setWarehouseNameError("WarehouseName must not exceed 50 characters");
+                        checkValidation = false;
+                    } else if (location.length() > 50) {
+                        warehouseError.setLocationError("Location must not exceed 50 characters");
+                        checkValidation = false;
+                    } else if (limitAmout < 0 || limitAmout > 500) {
+                        warehouseError.setLimitAmountError("Amount must greater than 0 and less than 500");
+                        checkValidation = false;
+                    } else {
+                        boolean isRenew = WarehouseDAO.renewWarehouse(warehouseID);
+                        if (isRenew) {
+                            WarehouseDTO warehouse = new WarehouseDTO(warehouseID, warehouseName, location, limitAmout, true);
+                            WarehouseDAO.updateWarehouse(warehouse);
+                            request.setAttribute("MESSAGE", "Insert Successfully!");
+                            url = SUCCESS;
+                        } else {
+                            request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
+                            url = ERROR;
+                        }
+                    }
+                }
             } else {
                 if (warehouseName.length() > 50) {
                     warehouseError.setWarehouseNameError("WarehouseName must not exceed 50 characters");

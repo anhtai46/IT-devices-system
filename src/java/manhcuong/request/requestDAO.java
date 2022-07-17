@@ -37,11 +37,11 @@ public class requestDAO {
             + "FROM requestDetail d, request r WHERE d.requestID = ? AND d.requestID = r.requestID";
     private final String GET_REQUEST_BASE_ON = "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =?";
     private final String GET_REQUEST_BASE_ON_DETAIL = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID";
-    private final String UPDATE_REQUEST_STATUS ="UPDATE request SET requestStatus = ? WHERE requestID = ?";
-    private final String UPDATE_REQUEST_DETAIL_STATUS ="UPDATE requestDetail SET detailStatus = ? WHERE detailID =?";
-    private final String CREATE_RETURN ="INSERT INTO returned (userID, requestID, deviceID, quantity, returnDate, status) (?,?,?,?,?,?)";
-    private final String GET_REQUEST_BASE_ON_USER= "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =? AND userID = ?";
-    private final String GET_REQUEST_BASE_ON_DETAIL_BASE_USER = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID =?";
+    private final String UPDATE_REQUEST_STATUS = "UPDATE request SET requestStatus = ? WHERE requestID = ?";
+    private final String UPDATE_REQUEST_DETAIL_STATUS = "UPDATE requestDetail SET detailStatus = ? WHERE detailID =?";
+    private final String CREATE_RETURN = "INSERT INTO returned (userID, requestID, deviceID, quantity, returnDate, status) (?,?,?,?,?,?)";
+    private final String GET_REQUEST_BASE_ON_USER = "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =? AND userID = ?";
+    private final String GET_REQUEST_BASE_ON_DETAIL_AND_USER = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID = ?";
 
     public int createOrder(List<DeviceDTO> items, Account user, int borrowDate) throws SQLException {
         int check = -1;
@@ -184,7 +184,7 @@ public class requestDAO {
                     int quantity = rs.getInt("quantity");
                     String cateID = rs.getString("cateID");
                     String cateName = rs.getString("cateName");
-                    list.add(new DeviceDTO(deviceID, deviceName,url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                    list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
                 }
             }
         } catch (Exception e) {
@@ -326,45 +326,48 @@ public class requestDAO {
         }
         return request;
     }
-    public boolean updateRequestStatus(int requestID, String requestStatusNew){
+
+    public boolean updateRequestStatus(int requestID, String requestStatusNew) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement stm = null;
         try {
             conn = DBUtils.getConnection();
-            if(conn != null){
+            if (conn != null) {
                 stm = conn.prepareStatement(UPDATE_REQUEST_STATUS);
                 //UPDATE request SET requestStatus = ?  AND requestID = ?
                 stm.setString(1, requestStatusNew);
                 stm.setInt(2, requestID);
-                check = stm.executeUpdate() > 0 ;
+                check = stm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             log("Error at updateRequestStatus in requestDAO: " + e.toString());
-        }finally{
+        } finally {
             DBUtils.closeQueryConnection(conn, stm, null);
         }
         return check;
     }
-    public boolean  updateDetailStatus(int deatailID, String deatailStatus){
+
+    public boolean updateDetailStatus(int deatailID, String deatailStatus) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement stm = null;
         try {
             conn = DBUtils.getConnection();
-            if(conn != null){
+            if (conn != null) {
                 stm = conn.prepareStatement(UPDATE_REQUEST_DETAIL_STATUS);
                 stm.setString(1, deatailStatus);
                 stm.setInt(2, deatailID);
-                check = stm.executeUpdate() > 0 ;
+                check = stm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             log("Error at updateDetailStatus in requestDAO: " + e.toString());
-        }finally{
+        } finally {
             DBUtils.closeQueryConnection(conn, stm, null);
         }
         return check;
     }
+
     public int createReturned(List<DeviceDTO> items, Account user, int borrowDate) throws SQLException {
         int check = -1;
         Connection conn = null;
@@ -396,6 +399,7 @@ public class requestDAO {
         }
         return check;
     }
+
     public List<requestDTO> getRequestBaseOnStatusDetailAnduser(boolean status, String requestStatus, Account user) {
         List<requestDTO> request = new ArrayList<>();
         Connection conn = null;
@@ -409,13 +413,13 @@ public class requestDAO {
                 stm.setBoolean(1, status);
                 stm.setString(2, requestStatus);
                 stm.setString(3, user.getUserID());
-                
+
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int requestID = rs.getInt("requestID");
                     Date requestDate = rs.getDate("requestDate");
                     String substance = rs.getString("substance");
-                    
+
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
                     request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
 
@@ -429,6 +433,38 @@ public class requestDAO {
         }
         return request;
     }
-    
 
+    public List<requestDTO> getRequestBaseOnDetailStatusAndUser(boolean status, String detailStatus,Account user) {
+        List<requestDTO> request = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_REQUEST_BASE_ON_DETAIL_AND_USER);
+                //SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, 
+                //requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID = ?
+                stm.setBoolean(1, status);
+                stm.setString(2, detailStatus);
+                stm.setString(3, user.getUserID());
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int requestID = rs.getInt("requestID");
+                    Date requestDate = rs.getDate("requestDate");
+                    String substance = rs.getString("substance");
+                    String requestStatus = rs.getString("requestStatus");
+                    requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
+                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+
+                }
+
+            }
+        } catch (Exception e) {
+            log("Error at getProcessingRequest in requestDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+        }
+        return request;
+    }
 }

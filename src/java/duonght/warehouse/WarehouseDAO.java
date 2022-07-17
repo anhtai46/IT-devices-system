@@ -13,6 +13,8 @@ public class WarehouseDAO {
 
     private static final String SEARCH_WAREHOUSE = "SELECT warehouseName, location, limitAmount, status FROM warehouse WHERE warehouseName like ?";
     private static final String CHECK_DUPLICATE = "SELECT * FROM warehouse WHERE warehouseName = ?";
+    private static final String CHECK_STATUS = "SELECT * FROM category WHERE warehouseID=? and status = 1";
+    private static final String RENEW_SEARCH_WAREHOUSE = "UPDATE warehouse SET status=? WHERE warehouseID=?";
     private static final String GET_LIST_WAREHOUSE = "SELECT warehouseID, warehouseName, location, limitAmount, status FROM warehouse WHERE status=1";
     private static final String DELETE_WAREHOUSE = "UPDATE warehouse SET status=? WHERE warehouseID=?";
     private static final String UPDATE_WAREHOUSE = "UPDATE warehouse SET warehouseName=?, location=?, limitAmount=? WHERE warehouseID=?";
@@ -20,7 +22,7 @@ public class WarehouseDAO {
     private static final String GET_WAREHOUSE_ID = "SELECT warehouseID FROM warehouse WHERE warehouseName=?";
     private static final String CHECK_EXIST_DEVICES = "SELECT * FROM warehouse w JOIN device de ON w.warehouseID = de.warehouseID WHERE w.warehouseID = ?";
 
-    public int getWarehouseID(String warehouseName) throws SQLException {
+    public static int getWarehouseID(String warehouseName) throws SQLException {
         int warehouseID = 0;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -255,6 +257,7 @@ public class WarehouseDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -267,5 +270,61 @@ public class WarehouseDAO {
             }
         }
         return list;
+    }
+    
+    public static boolean checkStatus(int warehouseID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_STATUS);
+                ptm.setInt(1, warehouseID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public static boolean renewWarehouse(int warehouseID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(RENEW_SEARCH_WAREHOUSE);
+                ptm.setBoolean(1, true);
+                ptm.setInt(2, warehouseID);
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }
