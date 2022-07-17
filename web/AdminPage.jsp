@@ -88,7 +88,7 @@
             </div>
             <c:set var="accounts" value="${requestScope.accounts}"></c:set>
             <c:if test="${empty accounts}">
-                <h1>Account list is empty</h1>
+                <h1>No Result</h1>
             </c:if>
             <c:if test="${not empty accounts}">
                 <!-- table -->

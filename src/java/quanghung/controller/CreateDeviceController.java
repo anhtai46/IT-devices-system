@@ -32,10 +32,7 @@ public class CreateDeviceController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        DeviceError deviceError = new DeviceError();
-        DescriptionDetailError detailError = new DescriptionDetailError();
         try {
-            boolean checkValidation = true;
             HttpSession session = request.getSession();
             DeviceDAO deviceDao = new DeviceDAO();
             WarehouseDAO warehouseDao = new WarehouseDAO();
@@ -49,10 +46,11 @@ public class CreateDeviceController extends HttpServlet {
             String brand = request.getParameter("brandID");
             int brandID = Integer.parseInt(brand);
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int deposit = Integer.parseInt(request.getParameter("deposit"));
             String cateName = request.getParameter("cateName");
             int warehouseID = warehouseDao.getWarehouseID(warehouseName);
             String cateID = categoryDao.getCateID(cateName);
-           Part part = request.getPart("image");
+            Part part = request.getPart("image");
 
             String realPath = request.getServletContext().getRealPath("/pictures");
             String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
@@ -61,40 +59,19 @@ public class CreateDeviceController extends HttpServlet {
             }
             part.write(realPath + "/" + fileName);
             String image = "pictures/" + fileName;
-            if (quantity <= 0) {
-                deviceError.setQuantityError("Quantity must be a positive integer");
-                checkValidation = false;
+            boolean createDevice = deviceDao.createDevice(deviceName, image, warehouseID, brandID, quantity, cateID, deposit);
+            int deviceID = deviceDao.getDeviceID(deviceName);
+            List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
+            for (int i = 1; i <= listDescription.size(); i++) {
+                String d = "detailID" + String.valueOf(i);
+                String dd = request.getParameter(d);
+                int detailID = Integer.parseInt(dd);
+                boolean createDevice_Description = device_descriptionDao.createDevice_Description(deviceID, detailID);
             }
-            if (brand == null) {
-                deviceError.setBrandNameError("Please choose brand name");
-                checkValidation = false;
-            }
-            if (checkValidation) {
-                boolean createDevice = deviceDao.createDevice(deviceName,image, warehouseID, brandID, quantity, cateID);
-                int deviceID = deviceDao.getDeviceID(deviceName);
-                List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-                for (int i = 1; i <= listDescription.size(); i++) {
-                    String d = "detailID" + String.valueOf(i);
-                    String dd = request.getParameter(d);
-                    if (dd == null) {
-                        detailError.setDetailNameError( "The device " + deviceName +  " has not yet entered the detailed parameters ! You need to insert detailed parameters later");
-                        checkValidation = false;
-                    }
-                    if (checkValidation) {
-                        int detailID = Integer.parseInt(dd);
-                        boolean createDevice_Description = device_descriptionDao.createDevice_Description(deviceID, detailID);
-                    } else {
-                        request.setAttribute("DETAIL_ERROR", detailError);
-                        break;
-                    }
-                }
-                if (createDevice) {
-                    String success = "Insert device successfully";
-                    request.setAttribute("SUCCESS", success);
-                    url = SUCCESS;
-                }
-            } else {
-                request.setAttribute("DEVICE_ERROR", deviceError);
+            if (createDevice) {
+                String success = "Insert device successfully";
+                request.setAttribute("SUCCESS", success);
+                url = SUCCESS;
             }
         } catch (Exception e) {
             log("Error at Create Device Controller: " + e.toString());

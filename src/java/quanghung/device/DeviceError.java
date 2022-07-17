@@ -7,6 +7,7 @@ public class DeviceError {
     private String warehouseIDError;
     private String brandNameError;
     private String quantityError;
+    private String depositError;
     private String cateIDError;
 
     public DeviceError() {
@@ -15,15 +16,17 @@ public class DeviceError {
         this.warehouseIDError = null;
         this.brandNameError = null;
         this.quantityError = null;
+        this.depositError = null;
         this.cateIDError = null;
     }
 
-    public DeviceError(String deviceIDError, String deviceNameError, String warehouseIDError, String brandNameError, String quantityError, String cateIDError) {
+    public DeviceError(String deviceIDError, String deviceNameError, String warehouseIDError, String brandNameError, String quantityError, String depositError, String cateIDError) {
         this.deviceIDError = deviceIDError;
         this.deviceNameError = deviceNameError;
         this.warehouseIDError = warehouseIDError;
         this.brandNameError = brandNameError;
         this.quantityError = quantityError;
+        this.depositError = depositError;
         this.cateIDError = cateIDError;
     }
 
@@ -65,6 +68,14 @@ public class DeviceError {
 
     public void setQuantityError(String quantityError) {
         this.quantityError = quantityError;
+    }
+
+    public String getDepositError() {
+        return depositError;
+    }
+
+    public void setDepositError(String depositError) {
+        this.depositError = depositError;
     }
 
     public String getCateIDError() {

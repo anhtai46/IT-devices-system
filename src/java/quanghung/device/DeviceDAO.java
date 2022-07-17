@@ -15,15 +15,15 @@ import quanghung.utils.DBUtils;
  */
 public class DeviceDAO {
 
-    private static final String SEARCH_DEVICE_BY_CATEGORY_ID = "SELECT deviceID, deviceName, url, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.cateID = ?";
-    private static final String SEARCH_DEVICE_BY_BRAND_ID = "SELECT deviceID, deviceName, url, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.brandID = ?";
-    private static final String SEARCH_DEVICE_BY_WAREHOUSE_ID = "SELECT deviceID, deviceName, url, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.warehouseID = ?";
-    private static final String SEARCH_DEVICE = "SELECT deviceID, deviceName, url, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.deviceName like ?";
-    private static final String GET_LIST_DEVICE = "SELECT deviceID, deviceName, url, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID";
+    private static final String SEARCH_DEVICE_BY_CATEGORY_ID = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.cateID = ?";
+    private static final String SEARCH_DEVICE_BY_BRAND_ID = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.brandID = ?";
+    private static final String SEARCH_DEVICE_BY_WAREHOUSE_ID = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.warehouseID = ?";
+    private static final String SEARCH_DEVICE = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND d.deviceName like ?";
+    private static final String GET_LIST_DEVICE = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID";
     private static final String DELETE_DEVICE = "UPDATE device SET status=? WHERE deviceID=?";
-    private static final String UPDATE_DEVICE = "UPDATE device SET deviceName=?, warehouseID=?, brandID=?, quantity=?, cateID=? WHERE deviceID=?";
+    private static final String UPDATE_DEVICE = "UPDATE device SET deviceName=?, warehouseID=?, brandID=?, quantity=?, cateID=?, deposit=? WHERE deviceID=?";
     private static final String UPDATE_IMAGE = "UPDATE device SET url=? WHERE deviceID=?";
-    private static final String CREATE_DEVICE = "INSERT INTO device(deviceName,url,warehouseID,brandID,quantity,cateID,status) VALUES (?,?,?,?,?,?,?)";
+    private static final String CREATE_DEVICE = "INSERT INTO device(deviceName,url,warehouseID,brandID,quantity,cateID,deposit,status) VALUES (?,?,?,?,?,?,?,?)";
     private static final String CHECK_DUPLICATE = "SELECT deviceID FROM device WHERE deviceName=? AND warehouseID=?";
     private static final String GET_DEVICE_ID = "SELECT deviceID FROM device WHERE deviceName=?";
 
@@ -86,7 +86,7 @@ public class DeviceDAO {
         return deviceID;
     }
 
-    public boolean createDevice(String deviceName, String url, int warehouseID, int brandID, int quantity, String cateID) throws SQLException, ClassNotFoundException, NamingException {
+    public boolean createDevice(String deviceName, String url, int warehouseID, int brandID, int quantity, String cateID, int deposit) throws SQLException, ClassNotFoundException, NamingException {
         boolean check = false;
         Connection conn = null;
         ResultSet rs = null;
@@ -101,7 +101,8 @@ public class DeviceDAO {
                 ptm.setInt(4, brandID);
                 ptm.setInt(5, quantity);
                 ptm.setString(6, cateID);
-                ptm.setBoolean(7, true);
+                ptm.setInt(7, deposit);
+                ptm.setBoolean(8, true);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } finally {
@@ -140,7 +141,7 @@ public class DeviceDAO {
         return check;
     }
 
-    public boolean updateDevice(int deviceID, String deviceName, int warehouseID, int brandID, int quantity, String cateID) throws SQLException {
+    public boolean updateDevice(int deviceID, String deviceName, int warehouseID, int brandID, int quantity, String cateID, int deposit) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -153,7 +154,8 @@ public class DeviceDAO {
                 ptm.setInt(3, brandID);
                 ptm.setInt(4, quantity);
                 ptm.setString(5, cateID);
-                ptm.setInt(6, deviceID);
+                ptm.setInt(6, deposit);
+                ptm.setInt(7, deviceID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -218,8 +220,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 } else {
@@ -237,8 +240,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 }
@@ -282,8 +286,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 } else {
@@ -301,8 +306,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 }
@@ -346,8 +352,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 }
@@ -390,8 +397,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 }
@@ -434,8 +442,9 @@ public class DeviceDAO {
                             String brandName = rs.getString("brandName");
                             int quantity = rs.getInt("quantity");
                             String cateID = rs.getString("cateID");
+                            int deposit = rs.getInt("deposit");
                             String cateName = rs.getString("cateName");
-                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                            list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                         }
                     }
                 }

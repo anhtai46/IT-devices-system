@@ -43,8 +43,9 @@ public class DeviceDAO {
                     String brandName = rs.getString("brandName");
                     int quantity = rs.getInt("quantity");
                     String cateID = rs.getString("cateID");
+                    int deposit = rs.getInt("deposit");
                     String cateName = rs.getString("cateName");
-                    device = new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status);
+                    device = new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status);
                 }
             }
         } catch (Exception e) {

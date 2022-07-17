@@ -35,9 +35,11 @@
             <c:set var="descriptionList" value="${sessionScope.LIST_DESCRIPTION}"/>
             <c:set var="descriptionList" value="descriptionList"/>
         </c:forEach>
-        <c:set var="brandList" value="${requestScope.LIST_BRAND}"/>
-        <c:set var="warehouseList" value="${requestScope.LIST_WAREHOUSE}"/>
-        <c:set var="categoryList" value="${requestScope.LIST_CATEGORY}"/>
+        <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
+        <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
+        <c:set var="warehouseListFilter" value="${sessionScope.LIST_WAREHOUSE}"/>
+
+        <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:choose>
             <c:when test="${detailError.getDetailNameError() != null}" >
                 <div id="detailError" class="modal fade" role="dialog">
@@ -137,7 +139,7 @@
                                 <ul class="drop-submenu-1">
                                     <c:forEach var="brand" items="${brandList}">
                                         <li>
-                                            <a value="${brand.key}" href="MainController?search=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
+                                            <a value="${brand.key}" href="MainController?filter=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -147,10 +149,7 @@
                                 <ul class="drop-submenu-2">
                                     <c:forEach var="category" items="${categoryList}">
                                         <li>
-                                            <a value="${category.key}" href="MainController?search=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
-                                            <ul class="drop-submenu-1">
-
-                                            </ul>
+                                            <a value="${category.key}" href="MainController?filter=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -160,12 +159,14 @@
                                 <ul class="drop-submenu-3">
                                     <c:forEach var="warehouse" items="${warehouseList}">
                                         <li>
-                                            <a value="${warehouse.key}" href="MainController?search=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
+                                            <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
                             </li>
-
+                            <li>
+                                <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
+                            </li>
                         </ul>
                     </div>
                 </button>
@@ -188,6 +189,7 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>DeviceID</th>
                             <th>Images</th>
                             <th id="device-nametable">Device Name</th>
@@ -196,26 +198,29 @@
                             <th>Description</th>
                             <th>Category</th>
                             <th>Warehouse</th>
+                            <th>Deposit (VND)</th>
                             <th>Delete</th>
                             <th>Update</th>
                         </tr>
                     </thead>   
+                    ${sessionScope.ERROR}
                     <tbody>
-                        <c:set var="dl" value="${requestScope.LIST_DETAIL}"/>
+                        <c:set var="dl" value="${sessionScope.LIST_DETAIL}"/>
 
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
                         <form action="MainController"  method="POST">
                             <c:set var="modal" value="detailModal${counter1.count}"/>
                             <c:set var="descriptionList" value="${requestScope[device.cateID]}"/>
-                            <td ><input type="text" name="deviceID" class="text-center inputmanager" value="${device.deviceID}"  readonly></td>
+                            <td > <h5 class="center1">${counter1.count}</h5></td>
+                            <td ><input type="text" name="deviceID" class="text-center inputmanager minimum" value="${device.deviceID}"  readonly></td>
                             <td >
-                                <a href="MainController?action=OpenUpdateImgPage&deviceID=${device.deviceID}"><img class="img-product-manager" src="${device.url}" ></a>
+                                <a href="MainController?action=OpenUpdateImgPage&deviceID=${device.deviceID}&url=${device.url}"><img class="img-product-manager" src="${device.url}" ></a>
                             </td>               
                             </td>
                             <td><input type="text" name="deviceName" class="text-center inputmanager" value="${device.deviceName}" id="input-devicename"></td>
                             <td>
-                                <select name="brandID" class="text-center inputmanager pt-1 pb-1 pl-2 pr-4">
+                                <select name="brandID" id="fix_column" class="text-center inputmanager pt-1 pb-1 pl-2 pr-4">
                                     <c:forEach var="brand" items="${brandListBasedOnCategory[counter1.count-1]}">
                                         <c:choose>
                                             <c:when test="${brand.key.equals(device.brandID)}">
@@ -228,9 +233,9 @@
                                     </c:forEach>
                                 </select> </br>    
                             </td>
-                            <td><input type="number" name="quantity" class="text-center inputmanager" value="${device.quantity}"></td>
+                            <td><input type="number" name="quantity" min="0" class="text-center inputmanager minimum" value="${device.quantity}"></td>
                             <td><a  id="fa-info-circle">
-                                    <button class="btn" type="button" data-toggle="modal" data-target="#${modal}"><i class="fas fa-info-circle"></i></button></a>
+                                    <button class="btn center2" type="button" data-toggle="modal" data-target="#${modal}"><i class="fas fa-info-circle"></i></button></a>
                                 <div id="${modal}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg" role="content">
                                         <!-- Modal content-->
@@ -272,7 +277,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input name="cateName" type="text" class="text-center inputmanager" readonly
+                                <input name="cateName" type="text" id="fix_column"class="text-center inputmanager" readonly
                                        <c:forEach var="category" items="${categoryList}">
                                            <c:if test="${category.key.equals(device.cateID)}">                                 
                                                value="${category.value}"
@@ -294,8 +299,9 @@
                                     </c:forEach>
                                 </select>
                             </td>
-                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
-                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success"><i class="fas fa-recycle"></i></button></td>
+                            <td ><input type="number" name="deposit" step="1000" min="1000" class="text-center inputmanager medium" value="${device.deposit}" ></td>
+                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
+                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success center2"><i class="fas fa-recycle"></i></button></td>
                         </form>
                         </tr>
                         <c:set var="modal" value="detailModal"/>
@@ -306,7 +312,6 @@
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>
-
         </div>
     </body>
     <footer></footer>

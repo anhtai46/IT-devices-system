@@ -30,6 +30,7 @@
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
         <c:set var="deviceError" value="${requestScope.DEVICE_ERROR}"/>
+        <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
 
         <div class="navbar-top">
             <div class="navbar-header">
@@ -64,64 +65,83 @@
         </div>
         <div class="manage-navbar">
             <a href="MainController?search=&action=SearchDevice">
-                <button class="btn btn-primary" name="action" type="submit" value="SearchDevice">
+                <button class="btn btn-color btnoption" name="action" type="submit" value="SearchDevice">
                     Manage Devices
                 </button>
             </a>
-            <a href="warehousemanager.html">
-                <button class="btn btn-secondary">
+            <a href="MainController?action=GetListWarehouse">
+                <button class="btn btn-secondary btnoption">
                     Manage Warehouse
                 </button>
             </a>
-            <a href="insertcatagory.html">
-                <button class="btn btn-secondary">
-                    Manage Category
+            <a href="MainController?action=GetListCategory">
+                <button class="btn btn-secondary btnoption">
+                    Manage Catagory
                 </button>
             </a>
         </div>
         <div class="row manager-function d-flex align-items-center">
             <div class="col-sm-6 left-function text-center">
-                <button type="button" class="btn">
-                    <!-- <i class="fas fa-plus-circle"></i>
-                    <label for="">insert new Device</label> -->
-                    <div class="nav-item  d-flex align-items-center insert-wapper">
-                        <a class="nav-link d-flex align-items-center" href="#"
-                           role="button">
-                            <label class="button-insert">Insert New Device</label>
-                        </a>
-                    </div>
-                </button>
+                <a href="MainController?action=GetList" class="insert">
+                    <button class="btn insertnew" type="button">
+                        <i class="fas fa-plus-circle"></i>
+                        <label class="button-insert">Insert New Devices</label>
+                    </button>
+                </a>
                 <button type="button" class="btn">
                     <!-- <i class="fas fa-plus-circle"></i>
                     <label for="">insert new Device</label> -->
                     <div class="nav-item dropdown d-flex align-items-center">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown">
-                            <input type="submit" value="Ram">
+                            <label class="button-insert">Filter</label>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="#">Ram</a>
+                                <a class="dropdown-item" href="#">Brand</a>
+                                <ul class="drop-submenu-1">
+                                    <c:forEach var="brand" items="${brandList}">
+                                        <li>
+                                            <a value="${brand.key}" href="MainController?filter=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">CPU</a>
+                                <a class="dropdown-item" href="#">Category</a>
+                                <ul class="drop-submenu-2">
+                                    <c:forEach var="category" items="${categoryList}">
+                                        <li>
+                                            <a value="${category.key}" href="MainController?filter=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">VGA</a>
+                                <a class="dropdown-item" href="#">Warehouse</a>
+                                <ul class="drop-submenu-3">
+                                    <c:forEach var="warehouse" items="${warehouseList}">
+                                        <li>
+                                            <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
                             </li>
                         </ul>
                     </div>
-                </button>
-                <button type="button" class="btn">
-                    <label for="">Filter</label>
                 </button>
             </div>
             <div class="col-sm-6 right-function">
                 <div class="search">
                     <form action="" id="search-box">
                         <div class="row search-box-wrapper">
-                            <input type="text" id="search-text" class="col-8" placeholder="Tìm">
-                            <button id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                            <form action="MainController" method="POST">
+                                <input type="text" id="search-text" class="col-8" placeholder="Search by device name" name="search" value="${search}">
+                                <button type="submit" name="action" value="SearchDevice" id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                            </form>
                         </div>
                     </form>
                 </div>
@@ -137,15 +157,15 @@
                         <label for="#" class="col-sm-2">
                             <h4>Device name</h4>
                         </label>
-                        <input type="text" name="deviceName" class="col-sm-4" name="" id="input-device" required="" placeholder="Input Devices Name"/> </br>
+                        <input type="text" name="deviceName" class="col-sm-4" name="" id="input-device" required="" maxLength="50" placeholder="Input Devices Name"/> </br>
                     </div>
                     <div class="col-sm-12 text-center ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Category name</h4>
                         </label>
 
-                        <select name="cateID" class="col-sm-4 pt-1 pb-1"  id="list-chose">
-                            <option selected disabled>Choose Category</option>
+                        <select name="cateID" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Category</option>
                             <c:forEach var="category" items="${categoryList}">
                                 <option value="${category.key}">${category.value}</option>
                             </c:forEach>
@@ -155,8 +175,8 @@
                         <label for="#" class="col-sm-2">
                             <h4>Warehouse name</h4>
                         </label>
-                        <select name="warehouseName" class="col-sm-4 pt-1 pb-1"  id="list-chose">
-                            <option selected disabled>Choose Warehouse</option>
+                        <select name="warehouseName" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Warehouse</option>
                             <c:forEach var="warehouse" items="${warehouseList}">
                                 <option value="${warehouse.value}">${warehouse.value}</option>
                             </c:forEach>

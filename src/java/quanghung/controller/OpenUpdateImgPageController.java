@@ -17,6 +17,8 @@ public class OpenUpdateImgPageController extends HttpServlet {
         String url = SUCCESS;
         try {
             int deviceID = Integer.parseInt(request.getParameter("deviceID"));
+            String image = request.getParameter("url");
+            request.setAttribute("URL", image);
             request.setAttribute("DEVICE_ID", deviceID);
         } catch (Exception e) {
             log("Error at UpdateProductController: " + e.toString());

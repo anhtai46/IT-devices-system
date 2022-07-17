@@ -94,7 +94,9 @@ a {
     color: #000000;
 }
 
-
+.search-box-wrapper {
+    width: 65%!important;
+}
 /* Search-admin */
 .seach-wapper {
     width: 100%;
@@ -523,8 +525,9 @@ select#cars {
 }
 
 .inputmanager {
-    max-width: 117px;
+    max-width: 400px;
     min-height: 38px;
+    margin-top: 7px;
 }
 
 .manager-function .left-function .insert .insertnew {
@@ -552,15 +555,14 @@ select#cars {
     margin-top: 6px;
 }
 /* Adding more */
-@media screen and (max-width: 1600px) {
-    #device-nametable{
-        width: 100%;
-    }
-    #input-devicename{
-        min-width: 460px;
-    }
-
+#device-nametable{
+    width: 100%;
 }
+#input-devicename{
+    min-width: 100%;
+}
+
+
 @media screen and (min-width:1600px) {
     #device-nametable{
         width: 100%;
@@ -856,8 +858,8 @@ select#cars {
     border-radius: 5px;
 }
 .img-product-manager{
-    width: 38px;
-    height: 38px;
+    width: 50px;
+    height: 50px;
 }
 .img-manager{
     width: 150px;
@@ -880,4 +882,27 @@ select#cars {
     width: 42px;
     height: 29px;
     margin-left: 10px;
+}
+
+.table td, .table th{
+    padding: 0.45rem !important; 
+}
+
+.center1 {
+    margin-top: 17px;
+    font-size: 13px!important;
+}
+
+.center2{
+    margin-top: 7px;
+}
+.minimum{
+    width: 4rem;
+}
+#fix_column {
+    width: 8rem;
+}
+
+.medium{
+    width: 10rem;
 }

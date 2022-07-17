@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
@@ -31,6 +32,7 @@ public class HomeSearchDeviceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
             String search = String.valueOf(request.getParameter("search"));
             request.setAttribute("SEARCH", search);
             String value = request.getParameter("value");
@@ -54,10 +56,10 @@ public class HomeSearchDeviceController extends HttpServlet {
             for (Map.Entry<Integer, String> description : descriptionList.entrySet()) {
                 request.setAttribute(String.valueOf(description.getValue()), detailDAO.getListDescriptionDetail(description.getKey()));
             }
-            request.setAttribute("LIST_DESCRIPTION", descriptionList);
+            session.setAttribute("LIST_DESCRIPTION", descriptionList);
             request.setAttribute("LIST_DEVICE", deviceList);
-            request.setAttribute("LIST_BRAND", brandList);
-            request.setAttribute("LIST_CATEGORY", categoryList);
+            session.setAttribute("LIST_BRAND", brandList);
+            session.setAttribute("LIST_CATEGORY", categoryList);
 
             url = SUCCESS;
         } catch (Exception e) {

@@ -34,6 +34,7 @@ public class UpdateDeviceController extends HttpServlet {
             int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));
             int brandID = Integer.parseInt(request.getParameter("brandID"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int deposit = Integer.parseInt(request.getParameter("deposit"));
             String cateName = request.getParameter("cateName");
             String cateID = categoryDao.getCateID(cateName);
             DeviceDAO deviceDao = new DeviceDAO();
@@ -47,10 +48,11 @@ public class UpdateDeviceController extends HttpServlet {
                 int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
                 boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
             }
-            boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID);
+            boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID, deposit);
             if (check) {
                 url = SUCCESS;
             }
+
         } catch (Exception e) {
             log("Error at UpdateProductController: " + e.toString());
         } finally {

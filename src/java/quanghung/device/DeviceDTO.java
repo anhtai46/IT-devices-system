@@ -12,6 +12,7 @@ public class DeviceDTO {
     private int quantity;
     private String cateID;
     private String cateName;
+    private int deposit;
     private boolean status;
 
     public DeviceDTO() {
@@ -25,10 +26,11 @@ public class DeviceDTO {
         this.quantity = 0;
         this.cateID = "";
         this.cateName = "";
+        this.deposit = 0;
         this.status = true;
     }
 
-    public DeviceDTO(int deviceID, String deviceName, String url, int warehouseID, String warehouseName, int brandID, String brandName, int quantity, String cateID, String cateName, boolean status) {
+    public DeviceDTO(int deviceID, String deviceName, String url, int warehouseID, String warehouseName, int brandID, String brandName, int quantity, String cateID, String cateName, int deposit, boolean status) {
         this.deviceID = deviceID;
         this.deviceName = deviceName;
         this.url = url;
@@ -39,6 +41,7 @@ public class DeviceDTO {
         this.quantity = quantity;
         this.cateID = cateID;
         this.cateName = cateName;
+        this.deposit = deposit;
         this.status = status;
     }
 
@@ -120,6 +123,14 @@ public class DeviceDTO {
 
     public void setCateName(String cateName) {
         this.cateName = cateName;
+    }
+
+    public int getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(int deposit) {
+        this.deposit = deposit;
     }
 
     public boolean isStatus() {

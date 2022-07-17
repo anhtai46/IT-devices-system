@@ -149,7 +149,7 @@
                 <label for="#" class="col-sm-2">
                     <h4>Choose File</h4>
                 </label>
-                <img class="product-img-thumb" id="img-thumb" height="100px" width="100px" src="" alt="" >
+                <img class="product-img-thumb" id="img-thumb" src="${requestScope.URL}" height="100px" width="100px" src="" alt="" >
                 <input type="file"  name="image" required="" onchange="readURL(this);">
             </div>     
             <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-5">

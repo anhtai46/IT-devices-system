@@ -24,14 +24,14 @@
     <body>
         <c:set var="search" value="${requestScope.SEARCH_USER}"/>
         <c:set var="deviceList" value="${requestScope.LIST_DEVICE}"/>
-        <c:set var="brandList" value="${requestScope.LIST_BRAND}"/>
-        <c:set var="categoryList" value="${requestScope.LIST_CATEGORY}"/>
-        <c:set var="descriptionList" value="${requestScope.LIST_DESCRIPTION}"/>
+        <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
+        <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
+        <c:set var="descriptionList" value="${sessionScope.LIST_DESCRIPTION}"/>
         <div class="row navbar">
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?search=&action=HomeSearchDevice&value=${category.value}""><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="">
@@ -83,8 +83,8 @@
             </div>
         </div>
         <!-- search-button -->
-        <div class="row navbar-option col-sm-12 justify-content-center">
-            <div class="container mt-2 mb-3">
+        <div class="row navbar-option  justify-content-center">
+            <div class="container-fluid mt-2 mb-3 col-sm-6 pl-5">
                 <a href="#" id="chosefilter">
                     <button class="btn insertnew btn-color" type="button">
                         <i class="filer-icon fa fa-filter"></i>
@@ -97,7 +97,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Chose Filter</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <button type="button" class="close" data-dismiss="modal">?</button>
                             </div>
                             <div class="modal-body">
                                 <form>
@@ -147,6 +147,7 @@
                                             <h4 class="col-4">Ram</h4>
                                             <h4 class="col-4">Chip</h4>
                                             <h4 class="col-4">Display</h4>
+
                                         </div>
                                         <div class="col-12 d-flex">
                                             <div class="col-4">
@@ -182,6 +183,9 @@
 
                                             </div>
                                         </div>
+                                        <div class="col-12 d-flex mt-3">
+
+                                        </div>
                                     </div>
 
                                     <div class="col-12 d-flex">
@@ -192,10 +196,20 @@
                                             <button class="btn-filter btn btn-color">Search</button>
                                         </div>
                                     </div>
-                            </div>
-                            </form>
+                                </form></div>
+
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-6 right-function">
+                <div>
+                    <form action="" id="search-box">
+                        <div class="row search-box-wrapper mt-2">
+                            <input type="text" id="search-text" class="col-8" placeholder="Search by device name" name="search" value="">
+                            <button type="submit" name="action" value="SearchDevice" id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                        </div></form>
+
                 </div>
             </div>
         </div>
@@ -210,6 +224,7 @@
                     <th class="text-center">Warehouse</th>
                     <th class="text-center">Brand</th>
                     <th class="text-center">Quantity</th>
+                    <th class="text-center">Deposit(VND)</th>
                     <th class="text-center">Detail</th>
                     <th class="text-center">Action</th>
                     </thead>
@@ -223,8 +238,9 @@
                                 <td class="text-center">${device.warehouseName}</td>
                                 <td class="text-center">${device.brandName}</td>
                                 <td class="text-center">${device.quantity}</td>
-                                <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&url=${device.url}&warehouseName=${device.warehouseName}&brandName=${device.brandName}&quantity=${device.quantity}">Detail</a></td>
-                                <td class="text-center"><button type="submit">Borrow</button></td>
+                                <td class="text-center">${device.deposit}</td>
+                                <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
+                                <td class="text-center"><button type="submit">Add to cart</button></td>
                             </tr>
                         </c:forEach>    
                     </tbody>

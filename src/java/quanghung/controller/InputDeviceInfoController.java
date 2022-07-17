@@ -44,19 +44,7 @@ public class InputDeviceInfoController extends HttpServlet {
             int warehouseID = warehouseDao.getWarehouseID(warehouseName);
             boolean checkDuplicate = deviceDao.checkDuplicate(deviceName, warehouseID);
             if (checkDuplicate) {
-                deviceError.setDeviceNameError("Duplicate Nevice Name in " + warehouseName);
-                checkValidation = false;
-            }
-            if (deviceName.length() > 50) {
-                deviceError.setDeviceNameError("Device name must not exceed 50 characters");
-                checkValidation = false;
-            }
-            if (cateName == null) {
-                deviceError.setCateIDError("Please choose category");
-                checkValidation = false;
-            }
-            if (warehouseName == null) {
-                deviceError.setWarehouseIDError("Please choose warehouse");
+                deviceError.setDeviceNameError("Duplicate Device Name in " + warehouseName);
                 checkValidation = false;
             }
             if (checkValidation) {

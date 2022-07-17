@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import quanghung.description.DescriptionDAO;
 import quanghung.descriptionDetail.DescriptionDetailDAO;
+import quanghung.device.DeviceDTO;
 
 /**
  *
@@ -22,7 +23,7 @@ import quanghung.descriptionDetail.DescriptionDetailDAO;
  */
 public class DetailController extends HttpServlet {
 
-    private static final String ERROR = "MainController?search=&action=SearchDevice";
+    private static final String ERROR = "MainController?search=&action=HomeSearchDevice";
     private static final String SUCCESS = "deviceDetail.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -34,8 +35,14 @@ public class DetailController extends HttpServlet {
             String deviceName = request.getParameter("deviceName");
             String image = request.getParameter("url");
             String warehouseName = request.getParameter("warehouseName");
+            int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));;
+            int brandID = Integer.parseInt(request.getParameter("brandID"));;
+            String cateID = request.getParameter("cateID");;
+            String cateName = request.getParameter("cateName");;
             String brandName = request.getParameter("brandName");
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int deposit = Integer.parseInt(request.getParameter("deposit"));
+            DeviceDTO device = new DeviceDTO(deviceID, deviceName, image, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, true);
             DescriptionDAO descriptionDAO = new DescriptionDAO();
             DescriptionDetailDAO detailDAO = new DescriptionDetailDAO();
             Map<Integer, String> detailList = detailDAO.getListDescriptionDetailBasedOnDevice(deviceID);
@@ -45,12 +52,7 @@ public class DetailController extends HttpServlet {
                 descriptionList.add(String.valueOf(descriptionDAO.getDescriptionName(detail.getKey())));
             }
             url = SUCCESS;
-            request.setAttribute("DEVICE_ID", deviceID);
-            request.setAttribute("DEVICE_NAME", deviceName);
-            request.setAttribute("URL", image);
-            request.setAttribute("WAREHOUSE_NAME", warehouseName);
-            request.setAttribute("BRAND_NAME", brandName);
-            request.setAttribute("QUANTITY", quantity);
+            request.setAttribute("DEVICE", device);
             request.setAttribute("DESCRIPTION_LIST", descriptionList);
             request.setAttribute("DETAIL_LIST", detailList);
         } catch (Exception e) {
