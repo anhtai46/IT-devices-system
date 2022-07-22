@@ -17,7 +17,36 @@ public class DescriptionDAO {
     private static final String CREATE_DESCRIPTION = "INSERT INTO description(descriptionName,cateID,status) VALUES (?,?,?)";
     private static final String CHECK_DUPLICATE = "SELECT * FROM description WHERE descriptionName=? and cateID=?";
     private static final String CHECK_STATUS = "SELECT * FROM description WHERE descriptionName=? and cateID=? and status = 1";
+    private static final String CHECK_QUANTITY = "SELECT COUNT(descriptionID) as 'Quantity' FROM description WHERE cateID=? and status=1";
 
+    public static int checkQuantity(String cateID) throws SQLException {
+        int quantity = 0;
+        Connection cn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                ptm = cn.prepareStatement(CHECK_QUANTITY);
+                ptm.setString(1, cateID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    quantity = rs.getInt("Quantity");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return quantity;
+    }
+    
     public static boolean createDescription(String cateID, String descriptionName) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;

@@ -31,169 +31,180 @@
     </head>
 
     <body>
-        <!-- nabar -->
-        <!-- <div class="container"> -->
-        <div class="row navbar">
-            <!-- logo -->
-            <div class="col-sm-4 navbar-user-left d-flex align-items-center">
-                <div class="col-sm-5 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
+        <c:set var="User" value="${sessionScope.User}}" />
+        <c:if test="${User == null}">
+            <h1>You Must Login To View This</h1>   
+            <div class="row mb-4">
+                <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+                    <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
+                       &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
                 </div>
-                <!-- product-list -->
-                <div class="">
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
-                           id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <p class="product-list">Product</p>
+            </div>
+        </c:if>
+        <c:if test="${User != null}">
+            <!-- nabar -->
+            <!-- <div class="container"> -->
+            <div class="row navbar">
+                <!-- logo -->
+                <div class="col-sm-4 navbar-user-left d-flex align-items-center">
+                    <div class="col-sm-5 logo">
+                        <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
+                    </div>
+                    <!-- product-list -->
+                    <div class="">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
+                               id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                                <p class="product-list">Product</p>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="userproduct.html">Laptop</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="userproduct.html">Camera</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="userproduct.html">Graphic Tablet</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="userproduct.html">Tablet</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="userproduct.html">All Product</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center navbar-user-fill"></div>
+                <!-- cart-icon -->
+                <div class="col-sm-4 text-center navbar-user-right d-flex">
+                    <div class="col-sm-6 cart-shopping">
+                        <a href="cart.html" class="" role="button">
+                            <i class="fas fa-shopping-cart text-dark ml-5"></i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Laptop</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Camera</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Graphic Tablet</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">Tablet</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="userproduct.html">All Product</a>
-                            </li>
-                        </ul>
+                    </div>
+                    <!-- welcome -->
+                    <div class="col-sm-6">
+                        <div class="nav-item dropdown align-items-center">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#" id="navbarDropdownMenuLink"
+                               role="button" data-toggle="dropdown">
+                                <img src="${sessionScope.User.picture}" class="rounded-circle" height="30" width="30" />
+                                <p class="user-name">${sessionScope.UserDB.userName}</p>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="myprofile.jsp"><img src="${sessionScope.User.picture}" height="25"> My profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 text-center navbar-user-fill"></div>
-            <!-- cart-icon -->
-            <div class="col-sm-4 text-center navbar-user-right d-flex">
-                <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
-                        <i class="fas fa-shopping-cart text-dark ml-5"></i>
-                    </a>
-                </div>
-                <!-- welcome -->
-                <div class="col-sm-6">
-                    <div class="nav-item dropdown align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.User.picture}" class="rounded-circle" height="30" width="30" />
-                            <p class="user-name">${sessionScope.UserDB.userName}</p>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="myprofile.jsp"><img src="${sessionScope.User.picture}" height="25"> My profile</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
-                            </li>
-                        </ul>
+            <!-- search-button -->
+            <div class="row navbar-option col-sm-12 d-flex">
+                <div class="col-sm-11">
+                    <div class="table table-user">
+                        <table class="col-sm-12" id="myTable">
+                            <thead>
+                            <th class="text-center">STT</th>
+                            <th class="text-center">Request ID</th>
+                            <th class="text-center">Request Date</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
+                            </thead>
+                            <tbody>
+                                <tr id="info">
+                                    <td class="text-center">01</td>
+                                    <td class="text-center">SE01</td>
+                                    <td class="text-center">12/02/2022</td>
+                                    <td class="text-center">Active</td>
+                                    <td class="text-center">
+                                        <a href="requetdetail.html">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-info-circle text-light"></i>
+                                            </button>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-danger" type="button" onclick="Delete()">
+                                                <i class="fas fa-times-circle"></i>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- search-button -->
-        <div class="row navbar-option col-sm-12 d-flex">
-            <div class="col-sm-11">
-                <div class="table table-user">
-                    <table class="col-sm-12" id="myTable">
-                        <thead>
-                        <th class="text-center">STT</th>
-                        <th class="text-center">Request ID</th>
-                        <th class="text-center">Request Date</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Action</th>
-                        </thead>
-                        <tbody>
-                            <tr id="info">
-                                <td class="text-center">01</td>
-                                <td class="text-center">SE01</td>
-                                <td class="text-center">12/02/2022</td>
-                                <td class="text-center">Active</td>
-                                <td class="text-center">
-                                    <a href="requetdetail.html">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-info-circle text-light"></i>
-                                        </button>
-                                    </a>
-                                    <a href="#">
-                                        <button class="btn btn-danger" type="button" onclick="Delete()">
-                                            <i class="fas fa-times-circle"></i>
-                                        </button>
-                                    </a>
-                                </td>
-                            </tr>
+                <div class="navbar-col col-sm-1 order-first">
+                    <ul class="float-left">
+                        <li>
+                        </li>
 
-                        </tbody>
-                    </table>
+                        <li>
+                            <a href=""><span class="indicator"></span><i class="fas-option active fas fa-sync-alt"><span
+                                        class="navbaroption-tittle">Processing</span></i></a>
+                        </li>
+                        <li>
+                            <a href="userapproved.html"><i class="fas-option fas fa-check-circle"><span
+                                        class="navbaroption-tittle">Approved</span></i></a>
+                        </li>
+                        <li>
+                            <a href="usersuccessful.html"><i class="fas-option fas fa-undo-alt"><span
+                                        class="navbaroption-tittle">Successful</span></i></a>
+                        </li>
+                        <li>
+                            <a href="userreturned.html"><i class="fas-option fas fa-sync-alt"><span
+                                        class="navbaroption-tittle">Returned</span></i></a>
+                        </li>
+                        <li class="option-user-3">
+                            <a href="usercancel.html"><i class="fas-option fas fa-ban"><span
+                                        class="navbaroption-tittle">Cancel</span></i></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="navbar-col col-sm-1 order-first">
-                <ul class="float-left">
-                    <li>
-                    </li>
 
-                    <li>
-                        <a href=""><span class="indicator"></span><i class="fas-option active fas fa-sync-alt"><span
-                                    class="navbaroption-tittle">Processing</span></i></a>
-                    </li>
-                    <li>
-                        <a href="userapproved.html"><i class="fas-option fas fa-check-circle"><span
-                                    class="navbaroption-tittle">Approved</span></i></a>
-                    </li>
-                    <li>
-                        <a href="usersuccessful.html"><i class="fas-option fas fa-undo-alt"><span
-                                    class="navbaroption-tittle">Successful</span></i></a>
-                    </li>
-                    <li>
-                        <a href="userreturned.html"><i class="fas-option fas fa-sync-alt"><span
-                                    class="navbaroption-tittle">Returned</span></i></a>
-                    </li>
-                    <li class="option-user-3">
-                        <a href="usercancel.html"><i class="fas-option fas fa-ban"><span
-                                    class="navbaroption-tittle">Cancel</span></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <footer class="footer-distributed">
-            <div class="footer-left">
-                <h3>Company<span>DRS</span></h3>
-                <p class="footer-company-name">Company DRS © 2022</p>
-            </div>
-            <div class="footer-center">
-                <div>
-                    <i class="fa fa-map-marker"></i>
-                    <p><span>Đại học FPT</span> KCN - TP.Thủ Đức - TP.HCM</p>
+            <footer class="footer-distributed">
+                <div class="footer-left">
+                    <h3>Company<span>DRS</span></h3>
+                    <p class="footer-company-name">Company DRS © 2022</p>
                 </div>
-                <div>
-                    <i class="fa fa-phone"></i>
-                    <p>3463452343</p>
+                <div class="footer-center">
+                    <div>
+                        <i class="fa fa-map-marker"></i>
+                        <p><span>Đại học FPT</span> KCN - TP.Thủ Đức - TP.HCM</p>
+                    </div>
+                    <div>
+                        <i class="fa fa-phone"></i>
+                        <p>3463452343</p>
+                    </div>
+                    <div>
+                        <i class="fa fa-envelope"></i>
+                        <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+                    </div>
                 </div>
-                <div>
-                    <i class="fa fa-envelope"></i>
-                    <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+                <div class="footer-right">
+                    <p class="footer-company-about">
+                        <span>About the company</span>
+                        The company specializes in providing and leasing IT equipment to
+                        businesses and companies in need.
+                    </p>
+                    <div class="footer-icons">
+                        <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                        <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                        <a href="https://www.github.com/"><i class="ti-github"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="footer-right">
-                <p class="footer-company-about">
-                    <span>About the company</span>
-                    The company specializes in providing and leasing IT equipment to
-                    businesses and companies in need.
-                </p>
-                <div class="footer-icons">
-                    <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
-                    <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
-                    <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
-                    <a href="https://www.github.com/"><i class="ti-github"></i></a>
-                </div>
-            </div>
-        </footer>
+            </footer>
+        </c:if>
     </body>
-
     <script>
         function Delete() {
             $("#info").remove();

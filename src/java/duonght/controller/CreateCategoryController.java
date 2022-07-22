@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import duonght.category.CategoryDAO;
 import duonght.category.CategoryDTO;
 import duonght.category.CategoryError;
+import duonght.description.DescriptionDAO;
+import quanghung.brand.BrandDAO;
 
 public class CreateCategoryController extends HttpServlet {
 
@@ -23,6 +25,8 @@ public class CreateCategoryController extends HttpServlet {
             boolean checkValidation = true;
             String cateID = request.getParameter("textCateID");
             String cateName = request.getParameter("textCateName");
+            String description = request.getParameter("textDescription");
+            String brandName = request.getParameter("textBrandName");
             boolean checkDuplicate = CategoryDAO.checkDuplicate(cateID);
             if (checkDuplicate) {
                 boolean checkStatus = CategoryDAO.checkStatus(cateID);
@@ -30,14 +34,32 @@ public class CreateCategoryController extends HttpServlet {
                     categoryError.setCateIDError("Duplicate CateID");
                     checkValidation = false;
                 } else {
+                    boolean check = true;
                     if (cateName.length() > 50) {
                         categoryError.setCateNameError("CateName must not exceed 50 characters");
-                        checkValidation = false;
-                    } else {
+                        check = false;
+                    }
+                    if (description.length() > 50) {
+                        categoryError.setDescriptionName("Description must not exceed 50 characters");
+                        check = false;
+                    }
+                    if (brandName.length() > 50) {
+                        categoryError.setBrandName("Brand Name must not exceed 50 characters");
+                        check = false;
+                    }
+                    if (check) {
                         boolean isRenew = CategoryDAO.renewCategory(cateID);
                         if (isRenew) {
                             CategoryDAO.updateCategory(cateName, cateID);
-                            request.setAttribute("MESSAGE", "Insert Successfully!");
+                            boolean isRenewDes = DescriptionDAO.renewDescription(description, cateID);
+                            if (!isRenewDes) {
+                                DescriptionDAO.createDescription(cateID, description);
+                            }
+                            boolean isRenewBrand = BrandDAO.renewBrand(brandName, cateID);
+                            if (!isRenewBrand) {
+                                BrandDAO.createBrand(brandName, cateID);
+                            }
+                            request.setAttribute("MESSAGE", "Insert Successfully! Now You Can Edit More!");
                             url = SUCCESS;
                         } else {
                             request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
@@ -45,27 +67,36 @@ public class CreateCategoryController extends HttpServlet {
                         }
                     }
                 }
-            }
-            if (cateID.length() > 10) {
-                categoryError.setCateIDError("CateID must not exceed 10 characters");
-                checkValidation = false;
-            }
-            if (cateName.length() > 50) {
-                categoryError.setCateNameError("CateName must not exceed 50 characters");
-                checkValidation = false;
-            }
-            if (checkValidation) {
-                CategoryDTO category = new CategoryDTO(cateID, cateName, true);
-                boolean isCreate = CategoryDAO.createCategory(category);
-                if (isCreate) {
-                    request.setAttribute("MESSAGE", "Insert Successfully!");
-                } else {
-                    request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
-                }
-                url = SUCCESS;
             } else {
-                request.setAttribute("CateError", categoryError);
-                url = ERROR;
+                if (cateID.length() > 10) {
+                    categoryError.setCateIDError("CateID must not exceed 10 characters");
+                    checkValidation = false;
+                }
+                if (cateName.length() > 50) {
+                    categoryError.setCateNameError("CateName must not exceed 50 characters");
+                    checkValidation = false;
+                }
+                if (description.length() > 50) {
+                    categoryError.setDescriptionName("Description must not exceed 50 characters");
+                    checkValidation = false;
+                }
+                if (brandName.length() > 50) {
+                    categoryError.setBrandName("Brand Name must not exceed 50 characters");
+                    checkValidation = false;
+                }
+                if (checkValidation) {
+                    CategoryDTO category = new CategoryDTO(cateID, cateName, true);
+                    boolean isCreate = CategoryDAO.createCategory(category, description, brandName);
+                    if (isCreate) {
+                        request.setAttribute("MESSAGE", "Insert Successfully! Now You Can Edit More!");
+                    } else {
+                        request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
+                    }
+                    url = SUCCESS;
+                } else {
+                    request.setAttribute("CateError", categoryError);
+                    url = ERROR;
+                }
             }
         } catch (Exception e) {
             if (e.toString().contains("duplicate")) {

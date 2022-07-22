@@ -14,7 +14,10 @@ import quanghung.utils.DBUtils;
 public class DescriptionDetailDAO {
 
     private static final String SEARCH_DESCRIPTION_DETAIL = "SELECT detailID, descriptionID, detailName, status FROM descriptionDetail WHERE detailName like ?";
-    private static final String GET_LIST_DESCRIPTION_DETAIL = "SELECT detailID, descriptionID, detailName, status FROM descriptionDetail WHERE descriptionID=?";
+    private static final String GET_LIST_DESCRIPTION_DETAIL_BY_ID = "SELECT detailID, descriptionID, detailName, status FROM descriptionDetail WHERE descriptionID=?";
+    private static final String GET_LIST_DESCRIPTION_DETAIL_BY_NAME = "SELECT distinct detail.detailName \n"
+            + "FROM descriptionDetail detail, description descript \n"
+            + "WHERE descript.descriptionName = ? AND descript.descriptionID = detail.descriptionID";
     private static final String DELETE_DESCRIPTION_DETAIL = "UPDATE descriptionDetail SET status=? WHERE detailID=?";
     private static final String UPDATE_DESCRIPTION_DETAIL = "UPDATE descriptionDetail SET detailName=? WHERE detailID=?";
     private static final String CREATE_DESCRIPTION_DETAIL = "INSERT INTO descriptionDetail(descriptionID,detailName,status) VALUES (?,?,?)";
@@ -166,7 +169,7 @@ public class DescriptionDetailDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION_DETAIL);
+                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION_DETAIL_BY_ID);
                 ptm.setInt(1, descriptionID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
@@ -176,6 +179,37 @@ public class DescriptionDetailDAO {
                         String detailName = rs.getString("detailName");
                         list.add(new DescriptionDetailDTO(detailID, descriptionID, detailName, status));
                     }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<String> getListDescriptionDetail(String descriptionName) throws SQLException {
+        List<String> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION_DETAIL_BY_NAME);
+                ptm.setString(1, descriptionName);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String detailName = rs.getString("detailName");
+                    list.add(detailName);
                 }
             }
         } catch (Exception e) {

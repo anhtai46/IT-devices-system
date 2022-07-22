@@ -8,6 +8,7 @@ package quanghung.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -18,17 +19,15 @@ import javax.servlet.http.HttpSession;
 import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
-import quanghung.description.DescriptionDTO;
 import quanghung.descriptionDetail.DescriptionDetailDAO;
-import quanghung.descriptionDetail.DescriptionDetailDTO;
 import quanghung.device.DeviceDAO;
 import quanghung.device.DeviceDTO;
 import quanghung.warehouse.WarehouseDAO;
 
-public class HomeSearchDeviceController extends HttpServlet {
+public class FilterDeviceController extends HttpServlet {
 
-    private static final String ERROR = "devicePage.jsp";
-    private static final String SUCCESS = "devicePage.jsp";
+    private static final String ERROR = "devicePage2.jsp";
+    private static final String SUCCESS = "devicePage2.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,61 +35,92 @@ public class HomeSearchDeviceController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
-            String search = request.getParameter("search");
-            String value = request.getParameter("value");
-            String filter = String.valueOf(request.getParameter("filter"));
-            if (search != null) {
-                filter = search;
-            }
-            request.setAttribute("FILTER", search);
             DeviceDAO deviceDAO = new DeviceDAO();
             CategoryDAO categoryDAO = new CategoryDAO();
             BrandDAO brandDao = new BrandDAO();
             WarehouseDAO warehouseDAO = new WarehouseDAO();
             DescriptionDAO descriptionDAO = new DescriptionDAO();
             DescriptionDetailDAO detailDAO = new DescriptionDetailDAO();
-            List<DeviceDTO> deviceList = deviceDAO.getListDeviceByName(filter);
-
+            List<DeviceDTO> deviceList = deviceDAO.getListDeviceByName("");
             Map<String, String> categoryList = categoryDAO.getCategory();
             Map<Integer, String> brandList = brandDao.getListBrand();
             List<String> descriptionList = descriptionDAO.getListDescription();
             Map<Integer, String> warehouseList = warehouseDAO.getWarehouse();
-            for (Map.Entry<String, String> category : categoryList.entrySet()) {
-                if (filter.equals(category.getKey()) && value.equals(category.getValue())) {
-                    deviceList = deviceDAO.getListDeviceByCateID(category.getKey());
-                    break;
+            String filterBrand = request.getParameter("filterBrand");
+            String filterWarehouse = request.getParameter("filterWarehouse");
+            String filterCategory = request.getParameter("filterCategory");
+            Map<String, String> filterDetail = new HashMap<>();
+            boolean check = true;
+            for (int i = 1; i <= descriptionList.size(); i++) {
+                String des = "desName" + String.valueOf(i);
+                String detail = "detailName" + String.valueOf(i);
+                String dess = request.getParameter(des);
+                String detaill = request.getParameter(detail);
+                if (detaill != "") {
+                    filterDetail.put(dess, detaill);
                 }
             }
-//            for (Map.Entry<String, String> category : categoryList.entrySet()) {
-//                if (filter.equals(category.getKey()) && value.equals(category.getValue())) {
-//                    List<DeviceDTO> list = deviceDAO.getListDeviceByCateID(category.getKey());
-//                    List<DeviceDTO> a = new ArrayList<>();
-//                    if (a != null) {
-//                        for (int i = 0; i < deviceList.size(); i++) {
-//                            for (int j = 0; i < list.size(); j++) {
-//                                if (deviceList.get(i).getDeviceID() == list.get(j).getDeviceID()) {
-//                                    a.add(deviceList.get(i));
-//                                }
-//                            }
-//                        }
-//                        deviceList = a;
-//                    }
-//
-//                    request.setAttribute("SEARCH", category.getValue());
-//                    break;
-//                }
-//            }
-            for (Map.Entry<Integer, String> brand : brandList.entrySet()) {
-                if (filter.equals(String.valueOf(brand.getKey())) && value.equals(brand.getValue())) {
-                    deviceList = deviceDAO.getListDeviceByBrandID(brand.getKey());
-                    break;
+            filterDetail.entrySet();
+            for (Map.Entry<String, String> detail : filterDetail.entrySet()) {
+                if (detail.getValue() != "") {
+                    List<DeviceDTO> a = new ArrayList<>();
+                    for (int i = 0; i < deviceList.size(); i++) {
+                        if (deviceDAO.getExactlyDetailName(detail.getValue(), detail.getKey(), deviceList.get(i).getDeviceID()).equals(detail.getValue())) {
+                            a.add(deviceList.get(i));
+                        }
+                    }
+                    if (a.size() != 0) {
+                        deviceList = a;
+                        check = true;
+                    } else {
+                        check = false;
+                    }
                 }
             }
-            for (Map.Entry<Integer, String> warehouse : warehouseList.entrySet()) {
-                if (filter.equals(String.valueOf(warehouse.getKey())) && value.equals(warehouse.getValue())) {
-                    deviceList = deviceDAO.getListDeviceByWarehouseID(warehouse.getKey());
-                    break;
+            if (filterBrand != "") {
+                List<DeviceDTO> a = new ArrayList<>();
+                for (int i = 0; i < deviceList.size(); i++) {
+                    if (deviceList.get(i).getBrandID() == Integer.parseInt(filterBrand)) {
+                        a.add(deviceList.get(i));
+                    }
                 }
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
+            }
+            if (filterWarehouse != "") {
+                List<DeviceDTO> a = new ArrayList<>();
+                for (int i = 0; i < deviceList.size(); i++) {
+                    if (deviceList.get(i).getWarehouseID() == Integer.parseInt(filterWarehouse)) {
+                        a.add(deviceList.get(i));
+                    }
+                }
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
+            }
+            if (filterCategory != "") {
+                List<DeviceDTO> a = new ArrayList<>();
+                for (int i = 0; i < deviceList.size(); i++) {
+                    if (deviceList.get(i).getWarehouseID() == Integer.parseInt(filterCategory)) {
+                        a.add(deviceList.get(i));
+                    }
+                }
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
+            }
+            if (check == false) {
+                deviceList.clear();
             }
             if (deviceList.size() != 0) {
                 for (int i = 0; i < descriptionList.size(); i++) {
@@ -99,7 +129,7 @@ public class HomeSearchDeviceController extends HttpServlet {
                 }
 
                 session.setAttribute("LIST_DESCRIPTION", descriptionList);
-                session.setAttribute("LIST_DEVICE", deviceList);
+                request.setAttribute("LIST_DEVICE_FILTER", deviceList);
                 session.setAttribute("LIST_BRAND", brandList);
                 session.setAttribute("LIST_CATEGORY", categoryList);
                 session.setAttribute("LIST_WAREHOUSE", warehouseList);

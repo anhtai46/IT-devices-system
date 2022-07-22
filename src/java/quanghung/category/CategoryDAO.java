@@ -22,6 +22,8 @@ public class CategoryDAO {
     private static final String UPDATE_CATEGORY = "UPDATE category SET cateName=? WHERE cateID=?";
     private static final String CHECK_DUPLICATE = "SELECT cateName FROM category WHERE cateID=?";
     private static final String CREATE_CATEGORY = "INSERT INTO category(cateID,cateName,status) VALUES (?,?,?)";
+    private static final String GET_LIST_DESCRIPTION_BASED_ON_CATEID = "SELECT descriptionID, descriptionName, cateID, status FROM description WHERE cateID=?";
+    private static final String GET_LIST_DESCRIPTION_DETAIL_BY_ID = "SELECT detailID, descriptionID, detailName, status FROM descriptionDetail WHERE descriptionID=?";
 
     public String getCateID(String cateName) throws SQLException {
         String cateID = null;
@@ -83,7 +85,13 @@ public class CategoryDAO {
         Map<String, String> category = new HashMap<>();
         Connection conn = null;
         PreparedStatement ptm = null;
+        PreparedStatement ptm2 = null;
+        PreparedStatement ptm3 = null;
+
         ResultSet rs = null;
+        ResultSet rs2 = null;
+        ResultSet rs3 = null;
+
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -92,9 +100,22 @@ public class CategoryDAO {
                 while (rs.next()) {
                     String cateID = rs.getString("cateID");
                     String cateName = rs.getString("cateName");
-                    category.put(cateID, cateName);
+                    ptm2 = conn.prepareStatement(GET_LIST_DESCRIPTION_BASED_ON_CATEID);
+                    ptm2.setString(1, cateID);
+                    rs2 = ptm2.executeQuery();
+                    while (rs2.next()) {
+                        int descriptionID = rs2.getInt("descriptionID");
+                        ptm3 = conn.prepareStatement(GET_LIST_DESCRIPTION_DETAIL_BY_ID);
+                        ptm3.setInt(1, descriptionID);
+                        rs3 = ptm3.executeQuery();
+                        while (rs3.next()) {
+                            category.put(cateID, cateName);
+                            break;
+                        }
+                    }
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

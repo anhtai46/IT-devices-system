@@ -84,16 +84,16 @@
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
                            href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.User.picture}"
+                            <img src="${sessionScope.Admin.picture}"
                                  class="rounded-circle" height="25">
-                            <p class="user-name">${sessionScope.UserDB.userName}</p>
+                            <p class="user-name">${sessionScope.Admin.name}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -162,7 +162,7 @@
                                             <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
                                         </li>
                                     </c:forEach>
-                                </ul>
+                                </ul>   
                             </li>
                             <li>
                                 <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
@@ -185,28 +185,27 @@
             </div>
         </div>
         <div class="table-wapper col-sm-12">
-            <c:if test="${not empty deviceList}">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>DeviceID</th>
-                            <th>Images</th>
-                            <th id="device-nametable">Device Name</th>
-                            <th>Brand</th>
-                            <th>Quantity</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Warehouse</th>
-                            <th>Deposit (VND)</th>
-                            <th>Delete</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>   
-                    ${sessionScope.ERROR}
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DeviceID</th>
+                        <th>Images</th>
+                        <th id="device-nametable">Device Name</th>
+                        <th>Brand</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Warehouse</th>
+                        <th>Deposit (VND)</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>   
+                ${sessionScope.ERROR}
+                <c:if test="${not empty deviceList}">          
                     <tbody>
                         <c:set var="dl" value="${sessionScope.LIST_DETAIL}"/>
-
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
                         <form action="MainController"  method="POST">
@@ -277,14 +276,21 @@
                                 </div>
                             </td>
                             <td>
-                                <input name="cateName" type="text" id="fix_column"class="text-center inputmanager" readonly
+                                <input type="button" type="text" id="fix_column"class="text-center inputmanager categoryButton" onclick="location.href = 'MainController?action=UpdateDeviceCategory&cateID=${device.cateID}&deviceID=${device.deviceID}'"
                                        <c:forEach var="category" items="${categoryList}">
                                            <c:if test="${category.key.equals(device.cateID)}">                                 
-                                               value="${category.value}"
+                                               value="${category.value}" 
                                            </c:if>
                                        </c:forEach>
                                        />
                             </td>
+                            <input name="cateName" type="hidden" 
+                                   <c:forEach var="category" items="${categoryList}">
+                                       <c:if test="${category.key.equals(device.cateID)}">                                 
+                                           value="${category.value}"
+                                       </c:if>
+                                   </c:forEach>
+                                   />
                             <td>
                                 <select name="warehouseID" id="fix_column" class="text-center inputmanager">
                                     <c:forEach var="warehouse" items="${warehouseList}">
@@ -307,8 +313,8 @@
                         <c:set var="modal" value="detailModal"/>
                     </c:forEach>
                     </tbody>
-                </table>
-            </c:if>
+                </c:if>
+            </table>
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>

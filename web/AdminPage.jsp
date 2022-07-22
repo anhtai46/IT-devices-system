@@ -29,6 +29,7 @@
 
     <body>
         <c:set var="User" value="${sessionScope.User}}" />
+        <h1>${User}</h1>
         <c:if test="${User == null}">
             <h1>You Must Login To View This</h1>   
             <div class="row mb-4">

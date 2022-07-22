@@ -10,7 +10,6 @@ import quanghung.utils.DBUtils;
 
 public class CategoryDAO {
 
-//    private static final String FIND = "SELECT productID, productName, imageUrl, price, quantity, categoryID, importDate,usingDate, status FROM tblProduct WHERE categoryID=?";
     private static final String SEARCH_CATEGORY = "SELECT cateID, cateName, status FROM category WHERE cateName like ?";
     private static final String GET_LIST_CATEGORY = "SELECT cateID, cateName, status FROM category WHERE status=1";
     private static final String GET_CATE_NAME = "SELECT cateName FROM category WHERE cateID=?";
@@ -24,6 +23,8 @@ public class CategoryDAO {
     private static final String CHECK_EXIST_DESCRIPTION = "SELECT * FROM description WHERE cateID=? and status = 1";
     private static final String CHECK_STATUS = "SELECT * FROM category WHERE cateID=? and status = 1";
     private static final String CREATE_CATEGORY = "INSERT INTO category(cateID,cateName,status) VALUES (?,?,?)";
+    private static final String CREATE_DESCRIPTION = "INSERT INTO description(descriptionName,cateID,status) VALUES (?,?,?)";
+    private static final String CREATE_BRAND = "INSERT INTO brand(brandName,cateID,status) VALUES (?,?,?)";
 
     public String getCateID(String cateName) throws SQLException {
         String cateID = null;
@@ -113,10 +114,12 @@ public class CategoryDAO {
         return category;
     }
 
-    public static boolean createCategory(CategoryDTO category) throws SQLException, ClassNotFoundException, NamingException {
+    public static boolean createCategory(CategoryDTO category, String descriptionName, String brandName) throws SQLException, ClassNotFoundException, NamingException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
+        PreparedStatement ptm2 = null;
+        PreparedStatement ptm3 = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -124,8 +127,22 @@ public class CategoryDAO {
                 ptm.setString(1, category.getCateID());
                 ptm.setString(2, category.getCateName());
                 ptm.setBoolean(3, true);
-                check = ptm.executeUpdate() > 0 ? true : false;
+                if (ptm.executeUpdate() > 0) {
+                    ptm2 = conn.prepareStatement(CREATE_DESCRIPTION);
+                    ptm2.setString(1, descriptionName);
+                    ptm2.setString(2, category.getCateID());
+                    ptm2.setBoolean(3, true);
+                    if (ptm2.executeUpdate() > 0) {
+                        ptm3 = conn.prepareStatement(CREATE_BRAND);
+                        ptm3.setString(1, brandName);
+                        ptm3.setString(2, category.getCateID());
+                        ptm3.setBoolean(3, true);
+                        check = ptm3.executeUpdate() > 0;
+                    }
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (ptm != null) {
                 ptm.close();
@@ -153,6 +170,7 @@ public class CategoryDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -183,6 +201,7 @@ public class CategoryDAO {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -297,7 +316,7 @@ public class CategoryDAO {
                 ptm = conn.prepareStatement(DELETE_CATEGORY);
                 ptm.setBoolean(1, false);
                 ptm.setString(2, cateID);
-                check = ptm.executeUpdate() > 0 ? true : false;
+                check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.toString();

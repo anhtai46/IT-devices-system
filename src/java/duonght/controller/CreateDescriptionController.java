@@ -50,7 +50,7 @@ public class CreateDescriptionController extends HttpServlet {
                 } else {
                     boolean isRenew = DescriptionDAO.renewDescription(newDescriptionName, cateID);
                     if (isRenew) {
-                        request.setAttribute("MESSAGE", "Insert Successfully!");
+                        request.setAttribute("MESSAGE", "Insert Successfully! But You Need To Insert Desciption Detail To Add New Device");
                     } else {
                         request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
                     }
@@ -61,7 +61,7 @@ public class CreateDescriptionController extends HttpServlet {
                 } else {
                     boolean isCreate = DescriptionDAO.createDescription(cateID, newDescriptionName);
                     if (isCreate) {
-                        request.setAttribute("MESSAGE", "Insert Successfully!");
+                        request.setAttribute("MESSAGE", "Insert Successfully! But You Need To Insert Desciption Detail To Add New Device");
                     } else {
                         request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
                     }

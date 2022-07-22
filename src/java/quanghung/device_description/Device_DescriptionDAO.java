@@ -17,6 +17,7 @@ public class Device_DescriptionDAO {
     private static final String DELETE_DESCRIPTION = "UPDATE description SET status=? WHERE descriptionID=?";
     private static final String UPDATE_DEVICE_DESCRIPTION = "UPDATE device_description SET detailID=? FROM device_description d1, descriptionDetail d2 WHERE d1.detailID = d2.detailID AND d1.detailID=? AND d1.deviceID=?";
     private static final String CREATE_DEVICE_DESCRIPTION = "INSERT INTO device_description(deviceID,detailID) VALUES (?,?)";
+    private static final String DELETE_ALL_DEVICE_DESCRIPTION = "DELETE FROM device_description WHERE deviceID = ?";
 
     public boolean createDevice_Description(int deviceID, int detailID) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
@@ -52,6 +53,28 @@ public class Device_DescriptionDAO {
                 ptm.setInt(1, detailID);
                 ptm.setInt(2, currentDetailID);
                 ptm.setInt(3, deviceID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean deleteAllDevice_Description(int deviceID) throws SQLException, NamingException, ClassNotFoundException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_ALL_DEVICE_DESCRIPTION);
+                ptm.setInt(1, deviceID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } finally {

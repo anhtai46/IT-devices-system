@@ -5,7 +5,6 @@
  */
 package duonght.controller;
 
-import duonght.descriptionDetail.DescriptionDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,12 +14,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import quanghung.brand.BrandDAO;
 
 /**
  *
  * @author Trung Duong
  */
-public class UpdateDetailController extends HttpServlet {
+public class DeleteBrandController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,25 +36,23 @@ public class UpdateDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String detailName = request.getParameter("detailName");
-            int descriptionID = Integer.parseInt(request.getParameter("descriptionID"));
-            int detailID = DescriptionDetailDAO.getDetailID(detailName, descriptionID);
-            String textdetailName = request.getParameter("textDetail");
-            boolean checkDuplicate = DescriptionDetailDAO.checkDuplicate(textdetailName, descriptionID);
-            if (checkDuplicate) {
-                request.setAttribute("MESSAGE", "Duplicate Description Detail!");
-            } else {
-                if (textdetailName.length() > 50) {
-                    request.setAttribute("MESSAGE", "Description Detail Name Must Not Exceed 50 Characters!");
-                } else if (textdetailName.equals("")) {
-                    request.setAttribute("MESSAGE", "Not Empty Name Allow!");
+            String brandName = request.getParameter("brandName");
+            String cateID = request.getParameter("textCateID");
+            int quantity = BrandDAO.checkQuantity(cateID);
+            if (quantity <= 1) {
+                boolean isDelete = BrandDAO.deleteBrand(brandName, cateID);
+                if (isDelete) {
+                    request.setAttribute("MESSAGE", "Delete Successfully!\n"
+                            + "BUT, Be Careful! Category Must Have At Least One Brand To Create Device!");
                 } else {
-                    boolean isUpdate = DescriptionDetailDAO.updateDescriptionDetail(textdetailName, detailID);
-                    if (isUpdate) {
-                        request.setAttribute("MESSAGE", "Update Successfully!");
-                    } else {
-                        request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
-                    }
+                    request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
+                }
+            } else {
+                boolean isDelete = BrandDAO.deleteBrand(brandName, cateID);
+                if (isDelete) {
+                    request.setAttribute("MESSAGE", "Delete Successfully!");
+                } else {
+                    request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
                 }
             }
             request.getRequestDispatcher("MainController?action=GetListCategory").forward(request, response);
@@ -76,7 +74,7 @@ public class UpdateDetailController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeleteBrandController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,7 +92,7 @@ public class UpdateDetailController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeleteBrandController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

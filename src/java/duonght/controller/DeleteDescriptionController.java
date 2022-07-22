@@ -37,11 +37,23 @@ public class DeleteDescriptionController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int descriptionID = Integer.parseInt(request.getParameter("descriptionID"));
-            boolean isDelete = DescriptionDAO.deleteDescription(descriptionID);
-            if (isDelete) {
-                request.setAttribute("MESSAGE", "Delete Successfully!");
+            String cateID = request.getParameter("cateID");
+            int quantity = DescriptionDAO.checkQuantity(cateID);
+            if (quantity <= 1) {
+                boolean isDelete = DescriptionDAO.deleteDescription(descriptionID);
+                if (isDelete) {
+                    request.setAttribute("MESSAGE", "Delete Successfully!\n"
+                            + "BUT, Be Careful! Category Must Have At Least One Description To Create Device!");
+                } else {
+                    request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
+                }
             } else {
-                request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
+                boolean isDelete = DescriptionDAO.deleteDescription(descriptionID);
+                if (isDelete) {
+                    request.setAttribute("MESSAGE", "Delete Successfully!");
+                } else {
+                    request.setAttribute("MESSAGE", "Ops! Something Wrong. Try Again!");
+                }
             }
             request.getRequestDispatcher("MainController?action=GetListCategory").forward(request, response);
         }

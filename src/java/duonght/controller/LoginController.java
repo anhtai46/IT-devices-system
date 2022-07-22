@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("MainController?action=LoadAllRequestManager").forward(request, response);
                 }
                 if (acc.getRoleID().equals("US")) {
-                    request.getRequestDispatcher("user.jsp").forward(request, response);
+                    request.getRequestDispatcher("MainController?filter=&action=HomeSearchDevice").forward(request, response);
                 }
             } else {
                 request.setAttribute("ERROR", "Your Acount Not Allow!");

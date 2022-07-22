@@ -4,15 +4,17 @@ public class CategoryError {
 
     private String cateIDError;
     private String cateNameError;
+    private String descriptionNameError;
+    private String brandNameError;
 
     public CategoryError() {
-        this.cateIDError = "";
-        this.cateNameError = "";
     }
 
-    public CategoryError(String cateIDError, String cateNameError) {
+    public CategoryError(String cateIDError, String cateNameError, String descriptionNameError, String brandNameError) {
         this.cateIDError = cateIDError;
         this.cateNameError = cateNameError;
+        this.descriptionNameError = descriptionNameError;
+        this.brandNameError = brandNameError;
     }
 
     public String getCateIDError() {
@@ -33,6 +35,22 @@ public class CategoryError {
 
     public void getCateIDError(String duplicate_Cate_ID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getDescriptionName() {
+        return descriptionNameError;
+    }
+
+    public void setDescriptionName(String descriptionName) {
+        this.descriptionNameError = descriptionName;
+    }
+
+    public String getBrandName() {
+        return brandNameError;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandNameError = brandName;
     }
 
 }

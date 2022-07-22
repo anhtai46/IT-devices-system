@@ -21,6 +21,8 @@ import duonght.description.DescriptionDAO;
 import duonght.description.DescriptionDTO;
 import duonght.descriptionDetail.DescriptionDetailDAO;
 import duonght.descriptionDetail.DescriptionDetailDTO;
+import quanghung.brand.BrandDAO;
+import quanghung.brand.BrandDTO;
 
 /**
  *
@@ -49,13 +51,16 @@ public class GetListCategoryController extends HttpServlet {
             ArrayList<CategoryDTO> categories = new ArrayList<>();
             ArrayList<DescriptionDTO> descriptions = new ArrayList<>();
             ArrayList<DescriptionDetailDTO> descriptionDetails = new ArrayList<>();
+            ArrayList<BrandDTO> brands = new ArrayList<>();
             categories = CategoryDAO.getCategory();
             if (categories != null) {
                 request.setAttribute("categories", categories);
                 url = SUCCESS;
                 for (CategoryDTO category : categories) {
                     descriptions = DescriptionDAO.getListDescription(category.getCateID());
-                    request.setAttribute(category.getCateID(), descriptions);
+                    brands = BrandDAO.getListBrand(category.getCateID());
+                    request.setAttribute("brand"+category.getCateID(), brands);
+                    request.setAttribute("des"+category.getCateID(), descriptions);
                     for (DescriptionDTO description : descriptions) {
                         descriptionDetails = DescriptionDetailDAO.getListDescriptionDetail(description.getDescriptionID());
                         request.setAttribute(description.getDescriptionID()+description.getDescriptionName(), descriptionDetails);

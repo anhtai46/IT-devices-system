@@ -30,7 +30,7 @@
 
     <body>
         <c:set var="search" value="${requestScope.FILTER}"/>
-        <c:set var="deviceList" value="${sessionScope.LIST_DEVICE}"/>
+        <c:set var="deviceListFilter" value="${requestScope.LIST_DEVICE_FILTER}"/>
         <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
@@ -253,7 +253,7 @@
                     </thead>
                     <c:if test="${empty requestScope.ERROR}">
                         <tbody>
-                            <c:forEach var="device" items="${deviceList}" varStatus="counter">
+                            <c:forEach var="device" items="${deviceListFilter}" varStatus="counter">
                                 <tr>
                                     <td class="text-center">${counter.count}</td>
                                     <td class="text-center">${device.deviceID}</td>

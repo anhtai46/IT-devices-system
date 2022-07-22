@@ -5,22 +5,23 @@
  */
 package duonght.controller;
 
-import duonght.descriptionDetail.DescriptionDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import quanghung.brand.BrandDAO;
 
 /**
  *
  * @author Trung Duong
  */
-public class UpdateDetailController extends HttpServlet {
+public class CreateBrandController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,26 +33,32 @@ public class UpdateDetailController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, NamingException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String detailName = request.getParameter("detailName");
-            int descriptionID = Integer.parseInt(request.getParameter("descriptionID"));
-            int detailID = DescriptionDetailDAO.getDetailID(detailName, descriptionID);
-            String textdetailName = request.getParameter("textDetail");
-            boolean checkDuplicate = DescriptionDetailDAO.checkDuplicate(textdetailName, descriptionID);
+            String textBrand = request.getParameter("textBrand");
+            String cateID = request.getParameter("textCateID");
+            boolean checkDuplicate = BrandDAO.checkDuplicate(textBrand, cateID);
             if (checkDuplicate) {
-                request.setAttribute("MESSAGE", "Duplicate Description Detail!");
-            } else {
-                if (textdetailName.length() > 50) {
-                    request.setAttribute("MESSAGE", "Description Detail Name Must Not Exceed 50 Characters!");
-                } else if (textdetailName.equals("")) {
-                    request.setAttribute("MESSAGE", "Not Empty Name Allow!");
+                boolean checkStatus = BrandDAO.checkStatus(textBrand, cateID);
+                if (checkStatus) {
+                    request.setAttribute("MESSAGE", "Duplicate Brand!");
                 } else {
-                    boolean isUpdate = DescriptionDetailDAO.updateDescriptionDetail(textdetailName, detailID);
-                    if (isUpdate) {
-                        request.setAttribute("MESSAGE", "Update Successfully!");
+                    boolean isRenew = BrandDAO.renewBrand(textBrand, cateID);
+                    if (isRenew) {
+                        request.setAttribute("MESSAGE", "Insert Successfully!");
+                    } else {
+                        request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
+                    }
+                }
+            } else {
+                if (textBrand.length() > 50) {
+                    request.setAttribute("MESSAGE", "Description Name Must Not Exceed 50 Characters!");
+                } else {
+                    boolean isCreate = BrandDAO.createBrand(textBrand, cateID);
+                    if (isCreate) {
+                        request.setAttribute("MESSAGE", "Insert Successfully!");
                     } else {
                         request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
                     }
@@ -76,7 +83,11 @@ public class UpdateDetailController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,7 +105,11 @@ public class UpdateDetailController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateDetailController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CreateBrandController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

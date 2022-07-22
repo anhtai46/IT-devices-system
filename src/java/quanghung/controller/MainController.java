@@ -84,6 +84,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_IMG_CONTROLLER = "UpdateImgController";
     private static final String OPEN_UPDATE_IMG_PAGE = "OpenUpdateImgPage";
     private static final String OPEN_UPDATE_IMG_PAGE_CONTROLLER = "OpenUpdateImgPageController";
+    private static final String FILTER_DEVICE = "FilterDevice";
+    private static final String FILTER_DEVICE_CONTROLLER = "FilterDeviceController";
     private static final String UPDATE_REQUEST_APPORVE = "UpdateRequestApproved";
     private static final String UPDATE_REQUESTCANCEL = "UpdateRequestCancel";
     private static final String UPDATE_REQUEST_SUCCESS = "UpdateRequestSuccess";
@@ -95,6 +97,18 @@ public class MainController extends HttpServlet {
     private static final String LOAD_SUCCESS_REQUEST = "LoadSuccessfulRequest";
     private static final String LOAD_RETURNED_REQUEST = "LoadReturnRequest";
     private static final String LOAD_CANCEL_REQUEST = "LoadCancelUserRequest";
+    private static final String CREATE_BRAND = "CreateBrand";
+    private static final String CREATE_BRAND_CONTROLLER = "CreateBrandController";
+    private static final String UPDATE_BRAND = "UpdateBrand";
+    private static final String UPDATE_BRAND_CONTROLLER = "UpdateBrandController";
+    private static final String DELETE_BRAND = "DeleteBrand";
+    private static final String DELETE_BRAND_CONTROLLER = "DeleteBrandController";
+    private static final String UPDATE_DEVICE_CATEGORY = "UpdateDeviceCategory";
+    private static final String UPDATE_DEVICE_CATEGORY_CONTROLLER = "UpdateDeviceCategoryController";
+    private static final String UPDATE_CATEGORY_DEVICE_INFO = "UpdateCategoryDeviceInfo";
+    private static final String UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER = "InputCategoryDeviceInfoController";
+    private static final String UPDATE_DEVICE_DETAIL_CATEGORY = "UpdateDeviceDetailCategory";
+    private static final String UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER = "UpdateDeviceDetailCategoryController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -163,6 +177,12 @@ public class MainController extends HttpServlet {
                 url = UPDATE_DETAIL_CONTROLLER;
             } else if (DELETE_DETAIL.equals(action)) {
                 url = DELETE_DETAIL_CONTROLLER;
+            } else if (CREATE_BRAND.equals(action)) {
+                url = CREATE_BRAND_CONTROLLER;
+            } else if (UPDATE_BRAND.equals(action)) {
+                url = UPDATE_BRAND_CONTROLLER;
+            } else if (DELETE_BRAND.equals(action)) {
+                url = DELETE_BRAND_CONTROLLER;
             } else if (DELETE_DESCRIPTION.endsWith(action)) {
                 url = DELETE_DESCRIPTION_CONTROLLER;
             } else if (SEARCH_CATEGORY.equals(action)) {
@@ -179,24 +199,32 @@ public class MainController extends HttpServlet {
                 url = UPDATE_IMG_CONTROLLER;
             } else if (OPEN_UPDATE_IMG_PAGE.equals(action)) {
                 url = OPEN_UPDATE_IMG_PAGE_CONTROLLER;
-            } else if(UPDATE_REQUEST_APPORVE.equals(action)){
+            } else if (FILTER_DEVICE.equals(action)) {
+                url = FILTER_DEVICE_CONTROLLER;
+            } else if (UPDATE_REQUEST_APPORVE.equals(action)) {
                 url = UPDATE_REQUEST_CONTROLLER;
-            }else if(UPDATE_REQUESTCANCEL.equals(action)){
+            } else if (UPDATE_REQUESTCANCEL.equals(action)) {
                 url = UPDATE_REQUEST_CONTROLLER;
-            }else if(UPDATE_REQUEST_SUCCESS.equals(action)){
+            } else if (UPDATE_REQUEST_SUCCESS.equals(action)) {
                 url = UPDATE_REQUEST_CONTROLLER;
-            }else if(UPDATE_REQUEST_RETURN.equals(action)){
+            } else if (UPDATE_REQUEST_RETURN.equals(action)) {
                 url = UPDATE_REQUEST_CONTROLLER;
-            }else if(LOAD_PROCESSING_REQUEST.equals(action)){
+            } else if (LOAD_PROCESSING_REQUEST.equals(action)) {
                 url = LOAD_PROCESSING_REQUEST_CONTROLLER;
-            }else if(LOAD_APPROVE_REQUEST.equals(action)){
+            } else if (LOAD_APPROVE_REQUEST.equals(action)) {
                 url = LOAD_PROCESSING_REQUEST_CONTROLLER;
-            }else if(LOAD_SUCCESS_REQUEST.equals(action)){
+            } else if (LOAD_SUCCESS_REQUEST.equals(action)) {
                 url = LOAD_PROCESSING_REQUEST_CONTROLLER;
-            }else if(LOAD_RETURNED_REQUEST.equals(action)){
-                url =LOAD_PROCESSING_REQUEST_CONTROLLER;
-            }else if(LOAD_CANCEL_REQUEST.equals(action)){
-                url =LOAD_PROCESSING_REQUEST_CONTROLLER;
+            } else if (LOAD_RETURNED_REQUEST.equals(action)) {
+                url = LOAD_PROCESSING_REQUEST_CONTROLLER;
+            } else if (LOAD_CANCEL_REQUEST.equals(action)) {
+                url = LOAD_PROCESSING_REQUEST_CONTROLLER;
+            } else if (UPDATE_DEVICE_CATEGORY.equals(action)) {
+                url = UPDATE_DEVICE_CATEGORY_CONTROLLER;
+            } else if (UPDATE_CATEGORY_DEVICE_INFO.equals(action)) {
+                url = UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER;
+            } else if (UPDATE_DEVICE_DETAIL_CATEGORY.equals(action)) {
+                url = UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

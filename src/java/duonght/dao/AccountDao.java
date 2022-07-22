@@ -19,6 +19,40 @@ import quanghung.utils.DBUtils;
  */
 public class AccountDao {
 
+    public static boolean updateDeposit(String userID, int deposit) {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        PreparedStatement pst2 = null;
+        int rs2 = 0;
+        boolean check = false;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                String url = "SELECT deposit FROM Accounts\n"
+                        + "WHERE userID = ?";
+                pst = cn.prepareStatement(url);
+                pst.setString(1, userID);
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    deposit += rs.getInt("deposit");
+                    String url2 = "UPDATE Accounts SET deposit = ? \n"
+                            + "WHERE userID = ?";
+                    pst2 = cn.prepareStatement(url2);
+                    pst2.setInt(1, deposit);
+                    pst2.setString(2, userID);
+                    rs2 = pst2.executeUpdate();
+                    if (rs2 > 0) {
+                        check = true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
     public static ArrayList<Account> getAllUser() {
         ArrayList<Account> users = new ArrayList<>();
         Connection cn = null;
@@ -158,7 +192,7 @@ public class AccountDao {
         }
         return accounts;
     }
-    
+
     public static Account searchAccountUpdate(String userID) {
         Account acc = null;
         //buoc 1: mo ket noi

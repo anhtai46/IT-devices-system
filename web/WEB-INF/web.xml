@@ -152,6 +152,34 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>duonght.controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FilterDeviceController</servlet-name>
+        <servlet-class>quanghung.controller.FilterDeviceController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateBrandController</servlet-name>
+        <servlet-class>duonght.controller.CreateBrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBrandController</servlet-name>
+        <servlet-class>duonght.controller.UpdateBrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBrandController</servlet-name>
+        <servlet-class>duonght.controller.DeleteBrandController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InputCategoryDeviceInfoController</servlet-name>
+        <servlet-class>quanghung.controller.InputCategoryDeviceInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDeviceCategoryController</servlet-name>
+        <servlet-class>quanghung.controller.UpdateDeviceCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDeviceDetailCategoryController</servlet-name>
+        <servlet-class>quanghung.controller.UpdateDeviceDetailCategoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -303,6 +331,34 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FilterDeviceController</servlet-name>
+        <url-pattern>/FilterDeviceController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateBrandController</servlet-name>
+        <url-pattern>/CreateBrandController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBrandController</servlet-name>
+        <url-pattern>/UpdateBrandController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBrandController</servlet-name>
+        <url-pattern>/DeleteBrandController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InputCategoryDeviceInfoController</servlet-name>
+        <url-pattern>/InputCategoryDeviceInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDeviceCategoryController</servlet-name>
+        <url-pattern>/UpdateDeviceCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDeviceDetailCategoryController</servlet-name>
+        <url-pattern>/UpdateDeviceDetailCategoryController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

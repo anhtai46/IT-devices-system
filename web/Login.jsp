@@ -62,8 +62,6 @@
                             <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
                                &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
                         </div>
-                        <div class="col-sm-12 text-center forgot-password">
-                        </div>
                     </div>
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-color btn-block mb-4 col-sm-12">Sign in</button>
