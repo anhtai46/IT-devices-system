@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import manhcuong.request.cartDTO;
 
 /**
  *
@@ -47,7 +48,9 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("MainController?action=LoadAllRequestManager").forward(request, response);
                 }
                 if (acc.getRoleID().equals("US")) {
-                    request.getRequestDispatcher("MainController?filter=&action=HomeSearchDevice").forward(request, response);
+                    cartDTO cart = new cartDTO();
+                    session.setAttribute("CART", cart);
+                    request.getRequestDispatcher("MainController?action=LoadProcessRequest").forward(request, response);
                 }
             } else {
                 request.setAttribute("ERROR", "Your Acount Not Allow!");

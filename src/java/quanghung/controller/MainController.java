@@ -97,6 +97,28 @@ public class MainController extends HttpServlet {
     private static final String LOAD_SUCCESS_REQUEST = "LoadSuccessfulRequest";
     private static final String LOAD_RETURNED_REQUEST = "LoadReturnRequest";
     private static final String LOAD_CANCEL_REQUEST = "LoadCancelUserRequest";
+    private static final String CREATE_REQUEST = "CreateRequest";
+    private static final String CREATE_REQUEST_CONTROLLER = "CreateRequestController";
+    private static final String UPDATE_CART = "UpdateCart";
+    private static final String DELETE_ITEM_IN_CART = "DeleteItemInCart";
+    private static final String UPDATE_CART_CONTROLLER = "UpdateCartController";
+    private static final String DELETE_ITEM_IN_CART_CONTROLLER = "DeleteItemInCartController";
+    private static final String ADD_TO_CART = "AddToCart";
+    private static final String ADD_TO_CART_CONTROLLER = "AddToCartController";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_ALL = "SearchRequestByUserInAllRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_ALL = "SearchRequestByDateInAllRequest";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_PROCESS = "SearchRequestByUserInProcessRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_PROCESS = "SearchRequestByDateInProcessRequest";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_APPROVE = "SearchRequestByUserInApproveRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_APPROVE = "SearchRequestByDateInApproveRequest";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_SUCCESS = "SearchRequestByUserInSuccessfulRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_SUCCESS = "SearchRequestByDateInSuccessfullRequest";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_RETURN = "SearchRequestByUserInReturnedRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_RETURN = "SearchRequestByDateInReturnedRequest";
+    private static final String SEARCH_REQUEST_BY_NAME_IN_CANCEL = "SearchRequestByUserInCancelRequest";
+    private static final String SEARCH_REQUEST_BY_DATE_IN_CANCEL = "SearchRequestByDateInCancelRequest";
+    private static final String EXTEND_REQUEST = "ExtendRequest";
+    private static final String EXTEND_STATUS_CONTROLLER = "ExtendRequestController";
     private static final String CREATE_BRAND = "CreateBrand";
     private static final String CREATE_BRAND_CONTROLLER = "CreateBrandController";
     private static final String UPDATE_BRAND = "UpdateBrand";
@@ -225,6 +247,40 @@ public class MainController extends HttpServlet {
                 url = UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER;
             } else if (UPDATE_DEVICE_DETAIL_CATEGORY.equals(action)) {
                 url = UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER;
+            } else if (CREATE_REQUEST.equals(action)) {
+                url = CREATE_REQUEST_CONTROLLER;
+            } else if (UPDATE_CART.equals(action)) {
+                url = UPDATE_CART_CONTROLLER;
+            } else if (DELETE_ITEM_IN_CART.equals(action)) {
+                url = DELETE_ITEM_IN_CART_CONTROLLER;
+            } else if (ADD_TO_CART.equals(action)) {
+                url = ADD_TO_CART_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_ALL.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_ALL.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_PROCESS.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_PROCESS.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_APPROVE.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_APPROVE.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_SUCCESS.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_SUCCESS.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_RETURN.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_RETURN.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_NAME_IN_CANCEL.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (SEARCH_REQUEST_BY_DATE_IN_CANCEL.equals(action)) {
+                url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
+            } else if (EXTEND_REQUEST.equals(action)) {
+                url = EXTEND_STATUS_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

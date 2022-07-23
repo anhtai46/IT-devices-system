@@ -19,7 +19,7 @@ import quanghung.utils.DBUtils;
  */
 public class AccountDao {
 
-    public static boolean updateDeposit(String userID, int deposit) {
+    public static int updateDeposit(String userID, int deposit) {
         Connection cn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
@@ -50,7 +50,7 @@ public class AccountDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return check;
+        return deposit;
     }
 
     public static ArrayList<Account> getAllUser() {
@@ -93,7 +93,7 @@ public class AccountDao {
             if (cn != null) {
                 String url = "SELECT userID, userName, mail, phone, position, deposit, roleID, status "
                         + "FROM Accounts "
-                        + "WHERE mail = ?";
+                        + "WHERE mail = ? and status = 1";
                 pst = cn.prepareStatement(url);
                 pst.setString(1, email);
                 rs = pst.executeQuery();

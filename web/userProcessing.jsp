@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>USER</title>
+        <title>Processing Request Page</title>
         <link rel="stylesheet" href="css/style.css" />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
@@ -27,26 +27,23 @@
     </head>
 
     <body>
-    <c:set var="User" value="${sessionScope.User}}" />
-    <c:if test="${User == null}">
-        <h1>You Must Login To View This</h1>   
-        <div class="row mb-4">
-            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
-                   &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
-            </div>
-        </div>
-    </c:if>
-    <c:if test="${User != null}">
-        <!-- nabar -->
-        <!-- <div class="container"> -->
+   <%
+            Account acc = (Account) session.getAttribute("UserDB");
+            boolean login = false;
+            if (acc != null) {
+                login = true;
+            }
+            if (login) {
+        %>
+         nabar 
+         <div class="container"> 
         <div class="row navbar">
-            <!-- logo -->
+             logo 
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
                     <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
-                <!-- product-list -->
+                 product-list 
                 <div class="">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
@@ -73,14 +70,14 @@
                 </div>
             </div>
             <div class="col-sm-4 text-center navbar-user-fill"></div>
-            <!-- card-icon -->
+             card-icon 
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 card-shopping">
                     <a href="card.html" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5"></i>
                     </a>
                 </div>
-                <!-- welcome -->
+                 welcome 
                 <div class="col-sm-6">
                     <div class="nav-item dropdown align-items-center">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
@@ -101,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <!-- search-button -->
+         search-button 
         <div class="row navbar-option col-sm-12 d-flex">
             <div class="col-sm-11">
                 <div class="table table-user">
@@ -280,4 +277,4 @@
         $("#info").remove();
     }
 </script>
-</html>
+</html>-->

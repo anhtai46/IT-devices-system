@@ -20,8 +20,8 @@ import quanghung.utils.DBUtils;
  */
 public class DeviceDAO {
 
-    private static final String SEARCH_DEVICE = "SELECT deviceID, deviceName, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND deviceID =?";
-
+    private static final String SEARCH_DEVICE = "SELECT deviceID, deviceName,url, deposit,d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID AND deviceID =?";
+    private static final String UPDATE_QUANTITY ="UPDATE device SET quantity=? WHERE deviceID=?";
     public DeviceDTO getDeviceByID(int deviceID) throws SQLException {
         DeviceDTO device = null;
         Connection conn = null;
@@ -54,5 +54,26 @@ public class DeviceDAO {
             DBUtils.closeQueryConnection(conn, ptm, rs);
         }
         return device;
+    }
+    public boolean updateDevice(int quantity, int deviceID){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                stm = conn.prepareStatement(UPDATE_QUANTITY);
+                stm.setInt(1, quantity);
+                stm.setInt(2, deviceID);
+                check = stm.executeUpdate() > 0 ? true : false;
+                
+                
+            }
+        } catch (Exception e) {
+            log("Error at getDeviceByID in DeviceDAO" + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
     }
 }

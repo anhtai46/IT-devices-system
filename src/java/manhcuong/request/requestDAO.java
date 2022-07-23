@@ -5,6 +5,7 @@
 package manhcuong.request;
 
 import DLC.Extension;
+import com.sun.org.apache.xerces.internal.impl.Constants;
 import duonght.dao.AccountDao;
 import duonght.dto.Account;
 import static java.rmi.server.LogStream.log;
@@ -26,8 +27,8 @@ import quanghung.utils.DBUtils;
  */
 public class requestDAO {
 
-    private static final String CREATE_ORDER = "INSERT INTO request(userID, requestDate, requestStatus, status) VALUES(?,?,?,?)";
-    private static final String CREATE_ORDER_DETAIL = "INSERT INTO requestDetail(requestID, deviceID, quantity, borrowDate, expiredDate, detailStatus,statusID) VALUES(?,?,?,?,?,?,?)";
+    private static final String CREATE_ORDER = "INSERT INTO request(userID, requestDate, requestStatus, substance,status) VALUES(?,?,?,?,?)";
+    private static final String CREATE_ORDER_DETAIL = "INSERT INTO requestDetail(requestID, deviceID, quantity, borrowDate, expiredDate, detailStatus,status) VALUES(?,?,?,?,?,?,?)";
     private static final String GET_ORDER = "SELECT requestID, requestDate, requestStatus,substance  FROM request WHERE statusID = true AND userID = ? AND status = ? ";
     private static final String GET_PREVIOUS_ORDER = "SELECT requestID FROM request WHERE userID = ? AND status = ?";
     private static final String CONVERT_ORDER = "SELECT o.deviceID, d.deviceName, d.cateID, o.quantity, d.warehouseID, d.brandID, o.status "
@@ -37,8 +38,18 @@ public class requestDAO {
             + "FROM requestDetail d, request r WHERE d.requestID = ? AND d.requestID = r.requestID";
     private final String GET_REQUEST_BASE_ON = "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =?";
     private final String GET_REQUEST_BASE_ON_DETAIL = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID";
+    private final String UPDATE_REQUEST_STATUS ="UPDATE request SET requestStatus = ? WHERE requestID = ?";
+    private final String UPDATE_REQUEST_DETAIL_STATUS ="UPDATE requestDetail SET detailStatus = ? WHERE detailID =?";
+    private final String CREATE_RETURN ="INSERT INTO returned (userID, requestID, deviceID, quantity, returnDate, status) VALUES (?,?,?,?,?,?)";
+    private final String GET_REQUEST_BASE_ON_USER= "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =? AND userID = ?";
+    private final String GET_REQUEST_BASE_ON_DETAIL_AND_USER = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID = ?";
+    private static final String GET_REQUEST_BY_ID = "SELECT  requestDate, requestStatus,substance,userID, status  FROM request WHERE  requestID =? ";
+    private static final String CREATED_EXTEND ="INSERT INTO message (requestID, message, extendDate) VALUES (?,?,?)";
+    private final String UPDATE_REQUEST_EXPIRED_DATE ="UPDATE requestDetail SET expiredDate = ? WHERE detailID = ?";
+    private final String UPDATE_REQUEST_BORROW_DATE ="UPDATE requestDetail SET borrowDate = ? WHERE detailID = ?";
+    
 
-    public int createOrder(List<DeviceDTO> items, Account user, int borrowDate) throws SQLException {
+    public int createOrder(DeviceDTO items, Account user, int borrowDate) throws SQLException {
         int check = -1;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -50,7 +61,8 @@ public class requestDAO {
                 stm.setString(1, user.getUserID());
                 stm.setDate(2, new Date(System.currentTimeMillis()));
                 stm.setString(3, "Waiting...");
-                stm.setBoolean(4, true);
+                stm.setString(4, "Borrow Request");
+                stm.setBoolean(5, true);
                 if (stm.executeUpdate() > 0) {
                     rs = stm.getGeneratedKeys();
                     if (rs.next()) {
@@ -69,7 +81,7 @@ public class requestDAO {
         return check;
     }
 
-    public boolean createOrderDetails(List<DeviceDTO> items, int requestID, int borrowDate) {
+    public boolean createOrderDetails(DeviceDTO items, int requestID, int borrowDate) {
         boolean check = false;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -78,17 +90,17 @@ public class requestDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 stm = conn.prepareStatement(CREATE_ORDER_DETAIL);
-                for (DeviceDTO item : items) {
+                
                     stm.setInt(1, requestID);
-                    stm.setInt(2, item.getDeviceID());
-                    stm.setInt(3, item.getQuantity());
-                    stm.setInt(4, borrowDate);
+                    stm.setInt(2, items.getDeviceID());
+                    stm.setInt(3, items.getQuantity());
+                    stm.setDate(4, null);
                     stm.setDate(5, dlc.AddDate(borrowDate));
                     stm.setString(6, "Waiting...");
                     stm.setBoolean(7, true);
-                    check = true;
+                    check = stm.executeUpdate() > 0 ? true : false;
 
-                }
+                
             }
         } catch (Exception e) {
             log("Error at createOrderDetails in OrderDAO" + e.toString());
@@ -322,5 +334,266 @@ public class requestDAO {
         }
         return request;
     }
+    public boolean updateRequestStatus(int requestID, String requestStatusNew){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                stm = conn.prepareStatement(UPDATE_REQUEST_STATUS);
+                //UPDATE request SET requestStatus = ?  AND requestID = ?
+                stm.setString(1, requestStatusNew);
+                stm.setInt(2, requestID);
+                check = stm.executeUpdate() > 0 ;
+            }
+        } catch (Exception e) {
+            log("Error at updateRequestStatus in requestDAO: " + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    public boolean  updateDetailStatus(int deatailID, String deatailStatus){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        //UPDATE requestDetail SET detailStatus = ? AND borrowDate = ?WHERE detailID =?
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                stm = conn.prepareStatement(UPDATE_REQUEST_DETAIL_STATUS);
+                stm.setString(1, deatailStatus);
+                
+                stm.setInt(2, deatailID);
+                check = stm.executeUpdate() > 0 ;
+            }
+        } catch (Exception e) {
+            log("Error at updateDetailStatus in requestDAO: " + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    public int createReturned(DeviceDTO items, Account user, int borrowDate) throws SQLException {
+        int check = -1;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(CREATE_RETURN, Statement.RETURN_GENERATED_KEYS);
+                //INSERT INTO returned (userID, requestID, deviceID, quantity, returnDate, status) (?,?,?,?,?,?)
+                stm.setString(1, user.getUserID());
+                stm.setDate(2, new Date(System.currentTimeMillis()));
+                stm.setString(3, "Waiting...");
+                stm.setBoolean(4, true);
+                if (stm.executeUpdate() > 0) {
+                    rs = stm.getGeneratedKeys();
+                    if (rs.next()) {
+                        int requestID = rs.getInt(1);
+                        createOrderDetails(items, requestID, borrowDate);
+                        check = requestID;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log("Error at checkOutOrder in OrderDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+
+        }
+        return check;
+    }
+    public List<requestDTO> getRequestBaseOnStatusDetailAnduser(boolean status, String requestStatus, Account user) {
+        List<requestDTO> request = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_REQUEST_BASE_ON_USER);
+                //SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =? AND userID = ?
+                stm.setBoolean(1, status);
+                stm.setString(2, requestStatus);
+                stm.setString(3, user.getUserID());
+                
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int requestID = rs.getInt("requestID");
+                    Date requestDate = rs.getDate("requestDate");
+                    String substance = rs.getString("substance");
+                    
+                    requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
+                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+
+                }
+
+            }
+        } catch (Exception e) {
+            log("Error at getProcessingRequest in requestDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+        }
+        return request;
+    }
+    public List<requestDTO> getRequestBaseOnDetailStatusAndUser(boolean status, String detailStatus,Account user) {
+        List<requestDTO> request = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_REQUEST_BASE_ON_DETAIL_AND_USER);
+                //SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, 
+                //requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID = ?
+                stm.setBoolean(1, status);
+                stm.setString(2, detailStatus);
+                stm.setString(3, user.getUserID());
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int requestID = rs.getInt("requestID");
+                    Date requestDate = rs.getDate("requestDate");
+                    String substance = rs.getString("substance");
+                    String requestStatus = rs.getString("requestStatus");
+                    requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
+                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+
+                }
+
+            }
+        } catch (Exception e) {
+            log("Error at getProcessingRequest in requestDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+        }
+        return request;
+    }
+    public boolean  creatReturnRequest(requestDTO request){
+        //INSERT INTO returned (userID, requestID, deviceID, quantity, returnDate, status) VALUES (?,?,?,?,?,?)
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+             conn = DBUtils.getConnection();
+            if (conn != null){
+                stm = conn.prepareStatement(CREATE_RETURN);
+                stm.setString(1, request.getUser().getUserID());
+                stm.setInt(2, request.getId());
+                stm.setInt(3, request.getRequestDetail().getDevice().getDeviceID());
+                stm.setInt(4, request.getRequestDetail().getQuantity());
+                stm.setDate(5, new Date(System.currentTimeMillis()));
+                stm.setBoolean(6, true);
+                check = stm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            log("Error at CreateReturnRequest in requestDAO" + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    public requestDTO getRequestByID ( int requestID){
+        //SELECT  requestDate, requestStatus,substance,userID, status  FROM request WHERE  requestID =?
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        requestDTO request =  null;
+        requestDetailDTO requestDetail = null;
+        Account account = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_REQUEST_BY_ID);
+                
+                stm.setInt(1, requestID);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    Date requestDate = rs.getDate("requestDate");
+                    String  requestStatus = rs.getString("requestStatus");
+                    String substance = rs.getString("substance");
+                    String userID = rs.getString("userID");
+                    boolean status = rs.getBoolean("status");
+                    requestDetail = getRequestDetailByRequestID(requestID);
+                    AccountDao dao = new AccountDao();
+                    account = dao.searchAccountUpdate(userID);
+                    request = new requestDTO(requestID, account, requestDate, requestStatus, substance, requestDetail, status);
+                }
+            }
+
+        } catch (Exception e) {
+            log("Error at getRequestDetail in requestDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+        }
+        return request;
+    }
+    public boolean  creatExtendRequest(int requestID, String message, int extendDate ){
+        //INSERT INTO message (requestID, message, extendDate) VALUES (?,?,?)
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+             conn = DBUtils.getConnection();
+            if (conn != null){
+                stm = conn.prepareStatement(CREATED_EXTEND);
+                stm.setInt(1, requestID);
+                stm.setString(2, message);
+                stm.setInt(3, extendDate);
+                check = stm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            log("Error at CreateReturnRequest in requestDAO" + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    public boolean updateRequestExpiredDateForExtend(int detailID, int Extend){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        Extension dlc = new Extension();
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                stm = conn.prepareStatement(UPDATE_REQUEST_STATUS);
+                //UPDATE request SET requestStatus = ?  AND requestID = ?
+                stm.setDate(1,dlc.AddDate(detailID));
+                stm.setInt(2, detailID);
+                check = stm.executeUpdate() > 0 ;
+            }
+        } catch (Exception e) {
+            log("Error at updateRequestStatus in requestDAO: " + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    public boolean updateRequestBorrowDate(int detailID, Date borrow){
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        Extension dlc = new Extension();
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null){
+                stm = conn.prepareStatement(UPDATE_REQUEST_BORROW_DATE);
+                //UPDATE request SET requestStatus = ?  AND requestID = ?
+                stm.setDate(1,borrow);
+                stm.setInt(2, detailID);
+                check = stm.executeUpdate() > 0 ;
+            }
+        } catch (Exception e) {
+            log("Error at updateRequestStatus in requestDAO: " + e.toString());
+        }finally{
+            DBUtils.closeQueryConnection(conn, stm, null);
+        }
+        return check;
+    }
+    
 
 }

@@ -33,10 +33,6 @@
         <servlet-class>duonght.controller.GetListCategoryController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetListDescriptionController</servlet-name>
-        <servlet-class>duonght.controller.GetListDescriptionController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateCategoryController</servlet-name>
         <servlet-class>duonght.controller.UpdateCategoryController</servlet-class>
     </servlet>
@@ -180,6 +176,26 @@
         <servlet-name>UpdateDeviceDetailCategoryController</servlet-name>
         <servlet-class>quanghung.controller.UpdateDeviceDetailCategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>quanghung.controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateRequestController</servlet-name>
+        <servlet-class>quanghung.controller.CreateRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteItemInCartController</servlet-name>
+        <servlet-class>quanghung.controller.DeleteItemInCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartController</servlet-name>
+        <servlet-class>quanghung.controller.UpdateCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExtendRequestController</servlet-name>
+        <servlet-class>quanghung.controller.ExtendRequestController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -211,10 +227,6 @@
     <servlet-mapping>
         <servlet-name>GetListCategoryController</servlet-name>
         <url-pattern>/GetListCategoryController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetListDescriptionController</servlet-name>
-        <url-pattern>/GetListDescriptionController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateCategoryController</servlet-name>
@@ -359,6 +371,26 @@
     <servlet-mapping>
         <servlet-name>UpdateDeviceDetailCategoryController</servlet-name>
         <url-pattern>/UpdateDeviceDetailCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/AddToCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateRequestController</servlet-name>
+        <url-pattern>/CreateRequestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteItemInCartController</servlet-name>
+        <url-pattern>/DeleteItemInCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartController</servlet-name>
+        <url-pattern>/UpdateCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExtendRequestController</servlet-name>
+        <url-pattern>/ExtendRequestController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

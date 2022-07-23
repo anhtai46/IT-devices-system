@@ -1,3 +1,4 @@
+<%@page import="duonght.dto.Account"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Warehouse Management</title>
         <link rel="stylesheet" href="css/style.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -20,17 +21,14 @@
     </head>
 
     <body>
-        <c:set var="User" value="${sessionScope.User}}" />
-        <c:if test="${User == null}">
-            <h1>You Must Login To View This</h1>   
-            <div class="row mb-4">
-                <div class="col-sm-12 col-md-6 d-flex justify-content-center">
-                    <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
-                       &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
-                </div>
-            </div>
-        </c:if>
-        <c:if test="${User != null}">
+        <%
+            Account acc = (Account) session.getAttribute("UserDB");
+            boolean login = false;
+            if (acc != null) {
+                login = true;
+            }
+            if (login) {
+        %>
         <div class="navbar-top">
             <div class="navbar-header">
                 <!-- logo -->
@@ -45,19 +43,19 @@
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
-                               href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                                <img src="${sessionScope.User.picture}"
-                                     class="rounded-circle" height="25">
-                                <p class="user-name">${sessionScope.UserDB.userName}</p>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item" href="myprofile.jsp">My profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
-                                </li>
-                            </ul>
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -169,7 +167,19 @@
                 </table>
             </div>
         </c:if>
-        </c:if>
+        <%
+        } else {
+        %>
+        <h1>You Must Login To View This</h1>   
+        <div class="row mb-4">
+            <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+                <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
+                   &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
+            </div>
+        </div>
+        <%
+            }
+        %>
         <input type="hidden" value="${requestScope.MESSAGE}" id="MESSAGE"/>
         <script>
             var MESSAGE = document.getElementById("MESSAGE").value;

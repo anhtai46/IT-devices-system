@@ -4,6 +4,7 @@
     Author     : duong
 --%>
 
+<%@page import="duonght.dto.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Update Device's Category</title>
         <link rel="stylesheet" href="css/style.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -27,6 +28,14 @@
     </head>
 
     <body>
+        <%
+            Account acc = (Account) session.getAttribute("UserDB");
+            boolean login = false;
+            if (acc != null) {
+                login = true;
+            }
+            if (login) {
+        %>
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
 
         <div class="navbar-top">
@@ -175,6 +184,19 @@
         </div>
     </div>
 </body>
+<%
+} else {
+%>
+<h1>You Must Login To View This</h1>   
+<div class="row mb-4">
+    <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+        <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
+           &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
+    </div>
+</div>
+<%
+    }
+%>
 <footer></footer>
 <script>
     $(document).ready(function () {

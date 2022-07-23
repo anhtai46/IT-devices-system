@@ -1,3 +1,4 @@
+<%@page import="duonght.dto.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Devices</title>
+        <title>Devices Page</title>
         <link rel="stylesheet" href="css/style.css" />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
@@ -29,6 +30,14 @@
     </head>
 
     <body>
+        <%
+            Account acc = (Account) session.getAttribute("UserDB");
+            boolean login = false;
+            if (acc != null) {
+                login = true;
+            }
+            if (login) {
+        %>
         <c:set var="search" value="${requestScope.FILTER}"/>
         <c:set var="deviceList" value="${sessionScope.LIST_DEVICE}"/>
         <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
@@ -39,14 +48,14 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}""><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <p class="product-list">Product</p>
+                            <p class="product-list">Device</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <c:forEach var="category" items="${categoryList}">
@@ -72,17 +81,18 @@
                 <!-- welcome -->
                 <div class="col-sm-6">
                     <div class="nav-item dropdown align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-toggle="dropdown">
-                            <img src="img/anhtai.jpg" class="rounded-circle" height="30" width="30" />
-                            <p class="user-name">Anh Tai</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="myprofile.html">My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="login.html">Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -104,7 +114,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Choose Filter</h4>
-                                <button type="button" class="close" data-dismiss="modal">?</button>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <form action="MainController" method="POST">
@@ -156,7 +166,7 @@
 
                                     <div class="col-12 d-flex">
                                         <div class="col-6 mt-3">
-                                            <button class="btn-filter btn btn-danger">Cancel</button>
+                                            <button class="btn-filter btn btn-danger" data-dismiss="modal">Cancel</button>
                                         </div>
                                         <div class="col-6 mt-3">
                                             <button class="btn-filter btn btn-color" type="submit" value="FilterDevice" name="action">Search</button>
@@ -254,19 +264,24 @@
                     <c:if test="${empty requestScope.ERROR}">
                         <tbody>
                             <c:forEach var="device" items="${deviceList}" varStatus="counter">
+                            <form action="MainController" method="POST">
                                 <tr>
                                     <td class="text-center">${counter.count}</td>
-                                    <td class="text-center">${device.deviceID}</td>
+                                    <td class="text-center">${device.deviceID}
+                                        <input type="hidden" name="deviceID" value="${device.deviceID}"/>
+                                    </td>
                                     <td class="text-center"><img class="img-product" src="${device.url}" alt="no import image"/></td>
                                     <td class="text-center">${device.deviceName}</td>
                                     <td class="text-center">${device.warehouseName}</td>
                                     <td class="text-center">${device.brandName}</td>
-                                    <td class="text-center">${device.quantity}</td>
+                                    <td class="text-center"><input id="quantityIn" type="number" name="quantityToCart" min="0" max="${device.quantity}" value="0" /></td>
                                     <td class="text-center">${device.deposit}</td>
                                     <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
-                                    <td class="text-center"><button type="submit">Add to cart</button></td>
+                                    <td class="text-center"><button type="submit" name="action" value="AddToCart">Add To Cart</button></td>
+
                                 </tr>
-                            </c:forEach>    
+                            </form>
+                        </c:forEach>    
                         </tbody>
                     </c:if>
                 </table>
@@ -309,6 +324,19 @@
             </div>
         </div>
     </footer>  
+    <%
+    } else {
+    %>
+    <h1>You Must Login To View This</h1>   
+    <div class="row mb-4">
+        <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+            <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code
+               &client_id=33568893407-i7p94f2ca7var420dpis79903h4o46ut.apps.googleusercontent.com&approval_prompt=force"> <img src="https://img.icons8.com/color/16/000000/google-logo.png">Login With Google</a>   
+        </div>
+    </div>
+    <%
+        }
+    %>
     <script>
         $(document).ready(function () {
             $("#chosefilter").click(function () {

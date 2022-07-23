@@ -18,6 +18,7 @@ public class requestDTO implements Comparable<requestDTO>{
     private String requestStatus;
     private String requestSubstance;
     private requestDetailDTO requestDetail;
+    private ExtendDTO extend;
     private boolean status;
     public requestDTO(){
         
@@ -38,6 +39,18 @@ public class requestDTO implements Comparable<requestDTO>{
         this.requestStatus = requestStatus;
         this.requestSubstance = requestSubstance;
         this.requestDetail = requestDetail;
+        this.status = status;
+        this.extend = null;
+    }
+
+    public requestDTO(int id, Account user, Date requestDate, String requestStatus, String requestSubstance, requestDetailDTO requestDetail, ExtendDTO extend, boolean status) {
+        this.id = id;
+        this.user = user;
+        this.requestDate = requestDate;
+        this.requestStatus = requestStatus;
+        this.requestSubstance = requestSubstance;
+        this.requestDetail = requestDetail;
+        this.extend = extend;
         this.status = status;
     }
 
