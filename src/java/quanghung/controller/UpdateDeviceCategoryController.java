@@ -24,9 +24,9 @@ public class UpdateDeviceCategoryController extends HttpServlet {
             CategoryDAO categoryDAO = new CategoryDAO();
             String cateID = request.getParameter("cateID");
             int deviceID = Integer.parseInt(request.getParameter("deviceID"));
-            request.setAttribute("DEVICE_ID", deviceID);
+            session.setAttribute("DEVICE_ID", deviceID);
             String cateName = categoryDAO.getCateName(cateID);
-            request.setAttribute("CATE_ID", cateID);
+            session.setAttribute("CATE_ID", cateID);
             Map<String, String> category = categoryDAO.getCategory();
             session.setAttribute("LIST_CATEGORY", category);
             url = SUCCESS;

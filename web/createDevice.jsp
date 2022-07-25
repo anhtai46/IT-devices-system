@@ -217,7 +217,7 @@
                     </c:if>
                     <div class="col-sm-12 d-flex justify-content-center">
                         <a  class="col-sm-5">
-                            <button type="submit" name="action" value="InputDeviceInfo" class="btn btn-primary col-sm-4">Next</button>
+                            <button type="submit" name="action" value="InputDeviceInfo" class="btn btn-color col-sm-4">Next</button>
                         </a>
                     </div>
 

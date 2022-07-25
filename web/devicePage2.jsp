@@ -281,13 +281,13 @@
                     </c:if>
                 </table>
                 <c:if test="${not empty requestScope.ERROR}">
-                    <h2 class="text-center">${requestScope.ERROR}</h2>
+                    <h2 class="nope">${requestScope.ERROR}</h2>
                 </c:if>
             </div>
 
         </div>
     </div>
-    <footer class="footer-distributed fixed-bottom">
+    <footer class="footer-distributed">
         <div class="footer-left">
             <h3>Company<span>DBS</span></h3>
             <p class="footer-company-name">Company DBS ? 2022</p>

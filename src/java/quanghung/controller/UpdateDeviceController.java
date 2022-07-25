@@ -17,6 +17,7 @@ import quanghung.description.DescriptionDTO;
 import quanghung.device.DeviceDAO;
 import quanghung.device.DeviceDTO;
 import quanghung.device_description.Device_DescriptionDAO;
+import quanghung.warehouse.WarehouseDAO;
 
 public class UpdateDeviceController extends HttpServlet {
 
@@ -34,12 +35,14 @@ public class UpdateDeviceController extends HttpServlet {
             int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));
             int brandID = Integer.parseInt(request.getParameter("brandID"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int currentQuantity = Integer.parseInt(request.getParameter("currentQuantity"));
             int deposit = Integer.parseInt(request.getParameter("deposit"));
             String cateName = request.getParameter("cateName");
             String cateID = categoryDao.getCateID(cateName);
             DeviceDAO deviceDao = new DeviceDAO();
             DescriptionDAO descriptionDao = new DescriptionDAO();
             Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
+            WarehouseDAO warehouseDao = new WarehouseDAO();
             List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
             for (int i = 1; i <= listDescription.size(); i++) {
                 String d = "detailID" + String.valueOf(i);
@@ -48,9 +51,23 @@ public class UpdateDeviceController extends HttpServlet {
                 int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
                 boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
             }
-            boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID, deposit);
-            if (check) {
-                url = SUCCESS;
+            boolean updateLimitAmount = false;
+            int limitAmount = warehouseDao.getLimitAmount(warehouseID);
+            String warehouseName = warehouseDao.getWarehouseName(warehouseID);
+            if (quantity > limitAmount) {
+                String error = "The Limit Amount of " + warehouseName +" is " + String.valueOf(limitAmount) + ". Cannot update " + quantity + " devices"  + " to this warehouse";
+                request.setAttribute("ERROR_QUANTITY", error);
+            } else {
+                if (currentQuantity < quantity) {
+                    updateLimitAmount = warehouseDao.subtractionLimitAmount(quantity - currentQuantity, warehouseID);
+                } else {
+                    updateLimitAmount = warehouseDao.addtionLimitAmount(currentQuantity - quantity, warehouseID);
+                }
+                boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID, deposit);
+                if (check && updateLimitAmount) {
+                    request.setAttribute("SUCCESS", "Update Device Successfully");
+                    url = SUCCESS;
+                }
             }
 
         } catch (Exception e) {

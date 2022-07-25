@@ -51,7 +51,7 @@
                     <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
-                <div class="">
+                <div class="mr-auto">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
@@ -69,8 +69,9 @@
                         </ul>
                     </div>
                 </div>
+                <a href="MainController?action=LoadProcessRequest">Request List</a>
             </div>
-            <div class="col-sm-4 text-center navbar-user-fill"></div>
+
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
@@ -259,6 +260,7 @@
                     <th class="text-center">Quantity</th>
                     <th class="text-center">Deposit(VND)</th>
                     <th class="text-center">Detail</th>
+                    <th class="text-center">Amount</th>
                     <th class="text-center">Action</th>
                     </thead>
                     <c:if test="${empty requestScope.ERROR}">
@@ -274,11 +276,11 @@
                                     <td class="text-center">${device.deviceName}</td>
                                     <td class="text-center">${device.warehouseName}</td>
                                     <td class="text-center">${device.brandName}</td>
-                                    <td class="text-center"><input id="quantityIn" type="number" name="quantityToCart" min="0" max="${device.quantity}" value="0" /></td>
+                                    <td class="text-center">${device.quantity}</td>
                                     <td class="text-center">${device.deposit}</td>
                                     <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
+                                    <td class="text-center"><input id="quantityIn" type="number" name="quantityToCart" min="0" max="${device.quantity}" value="0" /></td>
                                     <td class="text-center"><button type="submit" name="action" value="AddToCart">Add To Cart</button></td>
-
                                 </tr>
                             </form>
                         </c:forEach>    
@@ -286,13 +288,13 @@
                     </c:if>
                 </table>
                 <c:if test="${not empty requestScope.ERROR}">
-                    <h2 class="text-center">${requestScope.ERROR}</h2>
+                    <h2 class="nope">${requestScope.ERROR}</h2>
                 </c:if>
             </div>
 
         </div>
     </div>
-    <footer class="footer-distributed fixed-bottom">
+    <footer class="footer-distributed ">
         <div class="footer-left">
             <h3>Company<span>DBS</span></h3>
             <p class="footer-company-name">Company DBS ? 2022</p>

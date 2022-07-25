@@ -38,6 +38,7 @@
         <c:set var="search" value="${requestScope.SEARCH}"/>
         <c:set var="detailError" value="${requestScope.DETAIL_ERROR}"/>
         <c:set var="success" value="${requestScope.SUCCESS}"/>
+        <c:set var="errorQuantity" value="${requestScope.ERROR_QUANTITY}"/>
         <c:set var="deviceList" value="${requestScope.LIST_DEVICE}"/>
         <c:forEach var="i" items="${deviceList}" varStatus="counter">
             <c:set var="descriptionList" value="${descriptionList}${counter.count}"/>
@@ -70,6 +71,19 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title"><strong>${success}</strong></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:when test="${errorQuantity != null}">
+                <div id="success" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg" role="content">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>${errorQuantity}</strong></h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                         </div>
@@ -314,8 +328,9 @@
                                     </c:forEach>
                                 </select>
                             </td>
+                            <input type="hidden" name="currentQuantity" value="${device.quantity}"/>
                             <td ><input type="number" name="deposit" step="1000" min="1000" class="text-center inputmanager medium" value="${device.deposit}" ></td>
-                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
+                            <td><button type="submit"  name="action" value="DeleteDevice" onclick="return deleteConfirm()"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
                             <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success center2"><i class="fas fa-recycle"></i></button></td>
                         </form>
                         </tr>
@@ -325,9 +340,10 @@
                 </c:if>
             </table>
             <c:if test="${empty deviceList}">
-                <h2>No result</h2>
+                <h2 class="nope">No result</h2>
             </c:if>
         </div>
+
         <%
         } else {
         %>
@@ -346,8 +362,9 @@
         $(document).ready(function () {
             $("#detailError").modal("show");
             $("#success").modal("show");
-        });
+            $("#errorQuantity").modal("show");
 
+        });
         function chooseFile(fileInput, c) {
             if (fileInput.files && fileInput.files[0]) {
                 var reader = new FileReader();
@@ -357,6 +374,11 @@
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             }
+        }
+        function deleteConfirm() {
+            if (confirm("Are You Sure To Delete?"))
+                return true;
+            return false;
         }
     </script>
 

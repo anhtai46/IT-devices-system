@@ -54,34 +54,56 @@
             </c:otherwise>
         </c:choose>
         <!-- navbar -->
+        <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
+        <!-- nabar -->
+        <!-- <div class="container"> -->
         <div class="row navbar">
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
-                <div class="col-sm-6 logo">
-                    <a href="${url}"><img src="./img/logo.png" height="80" alt=""></a>
+                <div class="col-sm-5 logo">
+                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
-                <div class="col-sm-6">  
+                <div class="mr-auto">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
+                           id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <p class="product-list">Device</p>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <c:forEach var="category" items="${categoryList}">
+                                <li>
+                                    <a class="dropdown-item" value="${category.key}" href="MainController?filter=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
+                                </li>
+                            </c:forEach>
+                            <li>
+                                <a class="dropdown-item" href="MainController?filter=&action=HomeSearchDevice&value=${category.value}">All Product</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <a href="MainController?action=LoadProcessRequest">Request List</a>
             </div>
-            <div class="col-sm-4 text-center navbar-user-fill">
 
-            </div>
-            <!-- card-icon -->
+            <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
-                <div class="col-sm-6">
+                <div class="col-sm-6 cart-shopping">
+                    <a href="cart.html" class="" role="button">
+                        <i class="fas fa-shopping-cart text-dark ml-5 "></i>
+                    </a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-6">
-                    <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img
-                                src="${sessionScope.User.picture}" class="rounded-circle" height="25">
+                    <div class="nav-item dropdown align-items-center">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
                             <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="#">My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="MainController?action=Logout">Logout</a>

@@ -229,10 +229,24 @@
                     </div>  
                     <div class="col-sm-12 d-flex justify-content-center">
                         <a href="" class="col-sm-5">
-                            <button type="submit" name="action" value="CreateDevice" class="btn btn-primary col-sm-4">Insert</button>
+                            <button type="submit" name="action" value="CreateDevice" class="btn btn-color col-sm-4">Insert</button>
                         </a>
                     </div>
                 </form>
+                <c:set var="error" value="${requestScope.ERROR}"/>
+                <c:if test="${error != null}">
+                    <div id="success" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg" role="content">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title"><strong>${error}</strong></h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
@@ -253,9 +267,7 @@
 <footer></footer>
 <script>
     $(document).ready(function () {
-        $("#fa-info-circle").click(function () {
-            $("#detailModal").modal("show");
-        });
+        $("#success").modal("show");
     });
     function readURL(input) {
         if (input.files && input.files[0]) {

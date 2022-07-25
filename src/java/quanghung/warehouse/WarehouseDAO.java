@@ -19,6 +19,116 @@ public class WarehouseDAO {
     private static final String UPDATE_WAREHOUSE = "UPDATE warehouse SET warehouseName=?, location=?, limitAmount=? WHERE warehouseID=?";
     private static final String CREATE_WAREHOUSE = "INSERT INTO warehouse(warehouseName,location,limitAmount,status) VALUES (?,?,?,?)";
     private static final String GET_WAREHOUSE_ID = "SELECT warehouseID FROM warehouse WHERE warehouseName=?";
+    private static final String GET_WAREHOUSE_NAME = "SELECT warehouseName FROM warehouse WHERE warehouseID=?";
+    private static final String GET_LIMIT_AMOUNT = "SELECT limitAmount FROM warehouse WHERE warehouseID=?";
+    private static final String SUBTRACTION_LIMIT_AMOUNT = "UPDATE warehouse SET limitAmount=limitAmount-? WHERE warehouseID=?";
+    private static final String ADDITION_LIMIT_AMOUNT = "UPDATE warehouse SET limitAmount=limitAmount+? WHERE warehouseID=?";
+
+    public String getWarehouseName(int warehouseID) throws SQLException {
+        String warehouseName = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_WAREHOUSE_NAME);
+                ptm.setInt(1, warehouseID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    warehouseName = rs.getString("warehouseName");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return warehouseName;
+    }
+
+    public boolean subtractionLimitAmount(int quantity, int warehouseID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(SUBTRACTION_LIMIT_AMOUNT);
+                ptm.setInt(1, quantity);
+                ptm.setInt(2, warehouseID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean addtionLimitAmount(int quantity, int warehouseID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(ADDITION_LIMIT_AMOUNT);
+                ptm.setInt(1, quantity);
+                ptm.setInt(2, warehouseID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public int getLimitAmount(int warehouseID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        int limitAmount = 0;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIMIT_AMOUNT);
+                ptm.setInt(1, warehouseID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    limitAmount = rs.getInt("limitAmount");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return limitAmount;
+    }
 
     public int getWarehouseID(String warehouseName) throws SQLException {
         int warehouseID = 0;

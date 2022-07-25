@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import quanghung.device.DeviceDAO;
+import quanghung.warehouse.WarehouseDAO;
 
 public class DeleteDeviceController extends HttpServlet {
 
@@ -18,10 +19,15 @@ public class DeleteDeviceController extends HttpServlet {
         String url = ERROR;
         try {
             String deviceID = request.getParameter("deviceID");
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));
+            WarehouseDAO warehouseDAO = new WarehouseDAO();
             DeviceDAO dao = new DeviceDAO();
             boolean check = dao.deleteDevice(deviceID);
-            if (check) {
+            boolean updateLimitAmount = warehouseDAO.addtionLimitAmount(quantity, warehouseID);
+            if (check & updateLimitAmount) {
                 url = SUCCESS;
+                request.setAttribute("SUCCESS", "Delete Device Successfully");
             }
         } catch (Exception e) {
             log("Error at DeleteProductController: " + e.toString());

@@ -180,7 +180,7 @@ a {
     /* height: 59vh; */
     width: 100%;
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: -8rem;
     background-color: transparent;
 }
 
@@ -860,6 +860,7 @@ select#cars {
     border-radius: 5px;
     float: right;
     border: none;
+    margin-bottom: 50px;
 }
 .button-home{
     padding: 9px 35px;
@@ -924,4 +925,9 @@ select#cars {
 
 .width50 {
     width: 13%;
+}
+.nope{
+    text-align: center;
+    color: red;
+    font-weight: bold;
 }

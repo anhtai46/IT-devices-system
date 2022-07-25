@@ -39,37 +39,41 @@
         %>
         <!-- nabar -->
         <!-- <div class="container"> -->
+        <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
+
         <div class="row navbar">
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
-                <div class="">
+                <div class="mr-auto">
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <p class="product-list">Product</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
+                           id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <p class="product-list">Device</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <c:forEach var="category" items="${categoryList}">
                                 <li>
-                                    <a class="dropdown-item" value="${category.key}" href="MainController?search=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
+                                    <a class="dropdown-item" value="${category.key}" href="MainController?filter=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
                                 </li>
                             </c:forEach>
                             <li>
-                                <a class="dropdown-item" href="MainController?search=&action=HomeSearchDevice&value=${category.value}">All Product</a>
+                                <a class="dropdown-item" href="MainController?filter=&action=HomeSearchDevice&value=${category.value}">All Product</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <a href="MainController?action=LoadProcessRequest">Request List</a>
             </div>
-            <div class="col-sm-4 text-center navbar-user-fill"></div>
-            <!-- card-icon -->
+
+            <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
-                <div class="col-sm-6 card-shopping">
-                    <a href="card.html" class="" role="button">
-                        <i class="fas fa-shopping-cart text-dark ml-5"></i>
+                <div class="col-sm-6 cart-shopping">
+                    <a href="cart.html" class="" role="button">
+                        <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
                 <!-- welcome -->
@@ -88,7 +92,7 @@
                             <li>
                                 <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
-                        </ul>      
+                        </ul>
                     </div>
                 </div>
             </div>

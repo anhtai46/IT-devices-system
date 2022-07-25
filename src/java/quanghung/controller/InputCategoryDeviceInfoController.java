@@ -2,21 +2,16 @@ package quanghung.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
 import quanghung.description.DescriptionDTO;
 import quanghung.descriptionDetail.DescriptionDetailDAO;
 import quanghung.descriptionDetail.DescriptionDetailDTO;
-import quanghung.device.DeviceDAO;
-import quanghung.device.DeviceError;
-import quanghung.warehouse.WarehouseDAO;
 
 public class InputCategoryDeviceInfoController extends HttpServlet {
 
@@ -32,19 +27,23 @@ public class InputCategoryDeviceInfoController extends HttpServlet {
             CategoryDAO categoryDao = new CategoryDAO();
             DescriptionDAO descriptionDao = new DescriptionDAO();
             DescriptionDetailDAO descriptionDetailDao = new DescriptionDetailDAO();
-            int deviceID = Integer.parseInt(request.getParameter("deviceID"));
+            int deviceID = (int) session.getAttribute("DEVICE_ID");
             String cateID = request.getParameter("cateID");
-            String cateName = categoryDao.getCateName(cateID);
-            session.setAttribute("DEVICE_ID", deviceID);
-            List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-            for (DescriptionDTO l : listDescription) {
-                List<DescriptionDetailDTO> listDescriptionDetail = descriptionDetailDao.getListDescriptionDetail(l.getDescriptionID());
-                session.setAttribute(l.getDescriptionName(), listDescriptionDetail);
+            String currentCategory = (String) session.getAttribute("CATE_ID");
+            if (currentCategory.equals(cateID)) {
+                request.setAttribute("DUPLICATE_CATEGORY", "Your choice is duplicate with current category! Choose another!");
+            } else {
+                String cateName = categoryDao.getCateName(cateID);
+                session.setAttribute("DEVICE_ID", deviceID);
+                List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
+                for (DescriptionDTO l : listDescription) {
+                    List<DescriptionDetailDTO> listDescriptionDetail = descriptionDetailDao.getListDescriptionDetail(l.getDescriptionID());
+                    session.setAttribute(l.getDescriptionName(), listDescriptionDetail);
+                }
+                session.setAttribute("CATE_NAME", cateName);
+                session.setAttribute("DESCRIPTION_LIST", listDescription);
+                url = SUCCESS;
             }
-            session.setAttribute("CATE_NAME", cateName);
-            session.setAttribute("DESCRIPTION_LIST", listDescription);
-            url = SUCCESS;
-
         } catch (Exception e) {
             log("Error at InputCategoryDeviceInfoController: " + e.toString());
         } finally {

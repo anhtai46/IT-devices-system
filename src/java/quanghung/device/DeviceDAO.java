@@ -32,6 +32,7 @@ public class DeviceDAO {
             + "FROM device d, description de, descriptionDetail detail, device_description dd\n"
             + "WHERE detail.detailName = ? AND de.descriptionName=? AND d.deviceID=? AND dd.deviceID = d.deviceID AND dd.detailID = detail.detailID AND de.descriptionID = detail.descriptionID\n";
 
+
     public String getExactlyDetailName(String detailName, String descriptionName, int deviceID) throws SQLException {
         String detail = "";
         Connection conn = null;

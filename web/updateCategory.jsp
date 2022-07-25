@@ -37,7 +37,20 @@
             if (login) {
         %>
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
-
+        <c:set var="error" value="${requestScope.DUPLICATE_CATEGORY}"/>
+        <c:if test="${error != null}">
+            <div id="success" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" role="content">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><strong>${error}</strong></h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
         <div class="navbar-top">
             <div class="navbar-header">
                 <!-- logo -->
@@ -159,12 +172,10 @@
             </div>
             <div class="col-sm-12">
                 <form action="MainController" method="POST">
-                    <input type="hidden" name="deviceID" value="${requestScope.DEVICE_ID}"/>
                     <div class="col-sm-12 text-center ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Category name</h4>
                         </label>
-
                         <select name="cateID" class="col-sm-3 pt-1 pb-1"  id="list-chose" required>
                             <option selected disabled value="">Choose Category</option>
                             <c:forEach var="category" items="${categoryList}">
@@ -173,8 +184,8 @@
                         </select> 
                     </div>
                     <div class="col-sm-12 d-flex justify-content-center">
-                        <button type="button" onclick="location.href = 'MainController?search=&action=SearchDevice'" class="btn btn-primary width50">Back</button>
-                        <button type="submit" name="action" value="UpdateCategoryDeviceInfo" class="btn btn-primary ml-5 width50">Next</button>
+                        <button type="button" onclick="location.href = 'MainController?search=&action=SearchDevice'" class="btn btn-color width50">Back</button>
+                        <button type="submit" name="action" value="UpdateCategoryDeviceInfo" class="btn btn-color ml-5 width50">Next</button>
                     </div>
 
                 </form>
@@ -199,11 +210,9 @@
 %>
 <footer></footer>
 <script>
-    $(document).ready(function () {
-        $("#fa-info-circle").click(function () {
-            $("#detailModal").modal("show");
+        $(document).ready(function () {
+            $("#success").modal("show");
         });
-    });
 
 </script>
 

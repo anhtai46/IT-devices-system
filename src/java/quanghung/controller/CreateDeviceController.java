@@ -34,6 +34,7 @@ public class CreateDeviceController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();
+            boolean updateLimitAmount = true;
             DeviceDAO deviceDao = new DeviceDAO();
             WarehouseDAO warehouseDao = new WarehouseDAO();
             BrandDAO brandDao = new BrandDAO();
@@ -50,28 +51,35 @@ public class CreateDeviceController extends HttpServlet {
             String cateName = request.getParameter("cateName");
             int warehouseID = warehouseDao.getWarehouseID(warehouseName);
             String cateID = categoryDao.getCateID(cateName);
-            Part part = request.getPart("image");
+            int limitAmount = warehouseDao.getLimitAmount(warehouseID);
+            if (quantity > limitAmount) {
+                String error = "The Limit Amount of " + warehouseName + " is " + String.valueOf(limitAmount) + ". Cannot insert " + quantity + " devices to this warehouse";
+                request.setAttribute("ERROR", error);
+            } else {
+                Part part = request.getPart("image");
 
-            String realPath = request.getServletContext().getRealPath("/pictures");
-            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectories(Paths.get(realPath));
-            }
-            part.write(realPath + "/" + fileName);
-            String image = "pictures/" + fileName;
-            boolean createDevice = deviceDao.createDevice(deviceName, image, warehouseID, brandID, quantity, cateID, deposit);
-            int deviceID = deviceDao.getDeviceID(deviceName);
-            List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-            for (int i = 1; i <= listDescription.size(); i++) {
-                String d = "detailID" + String.valueOf(i);
-                String dd = request.getParameter(d);
-                int detailID = Integer.parseInt(dd);
-                boolean createDevice_Description = device_descriptionDao.createDevice_Description(deviceID, detailID);
-            }
-            if (createDevice) {
-                String success = "Insert device successfully";
-                request.setAttribute("SUCCESS", success);
-                url = SUCCESS;
+                String realPath = request.getServletContext().getRealPath("/pictures");
+                String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                if (!Files.exists(Paths.get(realPath))) {
+                    Files.createDirectories(Paths.get(realPath));
+                }
+                part.write(realPath + "/" + fileName);
+                String image = "pictures/" + fileName;
+                boolean createDevice = deviceDao.createDevice(deviceName, image, warehouseID, brandID, quantity, cateID, deposit);
+                int deviceID = deviceDao.getDeviceID(deviceName);
+                List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
+                for (int i = 1; i <= listDescription.size(); i++) {
+                    String d = "detailID" + String.valueOf(i);
+                    String dd = request.getParameter(d);
+                    int detailID = Integer.parseInt(dd);
+                    boolean createDevice_Description = device_descriptionDao.createDevice_Description(deviceID, detailID);
+                }
+                updateLimitAmount = warehouseDao.subtractionLimitAmount(quantity, warehouseID);
+                if (createDevice && updateLimitAmount) {
+                    String success = "Insert device successfully";
+                    request.setAttribute("SUCCESS", success);
+                    url = SUCCESS;
+                }
             }
         } catch (Exception e) {
             log("Error at Create Device Controller: " + e.toString());

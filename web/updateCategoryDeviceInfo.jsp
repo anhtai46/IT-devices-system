@@ -154,7 +154,7 @@
         </div>
         <div class="row">
             <div class="tittle-add-devices col-sm-12 text-center mt-2 mb-2">
-                <h2>Insert Device Information</h2>
+                <h2>Update Device Information</h2>
             </div>
             <div class="col-sm-12">
                 <form action="MainController" method="POST" >
@@ -184,7 +184,7 @@
                     <input type="hidden" name="deviceID" value="${sessionScope.DEVICE_ID}"/>
                     <div class="col-sm-12 d-flex justify-content-center">
                         <a href="" class="col-sm-5">
-                            <button type="submit" name="action" value="UpdateDeviceDetailCategory" class="btn btn-primary col-sm-4">Insert</button>
+                            <button type="submit" name="action" value="UpdateDeviceDetailCategory" class="btn btn-color col-sm-4">Update Category</button>
                         </a>
                     </div>
                 </form>
