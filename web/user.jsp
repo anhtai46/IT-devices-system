@@ -80,20 +80,20 @@
                 <!-- welcome -->
                 <div class="col-sm-6">
                     <div class="nav-item dropdown align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-toggle="dropdown">
-                            <img src="img/anhtai.jpg" class="rounded-circle" height="30" width="30" />
-                            <p class="user-name">Anh Tai</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="myprofile.html"><img src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.6435-9/148200636_528659258096027_8966625421411191162_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dzMdGh7CUt4AX978A2p&_nc_ht=scontent.fsgn5-11.fna&oh=00_AT_T8cl7XJeQ7xnVIt7NSbBeFkMmZy_8FtaihBZKvwhxjw&oe=62BB3767"
-                                                                                    height="25"> My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
-                        </ul>
+                        </ul> 
                     </div>
                 </div>
             </div>
@@ -228,8 +228,8 @@
 
         <footer class="footer-distributed">
             <div class="footer-left">
-                <h3>Company<span>DRS</span></h3>
-                <p class="footer-company-name">Company DRS © 2022</p>
+                <h3>Company<span>DBS</span></h3>
+                <p class="footer-company-name">Company DBS © 2022</p>
             </div>
             <div class="footer-center">
                 <div>
@@ -247,9 +247,10 @@
             </div>
             <div class="footer-right">
                 <p class="footer-company-about">
-                    <span>About the company</span>
-                    The company specializes in providing and leasing IT equipment to
-                    businesses and companies in need.
+                    <span>About The Website</span>
+                    The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow 
+                    IT equipment to support their work and study at the school.
                 </p>
                 <div class="footer-icons">
                     <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>

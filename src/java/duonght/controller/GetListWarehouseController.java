@@ -23,7 +23,9 @@ public class GetListWarehouseController extends HttpServlet {
             if (warehouses != null) {
                 request.setAttribute("warehouses", warehouses);
                 url = SUCCESS;
-            } 
+            } else {
+                request.setAttribute("warehouses", warehouses = new ArrayList<>());
+            }
         } catch (Exception e) {
             log("Error at Get List Category Controller: " + e.toString());
         } finally {

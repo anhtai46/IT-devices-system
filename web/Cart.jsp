@@ -78,20 +78,18 @@
                 <!-- welcome -->
                 <div class="col-sm-6">
                     <div class="nav-item dropdown align-items-center">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
-                           id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img
-                                src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.6435-9/148200636_528659258096027_8966625421411191162_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dzMdGh7CUt4AX978A2p&_nc_ht=scontent.fsgn5-11.fna&oh=00_AT_T8cl7XJeQ7xnVIt7NSbBeFkMmZy_8FtaihBZKvwhxjw&oe=62BB3767"
-                                class="rounded-circle" height="25" />
-                            <p class="user-name">Thienpnse150137</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.User.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="myprofile.html"><img src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.6435-9/148200636_528659258096027_8966625421411191162_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dzMdGh7CUt4AX978A2p&_nc_ht=scontent.fsgn5-11.fna&oh=00_AT_T8cl7XJeQ7xnVIt7NSbBeFkMmZy_8FtaihBZKvwhxjw&oe=62BB3767"
-                                                                                    height="25"> My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -186,7 +184,9 @@
 
                     <p class="footer-company-about">
                         <span>About the company</span>
-                        The company specializes in providing and leasing IT equipment to businesses and companies in need.
+                        The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                        The purpose of creating this software is to create opportunities for FPT University students to borrow IT 
+                        equipment to support their work and study at the school.
                     </p>
 
                     <div class="footer-icons">

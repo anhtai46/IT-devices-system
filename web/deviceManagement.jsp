@@ -86,7 +86,7 @@
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
-                    <a href="#">DRS - FPT University HCM</a>
+                    <a href="#">DBS - FPT University HCM</a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
@@ -122,7 +122,7 @@
             </a>
             <a href="MainController?action=GetListCategory">
                 <button class="btn btn-secondary btnoption">
-                    Manage Catagory
+                    Manage Category
                 </button>
             </a>
         </div>

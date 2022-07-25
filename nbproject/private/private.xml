@@ -6,84 +6,100 @@
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/manhcuong/request/requestDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/updateCategoryDeviceInfo.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/InputDeviceInfoController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/brand/BrandDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/Cart.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/viewAllRequestManagement.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/MainController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/requeststaff.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/brand/BrandDTO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/DeleteDescriptionController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/dao/AccountDao.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/RequestManagerHeader.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/HomeSearchDeviceController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/img/word-image-1047.jpg</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateDeviceController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/descriptionDetail/DescriptionDetailDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/DeleteItemInCartController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/SearchDeviceController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/CreateDeviceController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/description/DescriptionDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/GetListCategoryController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/category/CategoryDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/UpdateCategoryController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/error.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateBrandController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/ExtendRequestController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/device/DeviceError.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userProcessing.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateDescriptionController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/returnedrequeststaff.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/devicePage2.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/cancelrequeststaff.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/LoginGoogle/LoginHandler.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/createDevice.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/warehouseManagement.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/Login.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateCategoryController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/DeleteBrandController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/deviceDetail.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/category/CategoryError.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/device/DeviceDAO.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateDetailController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/test.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/UpdateDetailController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/LoadRequestController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/description/DescriptionDAO.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userReturned.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateWarehouseController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/AddToCartController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/description/DescriptionDTO.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/category/CategoryDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/device/DeviceDTO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/OpenUpdateImgPageController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/approvedrequeststaff.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/successfulrequeststaff.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/FilterDeviceController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userApproved.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/MainController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/GetListController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/device_description/Device_DescriptionDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateRequestController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/myprofile.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/descriptionDetail/DescriptionDetailDAO.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/descriptionDetail/DescriptionDetailDAO.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateDeviceDetailCategoryController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/manhcuong/request/ExtendDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/SearchWarehouseController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/updateImg.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/manhcuong/request/DeviceDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/brand/BrandDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/DeleteCategoryController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/warehouse/WarehouseDAO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/SearchDeviceController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/updateCategory.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/devicePage.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/css/style.css</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/deviceManagement.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/UpdateBrandController.java</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/createDeviceInfo.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/SearchByIDServlet.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/LoginController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/manhcuong/request/cartDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/category/CategoryDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/CreateRequestController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/DetailController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/user.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/LoadAllRequestManagement.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/brand/BrandDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/requeststaff.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/brand/BrandDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/RequestManagerHeader.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateDeviceController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/descriptionDetail/DescriptionDetailDTO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateCartController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/GetListWarehouseController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/error.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateBrandController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userProcessing.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateDescriptionController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/createDevice.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/DeleteBrandController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/category/CategoryError.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/device/DeviceDAO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateDetailController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/LoadRequestController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/description/DescriptionDAO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userReturned.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/CreateWarehouseController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/category/CategoryDAO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/FilterDeviceController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userApproved.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/MainController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/descriptionDetail/DescriptionDetailDAO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/descriptionDetail/DescriptionDetailDAO.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateDeviceDetailCategoryController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/UpdateProfileServlet.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/updateCategory.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/css/style.css</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/devicePage.jsp</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/createDeviceInfo.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/InputCategoryDeviceInfoController.java</file>
+            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/manhcuong/request/requestDTO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateDeviceCategoryController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/SearchCategoryController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userSuccessful.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/category/CategoryDTO.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/dto/Account.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/AdminPage.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/DetailController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/categoryManagement.jsp</file>
-            <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/user.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/duonght/controller/DeleteDetailController.java</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/web/userCancel.jsp</file>
             <file>file:/D:/Summer2022-Kỳ%205/SWP/MiniProject-DeviceRentingSystem/src/java/quanghung/brand/BrandDAO.java</file>

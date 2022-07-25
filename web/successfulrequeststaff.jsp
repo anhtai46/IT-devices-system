@@ -42,7 +42,7 @@
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
-                    <a href="#">DRS - FPT University HCM</a>
+                    <a href="#">DBS - FPT University HCM</a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
@@ -67,17 +67,17 @@
         </div>
         <div class="col-sm-12 name-page text-center">
             <h2>
-                Manager Request
+                Request Management
             </h2>
         </div>
         <div class="col-sm-12 staff-navbar justify-content-center text-center">
             <form action="MainController">
-                <button class="btn btn-secondary" type="submit" name="action" value="LoadAllRequestManager">Load All request</button></a>
-                <button class="btn btn-secondary" type="submit" name="action" value="LoadProcessingRequest">Processing Request</button></a>
-                <button class="btn btn-secondary" type="submit" name="action" value="LoadApprovedRequest">Approved Request</button></a>
-                <button class="btn btn-primary" type="submit" name="action" value="LoadSuccessRequest">Successful Request</button></a>
-                <button class="btn btn-secondary" type="submit" name="action" value="LoadReturnedRequest">Returned Request</button></a>
-                <button class="btn btn-secondary" type="submit" name="action" value="LoadCanceledRequest">Cancel Request</button></a>
+                <button class="btn btn-secondary" type="submit" name="action" value="LoadAllRequestManager">Load All requests</button></a>
+                <button class="btn btn-secondary" type="submit" name="action" value="LoadProcessingRequest">Processing Requests</button></a>
+                <button class="btn btn-secondary" type="submit" name="action" value="LoadApprovedRequest">Approved Requests</button></a>
+                <button class="btn btn-primary" type="submit" name="action" value="LoadSuccessRequest">Successful Requests</button></a>
+                <button class="btn btn-secondary" type="submit" name="action" value="LoadReturnedRequest">Returned Requests</button></a>
+                <button class="btn btn-secondary" type="submit" name="action" value="LoadCanceledRequest">Cancel Requests</button></a>
             </form>
 
 

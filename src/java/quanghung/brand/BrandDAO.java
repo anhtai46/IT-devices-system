@@ -156,8 +156,8 @@ public class BrandDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(RENEW_BRAND);
                 ptm.setBoolean(1, true);
-                ptm.setString(2, brandName);
-                ptm.setString(3, cateID);
+                ptm.setString(2, cateID);
+                ptm.setString(3, brandName);
                 check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {

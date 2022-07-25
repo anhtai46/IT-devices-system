@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PAGE ADMIN</title>
+        <title>Admin Page</title>
         <link rel="stylesheet" href="css/style.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -46,7 +46,7 @@
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
-                    <a href="#">DRS - FPT University HCM</a>
+                    <a href="#">DBS - FPT University HCM</a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
@@ -119,7 +119,7 @@
                                     <td>${acc.roleID}</td>
                                     <td>${acc.position}</td>
                                     <td>${acc.deposit}</td>
-                                    <td>${acc.status == 1 ? "Acctive" : "InActive"}</td>
+                                    <td class="${acc.status == 1 ? "text-success" : "text-danger"}">${acc.status == 1 ? "Acctive" : "InActive"}</td>
                                     <td>
                                         <form action="MainController" method="POST">
                                             <input value="${acc.userID}" name="userID" type="hidden"/>
@@ -127,10 +127,10 @@
                                             <input type="hidden" value="${acc.email}" name="email" />
                                             <input type="hidden" value="UpdateAccountStatus" name="action"/>
                                             <c:if test="${acc.roleID != 'AD'}">
-                                                <input type="submit" value="${acc.status == 1 ? "Block" : "UnBlock"}" class="btn btn-danger"></input>
+                                                <input type="submit" value="${acc.status == 1 ? "Block" : "UnBlock"}" class="${acc.status == 1 ? "btn btn-danger" : "btn btn-success"}"></input>
                                             </c:if>
                                             <c:if test="${acc.roleID == 'AD'}">
-                                                <input type="button" value="See Only" class="btn btn-success"></input>
+                                                <input type="button" value="See Only" class="btn btn-warning"></input>
                                             </c:if>
                                         </form>
                                     </td>
@@ -145,8 +145,9 @@
 
         <footer class="footer-distributed">
             <div class="footer-left">
-                <h3>Company<span>DRS</span></h3>
-                <p class="footer-company-name">Company DRS © 2022</p>
+                <p class="footer-company-name">
+                    <img width="70% " src="img/logo.png" alt=""/>
+                </p>
             </div>
             <div class="footer-center">
                 <div>
@@ -165,7 +166,9 @@
             <div class="footer-right">
                 <p class="footer-company-about">
                     <span>About the company</span>
-                    The company specializes in providing and leasing IT equipment to businesses and companies in need.
+                <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+                    equipment to support their work and study at the school.</p>
                 </p>
                 <div class="footer-icons">
                     <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>

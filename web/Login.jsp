@@ -31,7 +31,7 @@
             <div class="col-sm-8 p-0">
                 <img width="100%" class="img-login" src="img/theme.webp" alt="alo">
             </div>
-            <div class="col-sm-4 text-center justify-content-center align-items-center">
+            <div class="col-sm-4 text-center justify-content-center align-items-center pt-5">
                 <img width="100%" src="img/logo.png" alt="">
                 <a class="col-sm-8 btn btn-lg btn-google btn-block text-uppercase btn-outline border rounded mr-auto ml-auto bg-primary text-light"
                    href="https://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/DeviceManagement/LoginHandler&response_type=code

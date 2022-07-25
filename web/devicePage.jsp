@@ -294,8 +294,8 @@
     </div>
     <footer class="footer-distributed fixed-bottom">
         <div class="footer-left">
-            <h3>Company<span>DRS</span></h3>
-            <p class="footer-company-name">Company DRS ? 2022</p>
+            <h3>Company<span>DBS</span></h3>
+            <p class="footer-company-name">Company DBS ? 2022</p>
         </div>
         <div class="footer-center">
             <div>
@@ -314,7 +314,9 @@
         <div class="footer-right">
             <p class="footer-company-about">
                 <span>About the company</span>
-                The company specializes in providing and leasing IT equipment to businesses and companies in need.
+                The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                The purpose of creating this software is to create opportunities for FPT University students to borrow IT 
+                equipment to support their work and study at the school.
             </p>
             <div class="footer-icons">
                 <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>

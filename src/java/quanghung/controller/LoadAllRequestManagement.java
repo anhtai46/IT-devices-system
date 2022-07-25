@@ -620,8 +620,6 @@ public class LoadAllRequestManagement extends HttpServlet {
                     date2 = null;
                 }
                 
-                
-                
                 List<requestDTO> list1 = new ArrayList<>();
                 List<requestDTO> list2 = new ArrayList<>();
                 //ADD HERE

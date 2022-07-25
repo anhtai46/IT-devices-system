@@ -11,7 +11,7 @@ import quanghung.utils.DBUtils;
 
 public class WarehouseDAO {
 
-    private static final String SEARCH_WAREHOUSE = "SELECT warehouseName, location, limitAmount, status FROM warehouse WHERE warehouseName like ?";
+    private static final String SEARCH_WAREHOUSE = "SELECT warehouseID, warehouseName, location, limitAmount, status FROM warehouse WHERE warehouseName like ?";
     private static final String CHECK_DUPLICATE = "SELECT * FROM warehouse WHERE warehouseName = ?";
     private static final String CHECK_STATUS = "SELECT * FROM category WHERE warehouseID=? and status = 1";
     private static final String RENEW_SEARCH_WAREHOUSE = "UPDATE warehouse SET status=? WHERE warehouseID=?";
@@ -49,7 +49,7 @@ public class WarehouseDAO {
         }
         return warehouseID;
     }
-    
+
     public static boolean checkExistDevices(int warehouseID) throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -77,7 +77,7 @@ public class WarehouseDAO {
         }
         return count > 0;
     }
-    
+
     public static boolean checkDuplicate(String warehouseName) throws SQLException {
         int count = 0;
         Connection conn = null;
@@ -219,7 +219,7 @@ public class WarehouseDAO {
         return warehouses;
     }
 
-    public List<WarehouseDTO> searchWarehouse(String search) throws SQLException {
+    public static List<WarehouseDTO> searchWarehouse(String search) throws SQLException {
         List<WarehouseDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -227,32 +227,17 @@ public class WarehouseDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                if (search != "") {
-                    ptm = conn.prepareStatement(SEARCH_WAREHOUSE);
-                    ptm.setString(1, "%" + search + "%");
-                    rs = ptm.executeQuery();
-                    while (rs.next()) {
-                        boolean status = rs.getBoolean("status");
-                        if (status) {
-                            int warehouseID = rs.getInt("warehouseID");
-                            String warehouseName = rs.getString("warehouseName");
-                            String location = rs.getString("location");
-                            int limitAmount = rs.getInt("limitAmount");
-                            list.add(new WarehouseDTO(warehouseID, warehouseName, location, limitAmount, status));
-                        }
-                    }
-                } else {
-                    ptm = conn.prepareStatement(GET_LIST_WAREHOUSE);
-                    rs = ptm.executeQuery();
-                    while (rs.next()) {
-                        boolean status = rs.getBoolean("status");
-                        if (status) {
-                            int warehouseID = rs.getInt("warehouseID");
-                            String warehouseName = rs.getString("warehouseName");
-                            String location = rs.getString("location");
-                            int limitAmount = rs.getInt("limitAmount");
-                            list.add(new WarehouseDTO(warehouseID, warehouseName, location, limitAmount, status));
-                        }
+                ptm = conn.prepareStatement(SEARCH_WAREHOUSE);
+                ptm.setString(1, "%" + search + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    boolean status = rs.getBoolean("status");
+                    if (status) {
+                        int warehouseID = rs.getInt("warehouseID");
+                        String warehouseName = rs.getString("warehouseName");
+                        String location = rs.getString("location");
+                        int limitAmount = rs.getInt("limitAmount");
+                        list.add(new WarehouseDTO(warehouseID, warehouseName, location, limitAmount, status));
                     }
                 }
             }
@@ -271,7 +256,7 @@ public class WarehouseDAO {
         }
         return list;
     }
-    
+
     public static boolean checkStatus(int warehouseID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -302,7 +287,7 @@ public class WarehouseDAO {
         }
         return check;
     }
-    
+
     public static boolean renewWarehouse(int warehouseID) throws SQLException {
         boolean check = false;
         Connection conn = null;

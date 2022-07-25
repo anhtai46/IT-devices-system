@@ -7,7 +7,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Update Device's Info Category</title>
+        <title>Update Device Details Page</title>
         <link rel="stylesheet" href="css/style.css">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -45,23 +45,23 @@
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
-                    <a href="#">DRS - FPT University HCM</a>
+                    <a href="#">DBS - FPT University HCM</a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
                            href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="${sessionScope.Admin.picture}"
+                            <img src="${sessionScope.User.picture}"
                                  class="rounded-circle" height="25">
-                            <p class="user-name">${sessionScope.Admin.name}</p>
+                            <p class="user-name">${sessionScope.UserDB.userName}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
                             </li>
                         </ul>
                     </div>

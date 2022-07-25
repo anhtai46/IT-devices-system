@@ -5,8 +5,14 @@
  */
 package duonght.controller;
 
+import duonght.warehouse.WarehouseDAO;
+import duonght.warehouse.WarehouseDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,14 +34,16 @@ public class SearchWarehouseController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String searchWarehouse = request.getParameter("searchWarehouse");
-            if (searchWarehouse.equals("")) {
-                
-            }
+            ArrayList<WarehouseDTO> warehouses = (ArrayList<WarehouseDTO>) WarehouseDAO.searchWarehouse(searchWarehouse);
+            if (warehouses != null) {
+                request.setAttribute("warehouses", warehouses);
+            } 
+            request.getRequestDispatcher("warehouseManagement.jsp").forward(request, response);
         }
     }
 
@@ -51,7 +59,11 @@ public class SearchWarehouseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchWarehouseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -65,7 +77,11 @@ public class SearchWarehouseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(SearchWarehouseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

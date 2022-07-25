@@ -145,8 +145,8 @@
 
 <footer class="footer-distributed">
     <div class="footer-left">
-        <h3>Company<span>DRS</span></h3>
-        <p class="footer-company-name">Company DRS ? 2022</p>
+        <h3>Company<span>DBS</span></h3>
+        <p class="footer-company-name">Company DBS ? 2022</p>
     </div>
     <div class="footer-center">
         <div>

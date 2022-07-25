@@ -37,7 +37,7 @@
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
-                    <a href="#">DRS - FPT University HCM</a>
+                    <a href="#">DBS - FPT University HCM</a>
                 </div>
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
@@ -62,18 +62,18 @@
         </div>
         <div class="manage-navbar">
             <a href="MainController?search=&action=SearchDevice">
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary btnoption" name="action" type="submit" value="SearchDevice">
                     Manage Devices
                 </button>
             </a>
-            <a href="#">
-                <button class="btn btn-primary">
+            <a href="MainController?action=GetListWarehouse">
+                <button class="btn btn-color btnoption">
                     Manage Warehouse
                 </button>
             </a>
             <a href="MainController?action=GetListCategory">
-                <button class="btn btn-secondary">
-                    Manage Catagory
+                <button class="btn btn-secondary btnoption">
+                    Manage Category
                 </button>
             </a>
         </div>
