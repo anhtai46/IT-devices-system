@@ -36,7 +36,7 @@ public class UpdateCartController extends HttpServlet {
             int quantityUpdate = Integer.parseInt(request.getParameter("deviceQuantity"));
             cartDTO cart = (cartDTO) session.getAttribute("CART");
             
-            if(quantityUpdate > items.getQuantity()){
+            if(quantityUpdate < items.getQuantity()){
                 items.setQuantity(quantityUpdate);
                 cart.update(productID, items);
                 url = SUCCESS;
@@ -48,7 +48,7 @@ public class UpdateCartController extends HttpServlet {
         } catch (Exception e) {
             log("Error at RemoveItemCartController");
         }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+                request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

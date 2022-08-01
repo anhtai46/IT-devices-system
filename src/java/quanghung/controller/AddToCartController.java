@@ -23,13 +23,16 @@ import quanghung.device.DeviceDTO;
  */
 public class AddToCartController extends HttpServlet {
 
-    private final String SUCCESS = "Cart.jsp";
+    private final String SUCCESS1 = "Cart.jsp";
+    private final String SUCCESS2 = "MainController?search=&action=HomeSearchDevice";
     private final String ERROR = "MainController?search=&action=HomeSearchDevice";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        
         try {
+            String action = request.getParameter("action");
             Integer id = Integer.parseInt(request.getParameter("deviceID"));
             DeviceDAO dao = new DeviceDAO();
             HttpSession session = request.getSession();
@@ -45,11 +48,19 @@ public class AddToCartController extends HttpServlet {
             } else {
                 //add successfully
                 cartDTO cart = (cartDTO) session.getAttribute("CART");
+                if(cart == null){
+                    cart = new cartDTO();
+                }
                 
                 selected.setQuantity(quantityAddCart);
                 cart.add(selected);
                 session.setAttribute("CART", cart);
-                url = SUCCESS;
+                if(action.equals("AddToCart")){
+                    url = SUCCESS2;
+                }else if(action.equals("RentNow")){
+                    url = SUCCESS1;
+                }
+                
             }
         } catch (Exception e) {
             log("Error at CartController: " + e.toString());

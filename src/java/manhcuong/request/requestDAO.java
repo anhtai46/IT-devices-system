@@ -44,12 +44,13 @@ public class requestDAO {
     private final String GET_REQUEST_BASE_ON_USER= "SELECT requestID, requestDate,substance, userID  FROM request WHERE status = ? AND requestStatus =? AND userID = ?";
     private final String GET_REQUEST_BASE_ON_DETAIL_AND_USER = "SELECT r.requestID, r.requestDate,r.substance, r.userID, r.requestStatus FROM request r, requestDetail d WHERE r.status = ? AND d.detailStatus = ? AND r.requestID = d.requestID AND r.userID = ?";
     private static final String GET_REQUEST_BY_ID = "SELECT  requestDate, requestStatus,substance,userID, status  FROM request WHERE  requestID =? ";
-    private static final String CREATED_EXTEND ="INSERT INTO message (requestID, message, extendDate) VALUES (?,?,?)";
+    private static final String CREATED_EXTEND ="INSERT INTO message (messageID, requestID, message, extendDate) VALUES (?,?,?,?)";
     private final String UPDATE_REQUEST_EXPIRED_DATE ="UPDATE requestDetail SET expiredDate = ? WHERE detailID = ?";
     private final String UPDATE_REQUEST_BORROW_DATE ="UPDATE requestDetail SET borrowDate = ? WHERE detailID = ?";
+    private final String GET_EXTEND ="SELECT messageID, requestID, message, extendDate FROM message WHERE messageID = ?";
     
 
-    public int createOrder(DeviceDTO items, Account user, int borrowDate) throws SQLException {
+    public int createOrder(DeviceDTO items, Account user, int borrowDate, String substance) throws SQLException {
         int check = -1;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -61,7 +62,7 @@ public class requestDAO {
                 stm.setString(1, user.getUserID());
                 stm.setDate(2, new Date(System.currentTimeMillis()));
                 stm.setString(3, "Waiting...");
-                stm.setString(4, "Borrow Request");
+                stm.setString(4, substance);
                 stm.setBoolean(5, true);
                 if (stm.executeUpdate() > 0) {
                     rs = stm.getGeneratedKeys();
@@ -130,7 +131,13 @@ public class requestDAO {
                     String substance = rs.getString("substance");
                     Account user = new AccountDao().searchAccountUpdate(userID);
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
                 }
 
             }
@@ -224,7 +231,13 @@ public class requestDAO {
                     String user_id = rs.getString("userID");
                     Account user = new AccountDao().searchAccountUpdate(user_id);
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -289,7 +302,14 @@ public class requestDAO {
                     String user_id = rs.getString("userID");
                     Account user = new AccountDao().searchAccountUpdate(user_id);
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
+                    
 
                 }
 
@@ -322,7 +342,13 @@ public class requestDAO {
                     String user_id = rs.getString("userID");
                     Account user = new AccountDao().searchAccountUpdate(user_id);
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                                       if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
 
                 }
 
@@ -427,7 +453,13 @@ public class requestDAO {
                     String substance = rs.getString("substance");
                     
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
 
                 }
 
@@ -460,7 +492,13 @@ public class requestDAO {
                     String substance = rs.getString("substance");
                     String requestStatus = rs.getString("requestStatus");
                     requestDetailDTO requestDetail = getRequestDetailByRequestID(requestID);
-                    request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, extend, status));
+                        
+                    }else{
+                        request.add(new requestDTO(requestID, user, requestDate, requestStatus, substance, requestDetail, status));
+                    }
 
                 }
 
@@ -520,7 +558,14 @@ public class requestDAO {
                     requestDetail = getRequestDetailByRequestID(requestID);
                     AccountDao dao = new AccountDao();
                     account = dao.searchAccountUpdate(userID);
-                    request = new requestDTO(requestID, account, requestDate, requestStatus, substance, requestDetail, status);
+                    if(substance.equals("Extend Request")){
+                        ExtendDTO extend = getExtend(requestID);
+                        
+                        request = new requestDTO(requestID, account, requestDate, requestStatus, substance, requestDetail, extend, status);
+                        
+                    }else{
+                        request = new requestDTO(requestID, account, requestDate, requestStatus, substance, requestDetail, status);
+                    }
                 }
             }
 
@@ -531,8 +576,8 @@ public class requestDAO {
         }
         return request;
     }
-    public boolean  creatExtendRequest(int requestID, String message, int extendDate ){
-        //INSERT INTO message (requestID, message, extendDate) VALUES (?,?,?)
+    public boolean  creatExtendRequest(int newID,int requestID, String message, int extendDate ){
+        //INSERT INTO message (messageID, requestID, message, extendDate) VALUES (?,?,?,?)
         boolean check = false;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -540,9 +585,10 @@ public class requestDAO {
              conn = DBUtils.getConnection();
             if (conn != null){
                 stm = conn.prepareStatement(CREATED_EXTEND);
-                stm.setInt(1, requestID);
-                stm.setString(2, message);
-                stm.setInt(3, extendDate);
+                stm.setInt(1, newID);
+                stm.setInt(2, requestID);
+                stm.setString(3, message);
+                stm.setInt(4, extendDate);
                 check = stm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -594,6 +640,35 @@ public class requestDAO {
         }
         return check;
     }
-    
+    public ExtendDTO getExtend(int requestID){
+        //SELECT messageID, requestID, message, extendDate FROM message WHERE messageID = ?
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ExtendDTO extend =  null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                stm = conn.prepareStatement(GET_EXTEND);
+                
+                stm.setInt(1, requestID);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    int messageID = rs.getInt("messageID");
+                    int request = rs.getInt("requestID");
+                    String message = rs.getString("message");
+                    int extendDate = rs.getInt("extendDate");
+                    extend = new ExtendDTO(messageID, request, message, extendDate);
+                }
+            }
+
+        } catch (Exception e) {
+            log("Error at getRequestDetail in requestDAO" + e.toString());
+        } finally {
+            DBUtils.closeQueryConnection(conn, stm, rs);
+        }
+        return extend;
+    }
+   
 
 }

@@ -165,10 +165,10 @@
                                                                     <h5>Expired date</h5>
                                                                 </label>
                                                                 <label class="col-sm-4 pt-1 pb-1">
-                                                                    <c:if test = "${detail.expiredDate != null}">
+                                                                    <c:if test = "${detail.borrowDate != null}">
                                                                         <c:out value = "${detail.expiredDate}"/>
                                                                     </c:if>
-                                                                    <c:if test = "${detail.expiredDate == null}">
+                                                                    <c:if test = "${detail.borrowDate == null}">
                                                                         <c:out value = "Not approved"/>
                                                                     </c:if>
                                                                 </label></div></br>
@@ -179,14 +179,24 @@
                                                                 <label class="col-sm-4 pt-1 pb-1">
                                                                     ${detail.detailStatus}
                                                                 </label>
-                                                            </div>
+                                                            </div></br>
+                                                            <c:if test="${request.requestSubstance eq 'Extend Request'}">
+                                                                <div class="form-group col-sm-12 d-flex">   
+                                                                    <label for="" class="col-sm-6 text-center">
+                                                                        <h5>Reason</h5>
+                                                                    </label>
+                                                                    <label class="col-sm-4 pt-1 pb-1">
+                                                                        ${request.extend.message}
+                                                                    </label>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <a  id="fa-info-circle">
-                                            <button class="btn" type="button" data-toggle="modal" data-target="#extendModal${detail}"><i class="fas fa-info-circle"></i>Extend</button></a>
+                                            <button class="btn" type="button" data-toggle="modal" data-target="#extendModal${detail}"><i class="fas "></i>Extend</button></a>
                                         <div id="extendModal${detail}" class="modal fade" role="dialog">
                                             <div class="modal-dialog modal-lg" role="content">
                                                 <!-- Modal content-->
@@ -206,6 +216,7 @@
                                                                     <label for="" class="col-sm-8 text-center"
                                                                            >${detail.device.deviceName}</label
                                                                     >
+                                                                    
                                                                 </div>
                                                                 <div class="form-group col-sm-12 d-flex">
                                                                     <h5 class="col-sm-4">ExpiredDate</h5>
@@ -249,7 +260,7 @@
                     </li>
 
                     <li>
-                        <a href="MainController?action=LoadProcessRequest"><span class="indicator"></span><i class="fas-option active fas fa-sync-alt"><span
+                        <a href="MainController?action=LoadProcessRequest"><span class="indicator"></span><i class="fas-option  fas fa-sync-alt"><span
                                     class="navbaroption-tittle">Processing</span></i></a>
                     </li>
                     <li>
@@ -257,7 +268,7 @@
                                     class="navbaroption-tittle">Approved</span></i></a>
                     </li>
                     <li>
-                        <a href="MainController?action=LoadSuccessfulRequest"><i class="fas-option fas fa-undo-alt"><span
+                        <a href="MainController?action=LoadSuccessfulRequest"><i class="fas-option active fas fa-undo-alt"><span
                                     class="navbaroption-tittle">Successful</span></i></a>
                     </li>
                     <li>

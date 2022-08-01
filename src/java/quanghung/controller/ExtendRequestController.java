@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import manhcuong.request.requestDAO;
+import manhcuong.request.requestDTO;
 import manhcuong.request.requestDetailDTO;
 
 /**
@@ -19,37 +20,32 @@ import manhcuong.request.requestDetailDTO;
  */
 public class ExtendRequestController extends HttpServlet {
 
-   private final String SUCCESS = "MainController?action=LoadProcessRequest";
+    private final String SUCCESS = "MainController?search=&action=LoadProcessRequest";
     private final String ERROR = "MainController?search=&action=LoadSuccessfulRequest";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            int requestID = Integer.parseInt("requestID");
+            int requestID = Integer.parseInt(request.getParameter("requestID"));
             String message = request.getParameter("message");
             int extendDate = Integer.parseInt(request.getParameter("extendDate"));
             boolean check = false;
-            boolean checkUpdateRequest = false;
-            
             requestDAO dao = new requestDAO();
-            requestDetailDTO detail = dao.getRequestDetailByRequestID(requestID);
-            check = dao.creatExtendRequest(requestID, message, extendDate);
-            if(check == true){
-                checkUpdateRequest = dao.updateRequestStatus(requestID, "Waiting...");
-                
-                
-            }
-            if(check == true && checkUpdateRequest == true ){
+            requestDTO request1 = dao.getRequestByID(requestID);
+            int newID = dao.createOrder(request1.getRequestDetail().getDevice(), request1.getUser(), extendDate, "Extend Request");
+            check = dao.creatExtendRequest(newID, requestID, message, extendDate);
+            if (check == true) {
                 url = SUCCESS;
-            }else{
+            } else {
                 url = ERROR;
                 request.setAttribute("ERROR_MESSAGE", "Error occur in CreateExtend ");
             }
-            
+
         } catch (Exception e) {
             log("Error at CreateRequestController: " + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

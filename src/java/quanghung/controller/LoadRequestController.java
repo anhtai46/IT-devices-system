@@ -53,7 +53,7 @@ public class LoadRequestController extends HttpServlet {
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any processing request!");
                     request.setAttribute("ERROR_MESSAGE", message);
                 }
-            } else if (action.equals("LoadApproveRequest")) {
+                } else if (action.equals("LoadApproveRequest")) {
                 requestDAO dao = new requestDAO();
                 List<requestDTO> list = new ArrayList<>();
                 list.addAll(dao.getRequestBaseOnStatusDetailAnduser(true, "approve", acc));

@@ -170,10 +170,10 @@
                                                                     <h5>Expired date</h5>
                                                                 </label>
                                                                 <label class="col-sm-4 pt-1 pb-1">
-                                                                    <c:if test = "${detail.expiredDate != null}">
+                                                                    <c:if test = "${detail.borrowDate != null}">
                                                                         <c:out value = "${detail.expiredDate}"/>
                                                                     </c:if>
-                                                                    <c:if test = "${detail.expiredDate == null}">
+                                                                    <c:if test = "${detail.borrowDate == null}">
                                                                         <c:out value = "Not approved"/>
                                                                     </c:if>
                                                                 </label></div></br>
@@ -184,7 +184,17 @@
                                                                 <label class="col-sm-4 pt-1 pb-1">
                                                                     ${detail.detailStatus}
                                                                 </label>
-                                                            </div>
+                                                            </div></br>
+                                                            <c:if test="${request.requestSubstance eq 'Extend Request'}">
+                                                                <div class="form-group col-sm-12 d-flex">   
+                                                                    <label for="" class="col-sm-6 text-center">
+                                                                        <h5>Reason</h5>
+                                                                    </label>
+                                                                    <label class="col-sm-4 pt-1 pb-1">
+                                                                        ${request.extend.message}
+                                                                    </label>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </div>

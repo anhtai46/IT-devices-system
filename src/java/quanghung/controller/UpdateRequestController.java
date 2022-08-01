@@ -13,8 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import manhcuong.request.DeviceDAO;
 import manhcuong.request.requestDAO;
 import manhcuong.request.requestDTO;
+import quanghung.device.DeviceDTO;
 
 /**
  *
@@ -47,10 +49,21 @@ public class UpdateRequestController extends HttpServlet {
             }else if(action.equals("UpdateRequestCancel")){
                 int requestID = Integer.parseInt(request.getParameter("requestID"));
                 int detailID = Integer.parseInt(request.getParameter("detailID"));
+                int newQuantity = 0;
                 requestDAO dao = new requestDAO();
+                DeviceDAO D_dao = new DeviceDAO();
+                requestDTO request1 = dao.getRequestByID(requestID);
+                
+                DeviceDTO device = D_dao.getDeviceByID(request1.getRequestDetail().getDevice().getDeviceID());
+                newQuantity = device.getQuantity() + request1.getRequestDetail().getQuantity();
                 boolean checkUpdateRequest= dao.updateRequestStatus(requestID, "cancel");
                 boolean checkUpdateDetail = dao.updateDetailStatus(detailID, "cancel");
+                
                 if(checkUpdateDetail == true && checkUpdateRequest == true){
+                    boolean check2 = D_dao.updateDevice(newQuantity, device.getDeviceID());
+                    if(check2 == true){
+                        device.setQuantity(newQuantity);
+                    }
                     if(request.getParameter("cancel").equals("requeststaff.jsp")){
                         
                         url ="MainController?action=LoadProcessingRequest";
@@ -68,32 +81,42 @@ public class UpdateRequestController extends HttpServlet {
                 }
             }else if(action.equals("UpdateRequestSuccess")){
                 int detailID = Integer.parseInt(request.getParameter("detailID"));
+                
                 requestDAO dao = new requestDAO();
                 boolean checkUpdateDetail = dao.updateDetailStatus(detailID, "Received");
                 boolean checkUpdateDate = dao.updateRequestBorrowDate(detailID, new Date(System.currentTimeMillis()));
                 List<requestDTO> list1 = new ArrayList<>();
                 List<requestDTO> list2 = new ArrayList<>();
-                list1.addAll(dao.getRequestBaseOnStatusDetail(true, "approve"));
+                list1.addAll(dao.getRequestBaseOnDetailStatus(true, "approve"));
                 for(int i = 0; i < list1.size(); i++){
                     if(!list1.get(i).getRequestStatus().equalsIgnoreCase("Waiting...")){
                         list2.add(list1.get(i));
                     }
                 }
                 if(checkUpdateDetail == true && checkUpdateDate == true){
-                    url = "approvedrequeststaff.jsp";
+                    url = "MainController?action=LoadApprovedRequest";
                 }else{
-                    url ="approvedrequeststaff.jsp";
+                    url = "MainController?action=LoadApprovedRequest";
                 }
                 request.setAttribute("LIST_APPROVED_REQUEST", list2);
             }else if(action.equals("UpdateRequestReturn")){
+                int newQuantity = 0;
                 int requestID = Integer.parseInt(request.getParameter("requestID"));
                 int detailID = Integer.parseInt(request.getParameter("detailID"));
+                DeviceDAO D_dao = new DeviceDAO();
                 requestDAO dao = new requestDAO();
+                requestDTO request1 = dao.getRequestByID(requestID);
+                DeviceDTO device = D_dao.getDeviceByID(request1.getRequestDetail().getDevice().getDeviceID());
+                newQuantity = device.getQuantity() + request1.getRequestDetail().getQuantity();
+                
                 boolean checkUpdateRequest= dao.updateRequestStatus(requestID, "Returned");
                 boolean checkUpdateDetail = dao.updateDetailStatus(detailID, "Returned");
-                requestDTO request2 = dao.getRequestByID(requestID);
-                boolean checkCreateReturn = dao.creatReturnRequest(request2);
+                boolean checkCreateReturn = dao.creatReturnRequest(request1);
                 if(checkCreateReturn == true && checkUpdateDetail == true && checkUpdateRequest == true){
+                    boolean check2 = D_dao.updateDevice(newQuantity, device.getDeviceID());
+                    if(check2 == true){
+                        device.setQuantity(newQuantity);
+                    }
                     url = "MainController?action=LoadSuccessRequest";
                 }
                 

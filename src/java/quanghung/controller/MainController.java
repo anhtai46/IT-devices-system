@@ -131,6 +131,7 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER = "InputCategoryDeviceInfoController";
     private static final String UPDATE_DEVICE_DETAIL_CATEGORY = "UpdateDeviceDetailCategory";
     private static final String UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER = "UpdateDeviceDetailCategoryController";
+    private static final String RENT_NOW = "RentNow";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -281,6 +282,8 @@ public class MainController extends HttpServlet {
                 url = VIEW_ALL_REQUEST_MANAGER_CONTROLLER;
             } else if (EXTEND_REQUEST.equals(action)) {
                 url = EXTEND_STATUS_CONTROLLER;
+            }else if(action.equals(RENT_NOW)){
+                url = ADD_TO_CART_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

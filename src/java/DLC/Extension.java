@@ -26,4 +26,17 @@ public class Extension {
         c.add(Calendar.MONTH, borrowMonth);
         return new Date(c.getTimeInMillis());
     }
+    public Date AddDate(long borrowdate){
+        java.sql.Date todaysDate = new java.sql.Date(new java.util.Date().getTime());
+        Calendar c = Calendar.getInstance();
+        c.setTime(todaysDate);
+        c.add(Calendar.DATE, (int)borrowdate);
+        return new Date(c.getTimeInMillis());
+    }
+    public long DiffDate(Date requestDate, Date expiredDate){
+        Date diff = new Date(expiredDate.getTime() - requestDate.getTime());
+        long day_diff = diff.getTime() / (1000*60*60*24);
+        return day_diff;
+    }
+    
 }

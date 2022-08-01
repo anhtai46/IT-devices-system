@@ -115,19 +115,23 @@
             <br/>
         </div>
         <div class="col-sm-12">
+            <form action="MainController" method="POST">
+            
             <p>Warehouse : ${device.warehouseName}</p>
             <p>Brand Name : ${device.brandName}</p>
             <p>Quantity : ${device.quantity}</p>
             <p>Deposit : ${device.deposit} VND</p>
             <div class="buttons_added">
                 <p>Amount: </p>
-                <input aria-label="quantity" max="100" min="1" name="" type="number" value="1">
+                <input aria-label="quantity" max="${device.quantity}" min="1" name="quantityToCart" type="number" value="1">
             </div>
             </span>
             <div class="col-sm-12 mt-5">
-                <button class="rent-button"><i class="fas fa-shopping-cart"> Add to Card</i></button>
-                <button class="rent-button-1">Rent Now</button>
+                
+                <button type="submit" name="action" value="AddToCart" class="rent-button"><i class="fas fa-shopping-cart"> Add to Card</i></button>
+                <button type="submit" name="action" value="RentNow" class="rent-button-1">Rent Now</button>
             </div> 
+            </form>
         </div>
     </div>
     <div class="col-sm-12">

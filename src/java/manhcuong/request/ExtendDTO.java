@@ -12,16 +12,27 @@ public class ExtendDTO {
     private int extendID;
     private int requestID;
     private String message;
+    private int extendDate;
 
     public ExtendDTO(){
         
     }
-    public ExtendDTO(int extendID, int requestID, String message) {
+
+    public ExtendDTO(int extendID, int requestID, String message, int extendDate) {
         this.extendID = extendID;
         this.requestID = requestID;
         this.message = message;
+        this.extendDate = extendDate;
     }
 
+    public int getExtendDate() {
+        return extendDate;
+    }
+
+    public void setExtendDate(int extendDate) {
+        this.extendDate = extendDate;
+    }
+   
     public int getExtendID() {
         return extendID;
     }
