@@ -1,25 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package duonght.controller;
+package quanghung.controller;
 
-import duonght.dto.Account;
+import DLC.Extension;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import manhcuong.request.cartDTO;
+import manhcuong.request.requestDAO;
+import manhcuong.request.requestDTO;
 
 /**
  *
- * @author Trung Duong
+ * @author Admin
  */
-public class LoginController extends HttpServlet {
+public class AutoUpdateExtend extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,29 +35,36 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession(true);
-            Account acc = (Account) session.getAttribute("UserDB");
-            if (acc != null) {
-                if (acc.getRoleID().equals("AD")) {
-                    request.getRequestDispatcher("getAllAccount").forward(request, response);
+        String url = "MainController?action=LoadAllRequestManager";
+        try {
+            Date nowDay = new Date(System.currentTimeMillis());
+            List<requestDTO> list1 = new ArrayList<>();
+            List<requestDTO> list2 = new ArrayList<>();
+            requestDAO dao = new requestDAO();
+            list1.addAll(dao.getExtendRequest("Extend Request"));
+            for(int i =0; i< list1.size(); i++){
+                if(list1.get(i).getRequestDetail().getDetailStatus().equals("approve")){
+                    list2.add(list1.get(i));
                 }
-                if (acc.getRoleID().equals("MD")) {
-                    request.getRequestDispatcher("MainController?search=&action=SearchDevice").forward(request, response);
-                }
-                if (acc.getRoleID().equals("MR")) {
-                    request.getRequestDispatcher("MainController?action=AutoUpdateExtend").forward(request, response);
-                }
-                if (acc.getRoleID().equals("US")) {
-                    cartDTO cart = new cartDTO();
-                    session.setAttribute("CART", cart);
-                    request.getRequestDispatcher("MainController?action=LoadProcessRequest").forward(request, response);
-                }
-            } else {
-                request.setAttribute("ERROR", "Your Acount Not Allow!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+            for (requestDTO dTO : list2) {
+                
+                requestDTO requestOld = dao.getRequestByID(dTO.getExtend().getRequestID());
+                if (requestOld.getRequestDetail().getExpiredDate().toLocalDate().equals(nowDay.toLocalDate())) {
+                    boolean checkUpdateDetail = dao.updateDetailStatus(dTO.getRequestDetail().getDetailID(), "Received");
+                    Extension ex = new Extension();
+                    Date newExpiredDate = ex.AddDate(dTO.getExtend().getExtendDate());
+                    boolean checkUpdateDate = dao.updateRequestBorrowDate(dTO.getRequestDetail().getDetailID(), new Date(System.currentTimeMillis()), newExpiredDate);
+                    if(checkUpdateDate == true && checkUpdateDetail == true){
+                        url = "MainController?action=LoadAllRequestManager";
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            log("Error at UpdateRequestController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

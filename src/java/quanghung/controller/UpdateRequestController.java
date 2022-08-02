@@ -4,6 +4,7 @@
  */
 package quanghung.controller;
 
+import DLC.Extension;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -81,10 +82,15 @@ public class UpdateRequestController extends HttpServlet {
                 }
             }else if(action.equals("UpdateRequestSuccess")){
                 int detailID = Integer.parseInt(request.getParameter("detailID"));
-                
+                int requestID = Integer.parseInt(request.getParameter("requestID"));
                 requestDAO dao = new requestDAO();
+                requestDTO request1 = dao.getRequestByID(requestID);
                 boolean checkUpdateDetail = dao.updateDetailStatus(detailID, "Received");
-                boolean checkUpdateDate = dao.updateRequestBorrowDate(detailID, new Date(System.currentTimeMillis()));
+                Extension ex = new Extension();
+                
+                long diffDate = ex.DiffDate(request1.getRequestDate(), request1.getRequestDetail().getExpiredDate());
+                Date newExpiredDate = ex.AddDate(diffDate);
+                boolean checkUpdateDate = dao.updateRequestBorrowDate(detailID, new Date(System.currentTimeMillis()), newExpiredDate);
                 List<requestDTO> list1 = new ArrayList<>();
                 List<requestDTO> list2 = new ArrayList<>();
                 list1.addAll(dao.getRequestBaseOnDetailStatus(true, "approve"));

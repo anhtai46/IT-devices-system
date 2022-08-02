@@ -186,12 +186,12 @@
                                                                 </label>
                                                             </div></br>
                                                             <c:if test="${request.requestSubstance eq 'Extend Request'}">
-                                                                <div class="form-group col-sm-12 d-flex">   
+                                                                <div class="form-group col-sm-12 d-flex">
                                                                     <label for="" class="col-sm-6 text-center">
                                                                         <h5>Reason</h5>
                                                                     </label>
                                                                     <label class="col-sm-4 pt-1 pb-1">
-                                                                        ${request.extend.message}
+                                                                        <p>${request.extend.message}</p>
                                                                     </label>
                                                                 </div>
                                                             </c:if>

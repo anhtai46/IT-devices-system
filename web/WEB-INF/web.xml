@@ -196,6 +196,10 @@
         <servlet-name>ExtendRequestController</servlet-name>
         <servlet-class>quanghung.controller.ExtendRequestController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AutoUpdateExtend</servlet-name>
+        <servlet-class>quanghung.controller.AutoUpdateExtend</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -391,6 +395,10 @@
     <servlet-mapping>
         <servlet-name>ExtendRequestController</servlet-name>
         <url-pattern>/ExtendRequestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutoUpdateExtend</servlet-name>
+        <url-pattern>/AutoUpdateExtend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

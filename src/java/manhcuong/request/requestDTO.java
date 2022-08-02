@@ -54,6 +54,14 @@ public class requestDTO implements Comparable<requestDTO>{
         this.status = status;
     }
 
+    public ExtendDTO getExtend() {
+        return extend;
+    }
+
+    public void setExtend(ExtendDTO extend) {
+        this.extend = extend;
+    }
+
     public int getId() {
         return id;
     }

@@ -132,6 +132,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_DEVICE_DETAIL_CATEGORY = "UpdateDeviceDetailCategory";
     private static final String UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER = "UpdateDeviceDetailCategoryController";
     private static final String RENT_NOW = "RentNow";
+    private static final String AUTO_UPDATE_EXTEND = "AutoUpdateExtend";
+    private static final String AUTO_UPDATE_EXTEND_CONTROLLER ="AutoUpdateExtend";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -284,6 +286,8 @@ public class MainController extends HttpServlet {
                 url = EXTEND_STATUS_CONTROLLER;
             }else if(action.equals(RENT_NOW)){
                 url = ADD_TO_CART_CONTROLLER;
+            }else if(action.equals(AUTO_UPDATE_EXTEND)){
+                url =AUTO_UPDATE_EXTEND_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());
