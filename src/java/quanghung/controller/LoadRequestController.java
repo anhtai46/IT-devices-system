@@ -52,11 +52,12 @@ public class LoadRequestController extends HttpServlet {
                 }else{
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any processing request!");
                     request.setAttribute("ERROR_MESSAGE", message);
+                    url = PROCESSING_REQUEST;
                 }
                 } else if (action.equals("LoadApproveRequest")) {
                 requestDAO dao = new requestDAO();
                 List<requestDTO> list = new ArrayList<>();
-                list.addAll(dao.getRequestBaseOnStatusDetailAnduser(true, "approve", acc));
+                list.addAll(dao.getRequestBaseOnDetailStatusAndUser(true, "approve", acc));
                 Collections.sort(list);
                 if(!list.isEmpty()){
                     request.setAttribute("LIST_APPROVED_REQUEST_USER", list);
@@ -64,6 +65,7 @@ public class LoadRequestController extends HttpServlet {
                 }else{
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any approve request!");
                     request.setAttribute("ERROR_MESSAGE", message);
+                    url = APPROVE_REQUEST;
                 }
 
             } else if (action.equals("LoadSuccessfulRequest")) {
@@ -77,6 +79,7 @@ public class LoadRequestController extends HttpServlet {
                 }else{
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any  received request!");
                     request.setAttribute("ERROR_MESSAGE", message);
+                    url = SUCCESS_REQUEST;
                 }
             } else if (action.equals("LoadReturnRequest")) {
                 requestDAO dao = new requestDAO();
@@ -89,6 +92,7 @@ public class LoadRequestController extends HttpServlet {
                 }else{
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any returned request!");
                     request.setAttribute("ERROR_MESSAGE", message);
+                    url = RETURNED_REQUEST;
                 }
             } else if (action.equals("LoadCancelUserRequest")) {
                 requestDAO dao = new requestDAO();
@@ -101,6 +105,7 @@ public class LoadRequestController extends HttpServlet {
                 }else{
                     MessageSpecified message = new MessageSpecified(null, "Empty", "Don't have any cancel request!");
                     request.setAttribute("ERROR_MESSAGE", message);
+                    url = CANCEL_REQUEST;
                 }
             }
         } catch (Exception e) {

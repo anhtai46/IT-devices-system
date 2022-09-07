@@ -29,6 +29,7 @@
             }
             if (login) {
         %>
+        <c:set var="brandList" value="${sessionScope.BRAND_LIST}"/>
         <c:set var="cateName" value="${sessionScope.CATE_NAME}"/>
         <c:set var="descriptionList" value="${sessionScope.DESCRIPTION_LIST}"/>
         <c:set var="detailError" value="${requestScope.DETAIL_ERROR}"/>
@@ -166,6 +167,18 @@
                         <input type="text" name="cateName"  value="${cateName}" class="col-sm-4" readonly>
                     </div>
                     <c:set var="detailID" value="detailID"/>
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
+                        <label for="#" class="col-sm-2">
+                            <h4>Brand Name</h4>
+                        </label>
+                        <c:set var="detailID" value="detailID"/>
+                        <select name="brandID" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Brand</option>
+                            <c:forEach var="brand" items="${brandList}">
+                                <option value="${brand.key}">${brand.value}</option>
+                            </c:forEach>
+                        </select> </br>               
+                    </div>
                     <c:forEach var="description" items="${descriptionList}" varStatus="counter" >
                         <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                             <label for="#" class="col-sm-2">

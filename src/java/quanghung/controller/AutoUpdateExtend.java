@@ -40,8 +40,10 @@ public class AutoUpdateExtend extends HttpServlet {
             Date nowDay = new Date(System.currentTimeMillis());
             List<requestDTO> list1 = new ArrayList<>();
             List<requestDTO> list2 = new ArrayList<>();
+            
             requestDAO dao = new requestDAO();
             list1.addAll(dao.getExtendRequest("Extend Request"));
+            
             for(int i =0; i< list1.size(); i++){
                 if(list1.get(i).getRequestDetail().getDetailStatus().equals("approve")){
                     list2.add(list1.get(i));
@@ -58,8 +60,13 @@ public class AutoUpdateExtend extends HttpServlet {
                     if(checkUpdateDate == true && checkUpdateDetail == true){
                         url = "MainController?action=LoadAllRequestManager";
                     }
+                }else if(requestOld.getRequestDetail().getDetailStatus().equals("cancel")){
+                    boolean checkUpdateRequest = dao.updateRequestStatus(dTO.getId(), "cancel");
+                    boolean checkUpdateDetail = dao.updateDetailStatus(dTO.getRequestDetail().getDetailID(), "cancel");
                 }
             }
+            
+            
 
         } catch (Exception e) {
             log("Error at UpdateRequestController: " + e.toString());

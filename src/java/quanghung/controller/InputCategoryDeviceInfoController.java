@@ -2,11 +2,13 @@ package quanghung.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
 import quanghung.description.DescriptionDTO;
@@ -27,6 +29,7 @@ public class InputCategoryDeviceInfoController extends HttpServlet {
             CategoryDAO categoryDao = new CategoryDAO();
             DescriptionDAO descriptionDao = new DescriptionDAO();
             DescriptionDetailDAO descriptionDetailDao = new DescriptionDetailDAO();
+            BrandDAO brandDao = new BrandDAO();
             int deviceID = (int) session.getAttribute("DEVICE_ID");
             String cateID = request.getParameter("cateID");
             String currentCategory = (String) session.getAttribute("CATE_ID");
@@ -35,6 +38,7 @@ public class InputCategoryDeviceInfoController extends HttpServlet {
             } else {
                 String cateName = categoryDao.getCateName(cateID);
                 session.setAttribute("DEVICE_ID", deviceID);
+                Map<Integer, String> listBrand = brandDao.getListBrandBasedOnCateID(cateID);
                 List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
                 for (DescriptionDTO l : listDescription) {
                     List<DescriptionDetailDTO> listDescriptionDetail = descriptionDetailDao.getListDescriptionDetail(l.getDescriptionID());
@@ -42,6 +46,7 @@ public class InputCategoryDeviceInfoController extends HttpServlet {
                 }
                 session.setAttribute("CATE_NAME", cateName);
                 session.setAttribute("DESCRIPTION_LIST", listDescription);
+                session.setAttribute("BRAND_LIST", listBrand);
                 url = SUCCESS;
             }
         } catch (Exception e) {

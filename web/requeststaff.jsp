@@ -38,7 +38,7 @@
             <div class="navbar-header">
                 <!-- logo -->
                 <div class="col-sm-3 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt=""></a>
+                    <a href="MainController?action=AutoUpdateExtend"><img src="./img/logo.png" height="80" alt=""></a>
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
@@ -226,7 +226,7 @@
                             <td>
                                 <!--<form action="MainController">-->
                                 <button class="btn btn-success" type="submit" name="action" value="UpdateRequestApproved">Approve</button>
-                                <button class="btn btn-secondary" type="submit" name="action" value=UpdateRequestCancel>Cancel</button>
+                                <button class="btn btn-danger" type="submit" name="action" value=UpdateRequestCancel>Deny</button>
                                 <input type="hidden" name="cancel" value="requeststaff.jsp"/>
                                 <!--</form>-->
                             </td>

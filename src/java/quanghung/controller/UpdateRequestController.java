@@ -68,6 +68,8 @@ public class UpdateRequestController extends HttpServlet {
                     if(request.getParameter("cancel").equals("requeststaff.jsp")){
                         
                         url ="MainController?action=LoadProcessingRequest";
+                    }else if(request.getParameter("cancel").equals("user.jsp")){
+                        url ="MainController?action=LoadProcessRequest";
                     }
                     
                 }else{

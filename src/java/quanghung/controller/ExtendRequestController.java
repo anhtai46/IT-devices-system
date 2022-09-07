@@ -34,6 +34,7 @@ public class ExtendRequestController extends HttpServlet {
             boolean check = false;
             requestDAO dao = new requestDAO();
             requestDTO request1 = dao.getRequestByID(requestID);
+            request1.getRequestDetail().getDevice().setQuantity(request1.getRequestDetail().getQuantity());
             int newID = dao.createOrder(request1.getRequestDetail().getDevice(), request1.getUser(), extendDate, "Extend Request");
             check = dao.creatExtendRequest(newID, requestID, message, extendDate);
             if (check == true) {

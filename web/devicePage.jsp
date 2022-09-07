@@ -48,7 +48,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=LoadProcessRequest"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="mr-auto">
@@ -75,7 +75,7 @@
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
+                    <a href="Cart.jsp" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
@@ -248,7 +248,7 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <div class="table">
+            <div class="table table-device">
                 <table class="col-sm-12">
                     <thead>
                     <th class="text-center">#</th>
@@ -280,7 +280,7 @@
                                     <td class="text-center">${device.deposit}</td>
                                     <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
                                     <td class="text-center"><input id="quantityIn" type="number" name="quantityToCart" min="0" max="${device.quantity}" value="0" /></td>
-                                    <td class="text-center"><button type="submit" name="action" value="AddToCart">Add To Cart</button></td>
+                                    <td class="text-center"><button type="submit" name="action" value="AddToCart" class="btn-color addtocard-btn"><i class="fa fa-cart-plus" aria-hidden="true"></i></button></td>
                                 </tr>
                             </form>
                         </c:forEach>    
@@ -294,40 +294,41 @@
 
         </div>
     </div>
-    <footer class="footer-distributed ">
-        <div class="footer-left">
-            <h3>Company<span>DBS</span></h3>
-            <p class="footer-company-name">Company DBS ? 2022</p>
-        </div>
-        <div class="footer-center">
-            <div>
-                <i class="fa fa-map-marker"></i>
-                <p><span>FPT UNIVERSITY</span> KCN - THU DUC CITY - TP.HCM</p>
+    <footer class="footer-distributed">
+            <div class="footer-left">
+                <p class="footer-company-name">
+                    <img width="70% " src="img/logo.png" alt=""/>
+                </p>
             </div>
-            <div>
-                <i class="fa fa-phone"></i>
-                <p>3463452343</p>
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
+                </div>
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>3463452343</p>
+                </div>
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+                </div>
             </div>
-            <div>
-                <i class="fa fa-envelope"></i>
-                <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+            <div class="footer-right">
+                <p class="footer-company-about">
+                    <span>About the company</span>
+                <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+                    equipment to support their work and study at the school.</p>
+                </p>
+                <div class="footer-icons">
+                    <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                    <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                    <a href="https://www.github.com/"><i class="ti-github"></i></a>
+                </div>
             </div>
-        </div>
-        <div class="footer-right">
-            <p class="footer-company-about">
-                <span>About the company</span>
-                The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
-                The purpose of creating this software is to create opportunities for FPT University students to borrow IT 
-                equipment to support their work and study at the school.
-            </p>
-            <div class="footer-icons">
-                <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
-                <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
-                <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
-                <a href="https://www.github.com/"><i class="ti-github"></i></a>
-            </div>
-        </div>
-    </footer>  
+        </footer>
     <%
     } else {
     %>

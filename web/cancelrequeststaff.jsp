@@ -38,7 +38,7 @@
             <div class="navbar-header">
                 <!-- logo -->
                 <div class="col-sm-3 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt=""></a>
+                    <a href="MainController?action=AutoUpdateExtend"><img src="./img/logo.png" height="80" alt=""></a>
                 </div>
                 <!-- name web -->
                 <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">

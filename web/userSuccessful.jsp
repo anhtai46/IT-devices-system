@@ -44,7 +44,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=LoadProcessRequest"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="mr-auto">
@@ -71,7 +71,7 @@
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
+                    <a href="Cart.jsp" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
@@ -216,7 +216,7 @@
                                                                     <label for="" class="col-sm-8 text-center"
                                                                            >${detail.device.deviceName}</label
                                                                     >
-                                                                    
+
                                                                 </div>
                                                                 <div class="form-group col-sm-12 d-flex">
                                                                     <h5 class="col-sm-4">ExpiredDate</h5>
@@ -282,6 +282,41 @@
                 </ul>
             </div>
         </div>
+        <footer class="footer-distributed">
+            <div class="footer-left">
+                <p class="footer-company-name">
+                    <img width="70% " src="img/logo.png" alt=""/>
+                </p>
+            </div>
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
+                </div>
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>3463452343</p>
+                </div>
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p class="footer-company-about">
+                    <span>About the company</span>
+                <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+                    equipment to support their work and study at the school.</p>
+                </p>
+                <div class="footer-icons">
+                    <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                    <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                    <a href="https://www.github.com/"><i class="ti-github"></i></a>
+                </div>
+            </div>
+        </footer>
         <%
         } else {
         %>

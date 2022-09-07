@@ -127,7 +127,7 @@
                                             <input type="hidden" value="${acc.email}" name="email" />
                                             <input type="hidden" value="UpdateAccountStatus" name="action"/>
                                             <c:if test="${acc.roleID != 'AD'}">
-                                                <input type="submit" value="${acc.status == 1 ? "Block" : "UnBlock"}" class="${acc.status == 1 ? "btn btn-danger" : "btn btn-success"}"></input>
+                                                <input type="submit" onclick="return deleteConfirm()" value="${acc.status == 1 ? "Block" : "UnBlock"}" class="${acc.status == 1 ? "btn btn-danger" : "btn btn-success"}"></input>
                                             </c:if>
                                             <c:if test="${acc.roleID == 'AD'}">
                                                 <input type="button" value="See Only" class="btn btn-warning"></input>
@@ -152,7 +152,7 @@
             <div class="footer-center">
                 <div>
                     <i class="fa fa-map-marker"></i>
-                    <p><span>Đại học FPT</span> KCN - TP.Thủ Đức - TP.HCM</p>
+                    <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
                 </div>
                 <div>
                     <i class="fa fa-phone"></i>
@@ -197,6 +197,12 @@
             if (MESSAGE !== "") {
                 alert(MESSAGE);
             }
+            function deleteConfirm() {
+            if (confirm("Are You Sure With Your Action?")) {
+                return true;
+            }
+            return false;
+        }
         </script>
     </body>
 </html>

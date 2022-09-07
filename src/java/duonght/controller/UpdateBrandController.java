@@ -41,7 +41,17 @@ public class UpdateBrandController extends HttpServlet {
             String brandName = request.getParameter("brandName");
             boolean checkDuplicate = BrandDAO.checkDuplicate(textBrand, cateID);
             if (checkDuplicate) {
-                request.setAttribute("MESSAGE", "Duplicate Description Detail!");
+                boolean checkStatus = BrandDAO.checkStatus(textBrand, cateID);
+                if (checkStatus) {
+                    request.setAttribute("MESSAGE", "Duplicate Brand!");
+                } else {
+                    boolean isUpdate = BrandDAO.updateBrand(brandName, textBrand, cateID);
+                    if (isUpdate) {
+                        request.setAttribute("MESSAGE", "Update Successfully!");
+                    } else {
+                        request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
+                    }
+                }
             } else {
                 if (textBrand.length() > 50) {
                     request.setAttribute("MESSAGE", "Brand Name Must Not Exceed 50 Characters!");

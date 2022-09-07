@@ -33,7 +33,7 @@ public class AddToCartController extends HttpServlet {
         
         try {
             String action = request.getParameter("action");
-            Integer id = Integer.parseInt(request.getParameter("deviceID"));
+            int id = Integer.parseInt(request.getParameter("deviceID"));
             DeviceDAO dao = new DeviceDAO();
             HttpSession session = request.getSession();
             //update: change session name for login user

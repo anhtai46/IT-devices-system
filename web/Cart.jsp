@@ -46,7 +46,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=LoadProcessRequest"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="mr-auto">
@@ -73,7 +73,7 @@
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
+                    <a href="#" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
@@ -99,20 +99,19 @@
             </div>
         </div>
         <div class="mt-1 ml-3">
-            <a href="user.html">
+<!--            <a href="user.html">
                 <button type="button"  onclick="location.href = 'MainController?action=LoadProcessRequest'"  class="btn btn-danger">
                     Home
                 </button>
-            </a>
+            </a>-->
         </div>
-        <div class="container">
-            <div class="row">
+        <div class="">
+            <div class="col-sm-12">
                 <form action="MainController" method="POST">
 
                     <div class="table table-all container table-user">
                         <table class="col-sm-12">
                             <thead>
-
                             <th class="text-center">DeviceID</th>
                             <th class="text-center">Name Product</th>
                             <th class="text-center">Brand</th>
@@ -130,7 +129,7 @@
                                         <td class="text-center">${device.value.brandName}</td>
                                         <td class="text-center"><input type="number" min="1" value="${device.value.quantity}"name="deviceQuantity"/> </td>       
                                         <td class="text-center">
-                                            <select name="borrowedDate${counter.count}">
+                                            <select class="borrowdate" name="borrowedDate${counter.count}">
                                                 <option value="15">15 days</option>
                                                 <option value="30">30 days</option>
                                                 <option value="90">90 days</option>
@@ -153,53 +152,40 @@
                 </form>
             </div>
         </div>
-        <footer>
-            <footer class="footer-distributed">
-
-                <div class="footer-left">
-
-                    <h3>Company<span>DBS</span></h3>
-
-                    <p class="footer-company-name">Company DBS © 2022</p>
+        <footer class="footer-distributed">
+            <div class="footer-left">
+                <p class="footer-company-name">
+                    <img width="70% " src="img/logo.png" alt=""/>
+                </p>
+            </div>
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
                 </div>
-
-                <div class="footer-center">
-
-                    <div>
-                        <i class="fa fa-map-marker"></i>
-                        <p><span>Đại học FPT</span> KCN - TP.Thủ Đức - TP.HCM</p>
-                    </div>
-
-                    <div>
-                        <i class="fa fa-phone"></i>
-                        <p>3463452343</p>
-                    </div>
-
-                    <div>
-                        <i class="fa fa-envelope"></i>
-                        <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
-                    </div>
-
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>3463452343</p>
                 </div>
-
-                <div class="footer-right">
-
-                    <p class="footer-company-about">
-                        <span>About the company</span>
-                        The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
-                        The purpose of creating this software is to create opportunities for FPT University students to borrow IT 
-                        equipment to support their work and study at the school.
-                    </p>
-
-                    <div class="footer-icons">
-
-                        <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
-                        <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
-                        <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
-                        <a href="https://www.github.com/"><i class="ti-github"></i></a>
-                    </div>
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
                 </div>
-            </footer>
+            </div>
+            <div class="footer-right">
+                <p class="footer-company-about">
+                    <span>About the company</span>
+                <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+                    equipment to support their work and study at the school.</p>
+                </p>
+                <div class="footer-icons">
+                    <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                    <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                    <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                    <a href="https://www.github.com/"><i class="ti-github"></i></a>
+                </div>
+            </div>
         </footer>
         <%
         } else {

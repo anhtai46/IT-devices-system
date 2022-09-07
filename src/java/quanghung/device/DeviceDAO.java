@@ -23,6 +23,7 @@ public class DeviceDAO {
     private static final String GET_LIST_DEVICE = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID";
     private static final String DELETE_DEVICE = "UPDATE device SET status=? WHERE deviceID=?";
     private static final String UPDATE_DEVICE = "UPDATE device SET deviceName=?, warehouseID=?, brandID=?, quantity=?, cateID=?, deposit=? WHERE deviceID=?";
+    private static final String UPDATE_BRAND = "UPDATE device SET  brandID=? WHERE deviceID=?";
     private static final String UPDATE_DEVICE_CATEGORY = "UPDATE device SET cateID=? WHERE deviceID=?";
     private static final String UPDATE_IMAGE = "UPDATE device SET url=? WHERE deviceID=?";
     private static final String CREATE_DEVICE = "INSERT INTO device(deviceName,warehouseID,brandID,quantity,cateID,url,deposit,status) VALUES (?,?,?,?,?,?,?,?)";
@@ -31,7 +32,6 @@ public class DeviceDAO {
     private static final String GET_EXACTLY_DETAIL_NAME = "SELECT d.deviceID, de.descriptionName, detail.detailName\n"
             + "FROM device d, description de, descriptionDetail detail, device_description dd\n"
             + "WHERE detail.detailName = ? AND de.descriptionName=? AND d.deviceID=? AND dd.deviceID = d.deviceID AND dd.detailID = detail.detailID AND de.descriptionID = detail.descriptionID\n";
-
 
     public String getExactlyDetailName(String detailName, String descriptionName, int deviceID) throws SQLException {
         String detail = "";
@@ -164,6 +164,31 @@ public class DeviceDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_IMAGE);
                 ptm.setString(1, url);
+                ptm.setInt(2, deviceID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateBrand(int brandID, int deviceID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_BRAND);
+                ptm.setInt(1, brandID);
                 ptm.setInt(2, deviceID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }

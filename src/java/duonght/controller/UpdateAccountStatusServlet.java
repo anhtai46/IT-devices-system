@@ -34,11 +34,8 @@ public class UpdateAccountStatusServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String userID = request.getParameter("userID");
-            AccountDao dao = new AccountDao();
             int status = Integer.parseInt(request.getParameter("status"));
-            String email = request.getParameter("email");
-            System.out.println("Email: " + email);
-            boolean isUpdate = dao.UpdateAccountStatus(userID, status);
+            boolean isUpdate = AccountDao.UpdateAccountStatus(userID, status);
             if (isUpdate) {
                 request.setAttribute("MESSAGE", "Update Successfully");
             } else {

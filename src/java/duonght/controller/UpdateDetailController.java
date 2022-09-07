@@ -42,7 +42,17 @@ public class UpdateDetailController extends HttpServlet {
             String textdetailName = request.getParameter("textDetail");
             boolean checkDuplicate = DescriptionDetailDAO.checkDuplicate(textdetailName, descriptionID);
             if (checkDuplicate) {
-                request.setAttribute("MESSAGE", "Duplicate Description Detail!");
+                boolean checkStatus = DescriptionDetailDAO.checkStatus(textdetailName, descriptionID);
+                if (checkStatus) {
+                    request.setAttribute("MESSAGE", "Duplicate Description Detail!");
+                } else {
+                    boolean isUpdate = DescriptionDetailDAO.updateDescriptionDetail(textdetailName, detailID);
+                    if (isUpdate) {
+                        request.setAttribute("MESSAGE", "Update Successfully!");
+                    } else {
+                        request.setAttribute("MESSAGE", "Ops! Something Wrong. Try again!");
+                    }
+                }
             } else {
                 if (textdetailName.length() > 50) {
                     request.setAttribute("MESSAGE", "Description Detail Name Must Not Exceed 50 Characters!");

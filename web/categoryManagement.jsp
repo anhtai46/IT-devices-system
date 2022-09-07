@@ -205,38 +205,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <a id="insert-new-description">
-                                <button class="btn " type="button" data-toggle="modal" data-target="#${newBrand}"><i class="fas fa-plus-circle"> Insert New Brand</i></button>
-                            </a>
-                            <div id="${newBrand}" class="modal fade" role="dialog">
-                                <div class="modal-dialog modal-lg" role="content">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Insert New Brand</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="MainController" method="POST">
-                                                <div class="form-row">
-                                                    <div class="form-group col-sm-12 d-flex">
-                                                        <h5 class="col-sm-4">Brand Name</h5>
-                                                        <input class="col-sm-6" type="text" name="textBrand" required="" placeholder="Input new Brand Name">
-                                                        <input type="hidden" name="textCateID" value="${cate.cateID}">
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <button class="btn btn-success col-sm-4" type="submit" name="action" value="CreateBrand"> 
-                                                            Insert                      
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
+                        
                         <td>
                             <c:set var="desDetail" value="desDetail${counter.count}" />
                             <a id="insert-new-detail"><button class="btn btn-light" id="dropdown-firsttable" data-toggle="modal" data-target="#${desDetail}">

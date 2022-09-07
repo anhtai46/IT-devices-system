@@ -210,9 +210,9 @@
 %>
 <footer></footer>
 <script>
-        $(document).ready(function () {
-            $("#success").modal("show");
-        });
+    $(document).ready(function () {
+        $("#success").modal("show");
+    });
 
 </script>
 

@@ -47,7 +47,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=LoadProcessRequest"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="mr-auto">
@@ -74,7 +74,7 @@
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
+                    <a href="Cart.jsp" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
@@ -118,89 +118,97 @@
                             <form action="MainController" method="POST">
                                 <tr>
                                     <td class="text-center">${request.id}</td>
-                                    <td class="text-center">${request.requestSubstance}</td>
-                                    <td class="text-center">${request.requestDate}</td>
-                                    <td class="text-center">
-                                        <a  id="fa-info-circle">
-                                            <button class="btn" type="button" data-toggle="modal" data-target="#${detail}"><i class="fas fa-info-circle"></i></button></a>
-                                        <div id="${detail}" class="modal fade" role="dialog">
-                                            <div class="modal-dialog modal-lg" role="content">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Details</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
+                                <input type="hidden" name="requestID" value="${request.id}"/>
+                                <input type="hidden" name="detailID" value="${detail.detailID}"/>
+                                <td class="text-center">${request.requestSubstance}</td>
+                                <td class="text-center">${request.requestDate}</td>
+                                <td class="text-center">
+                                    <a  id="fa-info-circle">
+                                        <button class="btn" type="button" data-toggle="modal" data-target="#${detail}"><i class="fas fa-info-circle"></i></button>
+                                    </a>
+                                    <input type="hidden" name="cancel" value="user.jsp"/>
+                                    <a  id="fa-info-circle">
+                                        <button class="btn btn-secondary" type="submint" name="action" value="UpdateRequestCancel" >Cancel</button>
+                                    </a>
 
-                                                    <div class="modal-body">
-                                                        <div class="form-row">
-                                                            <div class="form-group col-sm-12 d-flex">    
-                                                                <label for="" class="col-sm-6 text-center">
-                                                                    <h5>Device name</h5>
-                                                                </label>
-                                                                <label class="col-sm-4 pt-1 pb-1"id="list-chose">
-                                                                    ${detail.device.deviceName}
-                                                                </label>
-                                                            </div>
-                                                            </br>
-                                                            <div class="form-group col-sm-12 d-flex">   
-                                                                <label for="" class="col-sm-6 text-center">
-                                                                    <h5>Quantity</h5>
-                                                                </label>
-                                                                <label class="col-sm-4 pt-1 pb-1"id="list-chose">
-                                                                    ${detail.quantity}
-                                                                </label>
-                                                            </div>
-                                                            </br>
-                                                            <div class="form-group col-sm-12 d-flex">   
-                                                                <label for="" class="col-sm-6 text-center">
-                                                                    <h5>Borrowed date</h5>
-                                                                </label>
-                                                                <label class="col-sm-4 pt-1 pb-1"id="list-chose">
+                                    <div id="${detail}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog modal-lg" role="content">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Details</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
 
-                                                                    <c:if test = "${detail.borrowDate != null}">
-                                                                        <c:out value = "${detail.borrowDate}"/>
-                                                                    </c:if>
-                                                                    <c:if test = "${detail.borrowDate == null}">
-                                                                        <c:out value = "Not approved"/>
-                                                                    </c:if>
-                                                                </label></div></br>
-                                                            <div class="form-group col-sm-12 d-flex">   
-                                                                <label for="" class="col-sm-6 text-center">
-                                                                    <h5>Expired date</h5>
-                                                                </label>
-                                                                <label class="col-sm-4 pt-1 pb-1">
-                                                                    <c:if test = "${detail.borrowDate != null}">
-                                                                        <c:out value = "${detail.expiredDate}"/>
-                                                                    </c:if>
-                                                                    <c:if test = "${detail.borrowDate == null}">
-                                                                        <c:out value = "Not approved"/>
-                                                                    </c:if>
-                                                                </label></div></br>
-                                                            <div class="form-group col-sm-12 d-flex">   
-                                                                <label for="" class="col-sm-6 text-center">
-                                                                    <h5>Detail status</h5>
-                                                                </label>
-                                                                <label class="col-sm-4 pt-1 pb-1">
-                                                                    ${detail.detailStatus}
-                                                                </label>
-                                                            </div></br>
-                                                            <c:if test="${request.requestSubstance eq 'Extend Request'}">
-                                                                <div class="form-group col-sm-12 d-flex">
-                                                                    <label for="" class="col-sm-6 text-center">
-                                                                        <h5>Reason</h5>
-                                                                    </label>
-                                                                    <label class="col-sm-4 pt-1 pb-1">
-                                                                        <p>${request.extend.message}</p>
-                                                                    </label>
-                                                                </div>
-                                                            </c:if>
+                                                <div class="modal-body">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-sm-12 d-flex">    
+                                                            <label for="" class="col-sm-6 text-center">
+                                                                <h5>Device name</h5>
+                                                            </label>
+                                                            <label class="col-sm-4 pt-1 pb-1"id="list-chose">
+                                                                ${detail.device.deviceName}
+                                                            </label>
                                                         </div>
+                                                        </br>
+                                                        <div class="form-group col-sm-12 d-flex">   
+                                                            <label for="" class="col-sm-6 text-center">
+                                                                <h5>Quantity</h5>
+                                                            </label>
+                                                            <label class="col-sm-4 pt-1 pb-1"id="list-chose">
+                                                                ${detail.quantity}
+                                                            </label>
+                                                        </div>
+                                                        </br>
+                                                        <div class="form-group col-sm-12 d-flex">   
+                                                            <label for="" class="col-sm-6 text-center">
+                                                                <h5>Borrowed date</h5>
+                                                            </label>
+                                                            <label class="col-sm-4 pt-1 pb-1"id="list-chose">
+
+                                                                <c:if test = "${detail.borrowDate != null}">
+                                                                    <c:out value = "${detail.borrowDate}"/>
+                                                                </c:if>
+                                                                <c:if test = "${detail.borrowDate == null}">
+                                                                    <c:out value = "Not approved"/>
+                                                                </c:if>
+                                                            </label></div></br>
+                                                        <div class="form-group col-sm-12 d-flex">   
+                                                            <label for="" class="col-sm-6 text-center">
+                                                                <h5>Expired date</h5>
+                                                            </label>
+                                                            <label class="col-sm-4 pt-1 pb-1">
+                                                                <c:if test = "${detail.borrowDate != null}">
+                                                                    <c:out value = "${detail.expiredDate}"/>
+                                                                </c:if>
+                                                                <c:if test = "${detail.borrowDate == null}">
+                                                                    <c:out value = "Not approved"/>
+                                                                </c:if>
+                                                            </label></div></br>
+                                                        <div class="form-group col-sm-12 d-flex">   
+                                                            <label for="" class="col-sm-6 text-center">
+                                                                <h5>Detail status</h5>
+                                                            </label>
+                                                            <label class="col-sm-4 pt-1 pb-1">
+                                                                ${detail.detailStatus}
+                                                            </label>
+                                                        </div></br>
+                                                        <c:if test="${request.requestSubstance eq 'Extend Request'}">
+                                                            <div class="form-group col-sm-12 d-flex">
+                                                                <label for="" class="col-sm-6 text-center">
+                                                                    <h5>Reason</h5>
+                                                                </label>
+                                                                <label class="col-sm-4 pt-1 pb-1">
+                                                                    <p>${request.extend.message}</p>
+                                                                </label>
+                                                            </div>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
+                                    </div>
+                                </td>
                                 </tr>
                             </form>
                         </c:forEach>
@@ -239,13 +247,14 @@
 
         <footer class="footer-distributed">
             <div class="footer-left">
-                <h3>Company<span>DBS</span></h3>
-                <p class="footer-company-name">Company DBS © 2022</p>
+                <p class="footer-company-name">
+                    <img width="70% " src="img/logo.png" alt=""/>
+                </p>
             </div>
             <div class="footer-center">
                 <div>
                     <i class="fa fa-map-marker"></i>
-                    <p><span>Đại học FPT</span> KCN - TP.Thủ Đức - TP.HCM</p>
+                    <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
                 </div>
                 <div>
                     <i class="fa fa-phone"></i>
@@ -258,10 +267,10 @@
             </div>
             <div class="footer-right">
                 <p class="footer-company-about">
-                    <span>About The Website</span>
-                    The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
-                    The purpose of creating this software is to create opportunities for FPT University students to borrow 
-                    IT equipment to support their work and study at the school.
+                    <span>About the company</span>
+                <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+                    The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+                    equipment to support their work and study at the school.</p>
                 </p>
                 <div class="footer-icons">
                     <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>

@@ -37,6 +37,7 @@ public class UpdateImgController extends HttpServlet {
             boolean check = deviceDao.updateImg(image, deviceID);
             if (check) {
                 request.setAttribute("DEVICE_ID", deviceID);
+                request.setAttribute("SUCCESS", "Update Image Successfully");
                 url = SUCCESS;
             }
         } catch (Exception e) {

@@ -52,7 +52,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=LoadProcessRequest"><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="">
@@ -78,7 +78,7 @@
             <!-- cart-icon -->
             <div class="col-sm-4 text-center navbar-user-right d-flex">
                 <div class="col-sm-6 cart-shopping">
-                    <a href="cart.html" class="" role="button">
+                    <a href="Cart.jsp" class="" role="button">
                         <i class="fas fa-shopping-cart text-dark ml-5 "></i>
                     </a>
                 </div>
@@ -116,21 +116,22 @@
         </div>
         <div class="col-sm-12">
             <form action="MainController" method="POST">
-            
-            <p>Warehouse : ${device.warehouseName}</p>
-            <p>Brand Name : ${device.brandName}</p>
-            <p>Quantity : ${device.quantity}</p>
-            <p>Deposit : ${device.deposit} VND</p>
-            <div class="buttons_added">
-                <p>Amount: </p>
-                <input aria-label="quantity" max="${device.quantity}" min="1" name="quantityToCart" type="number" value="1">
-            </div>
-            </span>
-            <div class="col-sm-12 mt-5">
-                
-                <button type="submit" name="action" value="AddToCart" class="rent-button"><i class="fas fa-shopping-cart"> Add to Card</i></button>
-                <button type="submit" name="action" value="RentNow" class="rent-button-1">Rent Now</button>
-            </div> 
+
+                <p>Warehouse : ${device.warehouseName}</p>
+                <p>Brand Name : ${device.brandName}</p>
+                <p>Quantity : ${device.quantity}</p>
+                <p>Deposit : ${device.deposit} VND</p>
+                <div class="buttons_added">
+                    <p>Amount: </p>
+                    <input aria-label="quantity" max="${device.quantity}" min="1" name="quantityToCart" type="number" value="1">
+                    <input type="hidden" name="deviceID" value="${device.deviceID}"/>
+                </div>
+                </span>
+                <div class="col-sm-12 mt-5">
+
+                    <button type="submit" name="action" value="AddToCart" class="rent-button"><i class="fas fa-shopping-cart"> Add to Card</i></button>
+                    <button type="submit" name="action" value="RentNow" class="rent-button-1">Borrow Now</button>
+                </div> 
             </form>
         </div>
     </div>
@@ -149,13 +150,14 @@
 
 <footer class="footer-distributed">
     <div class="footer-left">
-        <h3>Company<span>DBS</span></h3>
-        <p class="footer-company-name">Company DBS ? 2022</p>
+        <p class="footer-company-name">
+            <img width="70% " src="img/logo.png" alt=""/>
+        </p>
     </div>
     <div class="footer-center">
         <div>
             <i class="fa fa-map-marker"></i>
-            <p><span>FPT UNIVERSITY</span> KCN - THU DUC CITY - TP.HCM</p>
+            <p><span>FPT University</span> KCN - Thu Duc City - HCM City</p>
         </div>
         <div>
             <i class="fa fa-phone"></i>
@@ -169,7 +171,9 @@
     <div class="footer-right">
         <p class="footer-company-about">
             <span>About the company</span>
-            The company specializes in providing and leasing IT equipment to businesses and companies in need.
+        <p class="text-justify">The software specializes in providing and lending IT equipment to FPT University students who need to borrow. 
+            The purpose of creating this software is to create opportunities for FPT University students to borrow IT
+            equipment to support their work and study at the school.</p>
         </p>
         <div class="footer-icons">
             <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
@@ -178,7 +182,7 @@
             <a href="https://www.github.com/"><i class="ti-github"></i></a>
         </div>
     </div>
-</footer>  
+</footer>
 <%
 } else {
 %>

@@ -30,7 +30,7 @@ public class UpdateDeviceDetailCategoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-                HttpSession session = request.getSession();
+            HttpSession session = request.getSession();
             DeviceDAO deviceDao = new DeviceDAO();
             WarehouseDAO warehouseDao = new WarehouseDAO();
             BrandDAO brandDao = new BrandDAO();
@@ -38,6 +38,8 @@ public class UpdateDeviceDetailCategoryController extends HttpServlet {
             DescriptionDAO descriptionDao = new DescriptionDAO();
             DescriptionDetailDAO detailDAO = new DescriptionDetailDAO();
             Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
+            String brand = request.getParameter("brandID");
+            int brandID = Integer.parseInt(brand);
             String cateName = request.getParameter("cateName");
             String cateID = categoryDao.getCateID(cateName);
             int deviceID = Integer.parseInt(request.getParameter("deviceID"));
@@ -50,6 +52,7 @@ public class UpdateDeviceDetailCategoryController extends HttpServlet {
                 boolean createDevice_Description = device_descriptionDao.createDevice_Description(deviceID, detailID);
             }
             boolean update = deviceDao.updateCategory(deviceID, cateID);
+            boolean updateBrand = deviceDao.updateBrand(brandID, deviceID);
             if (update == true) {
                 String success = "Update Category successfully";
                 request.setAttribute("SUCCESS", success);

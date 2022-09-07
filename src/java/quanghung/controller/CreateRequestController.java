@@ -58,7 +58,7 @@ public class CreateRequestController extends HttpServlet {
 
             int check = 0;
             for (int i = 0; i < itemsInCart.size(); i++) {
-                check += dao.createOrder(itemsInCart.get(i), loginUser, borrowDate.get(i), "Rent Request");
+                check += dao.createOrder(itemsInCart.get(i), loginUser, borrowDate.get(i), "Borrow Request");
                 device = D_dao.getDeviceByID(itemsInCart.get(i).getDeviceID());
                 newquantity = device.getQuantity() - itemsInCart.get(i).getQuantity();
                 device.setQuantity(newquantity);
@@ -71,6 +71,7 @@ public class CreateRequestController extends HttpServlet {
                 }
                 loginUser.setDeposit(userDeposit);
                 cart = null;
+                session.setAttribute("CART", cart);
                 
                 url = SUCCESS;
             } else {
